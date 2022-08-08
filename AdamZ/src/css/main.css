@@ -1,0 +1,77 @@
+.footer {
+  height: 5vh;
+  text-align: center;
+  background-color: rgb(44, 132, 205);
+  color: white;
+}
+.header {
+  display: flex;
+  height: 10vh;
+  color: white;
+  padding: 0 20px;
+  background-color: rgb(44, 132, 205);
+}
+.wellcome {
+  padding: 10px;
+  width: 100%;
+}
+.wellcome-card {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.my-dropdown-toggle::after {
+  content: none;
+}
+i {
+  margin: 0 3px;
+}
+
+li:hover {
+  background-color: rgba(57, 192, 237, 0.2);
+}
+
+/* //hover */
+.hover {
+  --s: 0.1em; /* the thickness of the line */
+  --c: #1095c1; /* the color */
+  color: #0000;
+  padding-bottom: var(--s);
+  background: linear-gradient(90deg, var(--c) 50%, #000 0)
+      calc(100% - var(--_p, 0%)) / 200% 100%,
+    linear-gradient(var(--c) 0 0) 0% 100% / var(--_p, 0%) var(--s) no-repeat;
+  -webkit-background-clip: text, padding-box;
+  background-clip: text, padding-box;
+  transition: 0.5s;
+}
+.hover:hover {
+  font-size: 120%;
+  --_p: 100%;
+}
+
+h3 {
+  font-family: system-ui, sans-serif;
+  font-size: 3rem;
+  margin: 0;
+  cursor: pointer;
+  padding: 0 0.1em;
+}
+
+/* //zoom */
+.zoom {
+  /* padding: 50px; */
+  /* background-color: green; */
+  transition: transform 0.4s; /* Animation */
+
+  /* margin: 0 auto; */
+}
+
+.zoom:hover {
+  box-shadow: 2px 5px 4px #c9cdf1;
+  transform: scale(
+    1.1
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
