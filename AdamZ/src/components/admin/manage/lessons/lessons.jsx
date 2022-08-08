@@ -1,0 +1,220 @@
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import schoolInfo from "../../../../schoolInfo.json";
+import { getAllClassRooms } from "../../../../services/classRoomServices";
+import subjectService from "../../../../services/subjectServices";
+
+import teacherService, {
+  getAllTeachers,
+} from "../../../../services/teacherServices";
+import {
+  createLesson,
+  getAllLessons,
+  deleteLesson,
+} from "../../../../services/lessonServices";
+const Lessons = () => {
+  const navigate = useNavigate();
+
+  const [grade, setGrade] = useState(null);
+
+  const [classRoom, setClassRoom] = useState(null);
+  const [classRooms, setClassRooms] = useState([]);
+
+  const { getAllSubjects } = subjectService;
+  const [subjects, setSubjects] = useState([]);
+  const [subject, setSubject] = useState(null);
+
+  const { getAllTeachers } = teacherService;
+  const [teachers, setTeachers] = useState([]);
+  const [teacher, setTeacher] = useState(null);
+
+  const [subTeachers, setSubTeachers] = useState([]);
+  const [subClassRooms, setSubClassRooms] = useState([]);
+
+  const [lessons, setLessons] = useState(null);
+
+  useEffect(() => {
+    getAllLessons().then((res) => setLessons(res.data));
+    getAllSubjects().then((res) => setSubjects(res.data));
+    getAllTeachers().then((res) => setTeachers(res.data));
+    getAllClassRooms().then((res) => setClassRooms(res.data));
+  }, [grade]);
+
+  const filterTeachers = (subjectName) => {
+    const subTeachers = teachers.filter(
+      (teacher) => teacher.subject.name === subjectName
+    );
+    return subTeachers;
+  };
+  const filterClassRooms = (grade) => {
+    const subClassRooms = classRooms.filter(
+      (classRoom) => classRoom.grade === grade
+    );
+    return subClassRooms;
+  };
+
+  return (
+    <div className="h-100 w-100">
+      <div className="input-group w-100  p-3">
+        <div className="form-floating mx-3" style={{ width: "15%" }}>
+          <select
+            className="form-select"
+            onChange={(e) => {
+              setSubClassRooms(filterClassRooms(e.target.value));
+              setGrade(e.target.value);
+            }}
+          >
+            <option defaultValue>שכבה</option>
+            {schoolInfo.grades.map((grade, index) => {
+              return (
+                <option key={grade} value={grade}>
+                  {grade}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="form-floating mx-3" style={{ width: "15%" }}>
+          <select
+            className="form-select"
+            onChange={(e) => {
+              setClassRoom(
+                subClassRooms.find((item) => item.id == e.target.value)
+              );
+            }}
+          >
+            <option defaultValue>כיתה</option>
+
+            {subClassRooms.map((classRoom, index) => {
+              return (
+                <option key={classRoom.id} value={classRoom.id}>
+                  {classRoom.id}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
+        <div className="form-floating mx-3" style={{ width: "15%" }}>
+          <select
+            className="form-select"
+            onChange={(e) => {
+              setSubTeachers(filterTeachers(e.target.value));
+              setSubject(subjects.find((item) => item.name == e.target.value));
+            }}
+          >
+            <option>מקצוע</option>
+            {subjects.map((subject, index) => {
+              return (
+                <option key={index} value={subject.name}>
+                  {subject.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="form-floating mx-3" style={{ width: "15%" }}>
+          <select
+            className="form-select"
+            onChange={(e) => {
+              setTeacher(subTeachers.find((item) => item.id == e.target.value));
+            }}
+          >
+            <option defaultValue>מורה</option>
+            {subTeachers.map((teacher, index) => {
+              return (
+                <option key={index} value={teacher.id}>
+                  {teacher.fName + " " + teacher.lName}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="form-floating mx-3" style={{ width: "15" }}>
+          <button
+            type="button"
+            className="btn btn-outline-success"
+            onClick={() => {
+              console.log({ grade, classRoom, subject, teacher });
+              {
+                grade &&
+                  subject &&
+                  classRoom &&
+                  teacher &&
+                  createLesson({
+                    grade,
+                    classRoom: classRoom._id,
+                    subject: subject._id,
+                    teacher: teacher._id,
+                  });
+              }
+              navigate(-1);
+            }}
+          >
+            <i className="bi bi-magic"></i> שפץ
+          </button>
+        </div>
+      </div>
+      <div className="overflow-auto w-75 px-2">
+        <table
+          className="table align-middle caption-top mb-0 bg-white"
+          style={{ height: "500px" }}
+        >
+          <caption className="text-center fs-5 pt-0">רשימת שיעורים </caption>
+          <thead className="bg-light">
+            <tr className="p-0">
+              <th>מס'</th>
+              <th> כיתה</th>
+              <th>מקצוע</th>
+              <th>מורה</th>
+              <th>עדכון</th>
+            </tr>
+          </thead>
+          {lessons &&
+            lessons.map((lesson, index) => {
+              return (
+                <tbody>
+                  <tr>
+                    <td>{++index}</td>
+                    <td>{lesson.classRoom.id}</td>
+
+                    <td>{lesson.teacher.subject.name}</td>
+
+                    <td>{lesson.teacher.fName + " " + lesson.teacher.lName}</td>
+
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-link btn-sm btn-rounded"
+                      >
+                        <span>
+                          <i class="bi bi-pencil"></i>
+                        </span>
+                        ערוך
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn btn-link btn-sm btn-rounded"
+                        onClick={() => {
+                          deleteLesson(lesson);
+                        }}
+                      >
+                        <span>
+                          <i class="bi bi-trash3"></i>
+                        </span>
+                        מחק
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              );
+            })}
+        </table>
+      </div>
+    </div>
+  );
+};
+
+export default Lessons;
