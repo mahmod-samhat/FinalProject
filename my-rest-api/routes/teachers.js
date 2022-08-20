@@ -73,8 +73,8 @@ router.post("/logIn", (req, res) => {
 });
 
 router.get("/teacherById/:id", (req, res) => {
-  const id = req.params.id;
-  getTeacherById(id)
+  const _id = req.params.id;
+  getTeacherById(_id)
     .then((teacher) => res.status(200).json(teacher))
     .catch((err) => res.status(400).json(err));
 });

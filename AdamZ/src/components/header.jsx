@@ -16,7 +16,7 @@ export const Header = ({ updateLogInState, updateIsAdminState }) => {
   return (
     <div className="container-fluid header h-25">
       <h3 className="m-2">
-        AdamZ <i class="bi bi-stack"></i>
+        AdamZ <i className="bi bi-stack"></i>
       </h3>
       <ul className="d-flex">
         <Dropdown items={[scoolInfo.name]} />
@@ -32,18 +32,17 @@ export const Header = ({ updateLogInState, updateIsAdminState }) => {
           <i className="bi bi-arrows-fullscreen mx-2"></i>
           <i className="bi bi-grid-3x3-gap mx-2"></i>
 
-          <div class="btn-group">
+          <div className="btn-group">
             <button
-              className="bg-light"
               type="button"
-              class="btn btn-danger dropdown-toggle "
+              className="btn btn-danger dropdown-toggle "
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <i className="bi bi-person-circle mx-2"></i>
             </button>
             <ul
-              class="dropdown-menu bg-light"
+              className="dropdown-menu bg-light"
               onClick={() => {
                 logout();
                 updateLogInState(false);
@@ -53,9 +52,9 @@ export const Header = ({ updateLogInState, updateIsAdminState }) => {
             >
               <li>
                 {/* <p>{teacher.isAdmin}</p> */}
-                <button class="dropdown-item" type="button">
+                <button className="dropdown-item" type="button">
                   יציאה
-                  <i class="bi bi-door-open"></i>
+                  <i className="bi bi-door-open"></i>
                 </button>
               </li>
             </ul>

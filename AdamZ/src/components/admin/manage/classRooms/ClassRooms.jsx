@@ -26,10 +26,12 @@ const ClassRooms = () => {
                 className="form-select"
                 onChange={(e) => setGrade(e.target.value)}
               >
-                <option selected>שכבה</option>
+                <option key="0.0" selected>שכבה</option>
 
-                {schoolInfo.grades.map((g) => (
-                  <option value={g}>{g}</option>
+                {schoolInfo.grades.map((g, index) => (
+                  <option key={index} value={g}>
+                    {g}
+                  </option>
                 ))}
               </select>
             </div>

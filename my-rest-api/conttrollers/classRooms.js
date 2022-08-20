@@ -9,7 +9,14 @@ function getAllClassRooms() {
       .catch((err) => reject(err));
   });
 }
-
+function getClassRoomById(_id) {
+  return new Promise((resolve, reject) => {
+    ClassRoom.findOne({ _id })
+      .populate({ path: "students", populate: { path: "results" } })
+      .then((classRoom) => resolve(classRoom))
+      .catch((err) => reject(err));
+  });
+}
 function addClassRoom(classRoom) {
   return new Promise(async (resolve, reject) => {
     const newClassRoom = new ClassRoom(classRoom);
@@ -44,4 +51,5 @@ module.exports = {
   addClassRoom,
   deleteClassRoom,
   setClassRoomTeacher,
+  getClassRoomById,
 };

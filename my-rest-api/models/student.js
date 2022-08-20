@@ -53,7 +53,9 @@ const studentSchema = new mongoose.Schema(
       default: [],
     },
     results: {
-      type: Array,
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Score",
+      autopopulate: true,
       default: [],
     },
 

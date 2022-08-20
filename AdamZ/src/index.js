@@ -9,17 +9,14 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
-import { ServicesProvider } from "./context/sevicesContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <ServicesProvider>
           <div dir="rtl">
             <App />
           </div>
-        </ServicesProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

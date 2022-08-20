@@ -42,7 +42,7 @@ const LogIn = ({ updateLogInState, updateIsAdminState }) => {
           <div className="col-md-9 col-lg-6 col-xl-5">
             <img
               src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-              class="img-fluid"
+              className="img-fluid"
               alt="Sample"
             />
           </div>
@@ -51,7 +51,7 @@ const LogIn = ({ updateLogInState, updateIsAdminState }) => {
 
             <div className="divider d-flex align-items-center mb-4">
               <p className="display-4 fw-bold text-center px-3 text-primary">
-                <i class="bi bi-stack"></i> AdamZ
+                <i className="bi bi-stack"></i> AdamZ
               </p>
             </div>
             <form onSubmit={form.handleSubmit}>
@@ -118,7 +118,7 @@ const LogIn = ({ updateLogInState, updateIsAdminState }) => {
             <i className="bi bi-twitter"></i>
           </a>
           <a href="#!" className="text-white me-4">
-            <i class="bi bi-google"></i>
+            <i className="bi bi-google"></i>
           </a>
           <a href="#!" className="text-white me-4">
             <i className="bi bi-linkedin"></i>

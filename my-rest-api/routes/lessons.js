@@ -5,10 +5,17 @@ const {
   getAllLessons,
   addLesson,
   deleteLesson,
+  lessonById,
 } = require("../conttrollers/lessons");
 
 router.get("/", (req, res) => {
   getAllLessons()
+    .then((lessons) => res.status(200).json(lessons))
+    .catch((err) => res.status(400).json(err));
+});
+router.get("/lessonById/:id", (req, res) => {
+  const _id = req.params.id;
+  lessonById(_id)
     .then((lessons) => res.status(200).json(lessons))
     .catch((err) => res.status(400).json(err));
 });

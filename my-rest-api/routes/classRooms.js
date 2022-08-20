@@ -7,12 +7,19 @@ const {
   addClassRoom,
   deleteClassRoom,
   setClassRoomTeacher,
+  getClassRoomById,
 } = require("../conttrollers/classRooms");
 const { setTeacherClass_id } = require("../conttrollers/teachers");
 
 router.get("/", (req, res) => {
   getAllClassRooms()
     .then((classRooms) => res.status(200).json(classRooms))
+    .catch((err) => res.status(400).json(err));
+});
+router.get("/classRoomById/:id", (req, res) => {
+  const _id = req.params.id;
+  getClassRoomById(_id)
+    .then((classRoom) => res.status(200).json(classRoom))
     .catch((err) => res.status(400).json(err));
 });
 router.patch("/setClassRoomTeacher/:id", async (req, res) => {

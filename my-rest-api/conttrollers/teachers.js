@@ -7,6 +7,7 @@ function getAllTeachers() {
     Teacher.find()
       .populate("subject")
       .populate("room_id")
+      .populate({ path: "lessons", populate: { path: "classRoom" } })
       .then((teachers) => resolve(teachers))
       .catch((err) => reject(err));
   });
@@ -19,11 +20,13 @@ function getTeachersBySubject(subjectName) {
       .catch((err) => reject(err));
   });
 }
-function getTeacherById(id) {
+function getTeacherById(_id) {
   return new Promise((resolve, reject) => {
-    Teacher.findOne({ id })
+    Teacher.findOne({ _id })
       .populate("subject")
       .populate("room_id")
+      .populate("lessons")
+      // .populate({ path: "lessons", populate: { path: "classRoom" } })
       .then((teacher) => resolve(teacher))
       .catch((err) => reject(err));
   });

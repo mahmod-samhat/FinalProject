@@ -3,7 +3,7 @@ import BoxTitle from "./boxTitle";
 import { Navigate } from "react-router-dom";
 const AdminHome = () => {
   return (
-    <div class="w-100 h-100">
+    <div className="w-100 h-100">
       <div className="d-flex flex-row flex-wrap justify-content-center h-25 pt-2">
         <BoxTitle
           title="תלמידים"

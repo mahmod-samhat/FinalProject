@@ -25,7 +25,7 @@ const classRoomSchema = new mongoose.Schema(
     },
     students: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref: "Students",
+      ref: "Student",
       default: [],
       autopopulate: true,
     },

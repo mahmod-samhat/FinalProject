@@ -16,6 +16,7 @@ const Lessons = () => {
   const navigate = useNavigate();
 
   const [grade, setGrade] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   const [classRoom, setClassRoom] = useState(null);
   const [classRooms, setClassRooms] = useState([]);
@@ -38,7 +39,7 @@ const Lessons = () => {
     getAllSubjects().then((res) => setSubjects(res.data));
     getAllTeachers().then((res) => setTeachers(res.data));
     getAllClassRooms().then((res) => setClassRooms(res.data));
-  }, [grade]);
+  }, [grade, refresh]);
 
   const filterTeachers = (subjectName) => {
     const subTeachers = teachers.filter(
@@ -135,7 +136,6 @@ const Lessons = () => {
             type="button"
             className="btn btn-outline-success"
             onClick={() => {
-              console.log({ grade, classRoom, subject, teacher });
               {
                 grade &&
                   subject &&
@@ -146,9 +146,10 @@ const Lessons = () => {
                     classRoom: classRoom._id,
                     subject: subject._id,
                     teacher: teacher._id,
-                  });
+                  })
+                    .then((res) => setRefresh(!refresh))
+                    .catch((res) => alert(res.response.data.messege));
               }
-              navigate(-1);
             }}
           >
             <i className="bi bi-magic"></i> שפץ
@@ -157,7 +158,7 @@ const Lessons = () => {
       </div>
       <div className="overflow-auto w-75 px-2">
         <table
-          className="table align-middle caption-top mb-0 bg-white"
+          className="table align-middle caption-top bg-white"
           style={{ height: "500px" }}
         >
           <caption className="text-center fs-5 pt-0">רשימת שיעורים </caption>
@@ -178,7 +179,7 @@ const Lessons = () => {
                     <td>{++index}</td>
                     <td>{lesson.classRoom.id}</td>
 
-                    <td>{lesson.teacher.subject.name}</td>
+                    <td>{lesson.subject.name}</td>
 
                     <td>{lesson.teacher.fName + " " + lesson.teacher.lName}</td>
 
@@ -199,6 +200,7 @@ const Lessons = () => {
                         className="btn btn-link btn-sm btn-rounded"
                         onClick={() => {
                           deleteLesson(lesson);
+                          setRefresh(!refresh);
                         }}
                       >
                         <span>

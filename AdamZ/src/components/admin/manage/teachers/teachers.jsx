@@ -16,20 +16,20 @@ const Teachers = () => {
   return (
     <div className="d-flex justify-content-start h-100 w-100">
       <div className="w-100" style={{ height: "100vh" }}>
-        <div class="input-group p-3">
+        <div className="input-group p-3">
           <button
             type="button"
-            class="btn btn-outline-primary"
+            className="btn btn-outline-primary"
             onClick={() => navigate("/addTeacher")}
           >
-            <i class="bi bi-person-plus"></i> מורה חדש
+            <i className="bi bi-person-plus"></i> מורה חדש
           </button>
-          <div class="form-outline me-auto">
+          <div className="form-outline me-auto">
             <input
               type="search"
               placeholder="חיפוש מורה"
               id="form1"
-              class="form-control"
+              className="form-control"
               // onBlur={(e) => setTeachers(allTeachers)}
               onChange={(e) => {
                 setTeachers(
@@ -42,8 +42,8 @@ const Teachers = () => {
               }}
             />
           </div>
-          <button type="button" class="btn">
-            <i class="bi bi-search"></i>
+          <button type="button" className="btn">
+            <i className="bi bi-search"></i>
           </button>
         </div>
         <div className="overflow-auto h-75">
@@ -63,9 +63,10 @@ const Teachers = () => {
             </thead>
             <tbody>
               {teachers &&
-                teachers.map((teacher) => {
+                teachers.map((teacher, index) => {
                   return (
                     <tr
+                      key={index}
                       onClick={() => setTeacher(teacher)}
                       style={{ cursor: "pointer" }}
                     >
@@ -91,9 +92,9 @@ const Teachers = () => {
                       </td>
                       <td>
                         {teacher.room_id ? (
-                          <i class="bi bi-check-circle text-success"></i>
+                          <i className="bi bi-check-circle text-success"></i>
                         ) : (
-                          <i class="bi bi-x-circle text-danger"></i>
+                          <i className="bi bi-x-circle text-danger"></i>
                         )}
                       </td>
                       <td>{teacher.subject.name}</td>
@@ -108,47 +109,50 @@ const Teachers = () => {
 
       {teacher && (
         <div className="card m-4 bg-light w-50 h-75">
-          <div class="card-body">
+          <div className="card-body">
             <div className="d-flex">
               <div>
                 <u>
-                  <h5 class="card-title">
+                  <h5 className="card-title">
                     {teacher.fName + " " + teacher.lName}
                   </h5>
                 </u>
-                <p class="card-text">{teacher.id}</p>
-                <p class="card-text fw-bold">
-                  <span class="badge bg-success"> {teacher.subject.name}</span>
+                <p className="card-text">{teacher.id}</p>
+                <p className="card-text fw-bold">
+                  <span className="badge bg-success">
+                    {" "}
+                    {teacher.subject.name}
+                  </span>
                 </p>
               </div>
               <img
                 src={teacher.imageURL}
-                class="card-img-end me-auto h-50 w-50"
+                className="card-img-end me-auto h-50 w-50"
                 alt="..."
               />
             </div>
           </div>
 
-          <ul class="list-group list-group-flush ">
+          <ul className="list-group list-group-flush ">
             <div className="d-flex m-2">
-              <i class="bi bi-telephone"></i>
-              <p class="card-text">{teacher.phone}</p>
+              <i className="bi bi-telephone"></i>
+              <p className="card-text">{teacher.phone}</p>
             </div>
             <div className="d-flex m-2">
-              <i class="bi bi-envelope"></i>
-              <p class="card-text">{teacher.email}</p>
+              <i className="bi bi-envelope"></i>
+              <p className="card-text">{teacher.email}</p>
             </div>
             <div className="d-flex m-2">
-              <i class="bi bi-geo-alt-fill"></i>
-              <p class="card-text">{teacher.adress}</p>
+              <i className="bi bi-geo-alt-fill"></i>
+              <p className="card-text">{teacher.adress}</p>
             </div>
           </ul>
-          <div class="card-body fw-bold">
+          <div className="card-body fw-bold">
             {teacher.room_id && (
-              <li class="list-group-item">{teacher.room_id.id}</li>
+              <li className="list-group-item">{teacher.room_id.id}</li>
             )}
           </div>
-          <div class="card-body text-center">
+          <div className="card-body text-center">
             <NavLink to={`profile/${teacher.id}`} className="card-link mx-2">
               <i className="bi bi-pencil"></i>
               עריכה

@@ -25,7 +25,7 @@ const Subjects = () => {
     <div className="w-100">
       <div
         className="d-flex w-100 justify-content-between p-2"
-        style={{ height: "10%" }}
+       
       >
         <button
           type="button"
@@ -37,7 +37,6 @@ const Subjects = () => {
         <div className="d-flex w-50 ms-5">
           <select
             className="form-select mx-2"
-            // 888888 cannot read value for obect => result [object Object]
             onChange={(e) => {
               setSubject(
                 subjects.find((subject) => subject.name == e.target.value)
@@ -89,9 +88,9 @@ const Subjects = () => {
       </div>
       <div className="d-flex flex-wrap p-3 justify-content-evenly">
         {subjects &&
-          subjects.map((subject) => {
+          subjects.map((subject,index) => {
             return (
-              <div class="card m-2 bg-light" style={{ width: "18rem" }}>
+              <div key={index} class="card m-2 bg-light" style={{ width: "18rem" }}>
                 <div
                   className="bg-primary w-50 text-center fw-bold fs-5 pt-2 mx-auto text-light"
                   style={{ height: "5rem", width: "5rem" }}

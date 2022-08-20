@@ -6,6 +6,9 @@ export function createClassRoom(classRoom) {
 export async function getAllClassRooms() {
   return httpService.get("/classRooms");
 }
+export function getClassRoomById(id) {
+  return httpService.get(`/classRooms/classRoomById/${id}`);
+}
 export function deleteClassRoom(id) {
   return httpService.delete(`/classRooms/delete/${id}`);
 }
@@ -20,5 +23,6 @@ const classRoomService = {
   createClassRoom,
   deleteClassRoom,
   getAllClassRooms,
+  getClassRoomById,
 };
 export default classRoomService;
