@@ -39,15 +39,10 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item d-flex">
-              <DropList
-                title={" תיק כיתה"}
-                titleIcon={<i className="bi bi-people-fill"></i>}
-                items={["תיק חינוך", "תק התלמיד"]}
-                icons={[
-                  <i className="bi bi-journals"></i>,
-                  <i className="bi bi-person-rolodex"></i>,
-                ]}
-              />
+              <NavLink to="/students" className="nav-link text-white">
+                <i className="bi bi-people-fill"></i>
+                תיק כיתה
+              </NavLink>
             </li>
 
             <li className="nav-item d-flex">

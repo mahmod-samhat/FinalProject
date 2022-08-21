@@ -9,6 +9,14 @@ function getAllStudents() {
       .catch((err) => reject(err));
   });
 }
+function studentsByClassRoom(classRoom) {
+  return new Promise((resolve, reject) => {
+    Student.find({ classRoom })
+      .populate({ path: "classRoom", populate: { path: "classRoomTeacher" } })
+      .then((students) => resolve(students))
+      .catch((err) => reject(err));
+  });
+}
 
 // function getStudentById(_id) {
 //   return new Promise((resolve, reject) => {
@@ -74,4 +82,5 @@ module.exports = {
   getStudentById,
   updateStudent,
   deleteStudent,
+  studentsByClassRoom,
 };

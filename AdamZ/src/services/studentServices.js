@@ -6,6 +6,9 @@ export function createStudent(student) {
 export async function getAllStudents() {
   return httpService.get("/students");
 }
+export async function studentsByClassRoom(_id) {
+  return httpService.get(`/students/studentsByClassRoom/${_id}`);
+}
 export function getStudentById(id) {
   return httpService.get(`/students/studentById/${id}`);
 }
@@ -21,5 +24,6 @@ const studentService = {
   createStudent,
   getStudentById,
   getAllStudents,
+  studentsByClassRoom
 };
 export default studentService;
