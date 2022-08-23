@@ -4,7 +4,7 @@ const config = require("config");
 // const config = process.env;
 
 const verifyToken = async (req, res, next) => {
-  let token = req.headers["x-access-token"];
+  const token = req.headers["x-access-token"];
   if (!token)
     return res.status(401).send("A token is required for authentication");
 

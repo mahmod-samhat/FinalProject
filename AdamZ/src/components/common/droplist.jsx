@@ -1,7 +1,7 @@
 import "../../css/main.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLinkClickHandler } from "react-router-dom";
 
-const DropList = ({ title = "", titleIcon = "", items = [], icons = [] }) => {
+const DropList = ({ title = "", titleIcon = "", items = [], icons = [] ,link}) => {
   return (
     <span className="dropdown text-white nav-link">
       <span
@@ -24,7 +24,7 @@ const DropList = ({ title = "", titleIcon = "", items = [], icons = [] }) => {
             return (
               <div className="dropdown-item" key={item}>
                 {/* <NavLink className=" text-decoration-none" to="addGrades"> */}
-                <NavLink to="addGrades">
+                <NavLink to={link}>
                   {icons[i]}
                   {item}
                 </NavLink>

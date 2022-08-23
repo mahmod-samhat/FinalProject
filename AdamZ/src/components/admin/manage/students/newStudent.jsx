@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import Joi from "joi";
 import { formikValidateUsingJoi } from "../../../../utils/formikValidationUsingJoi";
 import Input from "../../../common/input";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { createStudent } from "../../../../services/studentServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -15,9 +15,16 @@ const NewStudent = () => {
   const [subClassRooms, setSubClassRooms] = useState([]);
   const [classRoom, setClassRoom] = useState(null);
   const [error, setError] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
+  const studentImage = useRef();
   useEffect(() => {
     getAllClassRooms().then((res) => setClassRooms(res.data));
   }, []);
+  // useEffect(() => {
+  //   if (profileImage != null) {
+  //     console.log(studentImage);
+  //   }
+  // }, []);
   const navigate = useNavigate();
   const form = useFormik({
     validateOnMount: true,
@@ -172,7 +179,12 @@ const NewStudent = () => {
             <label htmlFor="formFile" className="form-label">
               תמונה
             </label>
-            <input className="form-control" type="file" id="formFile" />
+            <input
+              studentImage
+              className="form-control"
+              type="file"
+              id="formFile"
+            />
           </div>
           <div class="form-floating">
             <textarea

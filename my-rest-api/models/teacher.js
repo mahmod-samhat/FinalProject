@@ -77,6 +77,7 @@ const teacherSchema = new mongoose.Schema(
       default: null,
       autopopulate: true,
     },
+    resetLink: { data: String, default: "" },
   },
   { timestamps: true }
 );
@@ -89,7 +90,8 @@ teacherSchema.methods.generateAuthToken = function () {
       fName: this.fName,
       lName: this.lName,
     },
-    config.get("jwtKey")
+    config.get("jwtKey"),
+    { expiresIn: "24h" }
   );
   return token;
 };

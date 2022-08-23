@@ -35,6 +35,7 @@ const Navbar = () => {
                 titleIcon={<i className="bi bi-mortarboard-fill"></i>}
                 items={["הציונים התקופתיים"]}
                 icons={[<i className="bi bi-pencil"></i>]}
+                link="addScores"
               />
             </li>
 
@@ -46,16 +47,14 @@ const Navbar = () => {
             </li>
 
             <li className="nav-item d-flex">
-              <DropList
-                title={"דוחות"}
-                titleIcon={<i className="bi bi-file-earmark-text"></i>}
-                items={["רשימות תלמידים", "רשימות קבוצות", "ציונים"]}
-                icons={[
-                  <i className="bi bi-person-badge"></i>,
-                  <i className="bi bi-journal-bookmark-fill"></i>,
-                  <i className="bi bi-stars"></i>,
-                ]}
-              />
+              <NavLink to="/scores" className="nav-link text-white">
+                <i className="bi bi-file-earmark-text"></i>תעודות
+              </NavLink>
+            </li>
+            <li className="nav-item d-flex">
+              <NavLink to="/check" className="nav-link text-white">
+                <i className="bi bi-check"></i>check
+              </NavLink>
             </li>
           </ul>
         </div>

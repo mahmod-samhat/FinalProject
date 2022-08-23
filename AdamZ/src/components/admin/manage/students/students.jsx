@@ -154,11 +154,11 @@ const Students = () => {
               className="table align-middle caption-top mb-0 bg-white "
               style={{ height: "500px" }}
             >
-              <caption className="text-center fs-5 ">
+              <caption className="text-end fs-5 ">
                 {teacherr?.isAdmin && (
                   <button
                     type="button"
-                    class="btn btn-outline-primary ms-5"
+                    class="btn btn-outline-primary ms-5 "
                     onClick={() => navigate("/newStudent")}
                   >
                     <i class="bi bi-person-plus"></i> תלמיד חדש

@@ -71,6 +71,13 @@ router.post("/logIn", (req, res) => {
     .then((token) => res.status(200).json({ token }))
     .catch((err) => res.status(400).json(err));
 });
+router.put("/forgotPassword", (req, res) => {
+  const { email, password } = req.body;
+  if (!(email && password)) res.status(400).send("All input is required");
+  logIn(email, password)
+    .then((token) => res.status(200).json({ token }))
+    .catch((err) => res.status(400).json(err));
+});
 
 router.get("/teacherById/:id", (req, res) => {
   const _id = req.params.id;

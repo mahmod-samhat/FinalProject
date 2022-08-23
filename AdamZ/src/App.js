@@ -7,7 +7,7 @@ import AddGrades from "./components/grades/addGrades";
 import Teachers from "./components/admin/manage/teachers/teachers";
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import LogIn from "./components/logIn";
+import LogIn from "./components/logIn/logIn";
 import { createContext } from "react";
 import NewTeacher from "./components/admin/manage/teachers/NewTeacher";
 import AdminHome from "./components/admin/adminHome";
@@ -20,6 +20,8 @@ import NewSubject from "./components/admin/manage/subjects/newSubject";
 import Lessons from "./components/admin/manage/lessons/lessons";
 import TeacherProfile from "./components/admin/manage/teachers/profile";
 import StudentProfile from "./components/admin/manage/students/profile";
+import Scores from "./components/grades/scores";
+import Check from "./components/check";
 export const showLogInContext = createContext(true);
 export const updateYear = createContext(null);
 
@@ -64,7 +66,7 @@ function App() {
               exact
               element={isAdmin ? <AdminHome /> : <Home />}
             />
-            <Route path="/addGrades" element={<AddGrades />} />
+            <Route path="/addScores" element={<AddGrades />} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/teachers/profile/:id" element={<TeacherProfile />} />
             <Route path="/classRooms" element={<ClassRooms />} />
@@ -77,6 +79,8 @@ function App() {
 
             <Route path="/newStudent" element={<NewStudent />} />
             <Route path="/lessons" element={<Lessons />} />
+            <Route path="/scores" element={<Scores />} />
+            <Route path="/check" element={<Check />} />
           </Routes>
         </div>
       </div>
