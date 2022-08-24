@@ -1,29 +1,30 @@
 const Teacher = require("../models/teacher");
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
+
 const {
   getAllTeachers,
   addTeacher,
-  logIn,
   getTeachersBySubject,
   getTeacherById,
   deleteTeacher,
   updateTeacher,
 } = require("../conttrollers/teachers");
 
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   getAllTeachers()
     .then((teachers) => res.status(200).json(teachers))
     .catch((err) => res.status(400).json(err));
 });
-router.get("/teachersBySubject/:subjectname", (req, res) => {
+router.get("/teachersBySubject/:subjectname", auth, (req, res) => {
   const subjectName = req.params.subjectname;
   getTeachersBySubject(subjectName)
     .then((teachers) => res.status(200).json(teachers))
     .catch((err) => res.status(400).json(err));
 });
 
-router.post("/newTeacher", (req, res) => {
+router.post("/newTeacher", auth, (req, res) => {
   let {
     id,
     fName,
@@ -64,35 +65,23 @@ router.post("/newTeacher", (req, res) => {
     });
 });
 
-router.post("/logIn", (req, res) => {
-  const { email, password } = req.body;
-  if (!(email && password)) res.status(400).send("All input is required");
-  logIn(email, password)
-    .then((token) => res.status(200).json({ token }))
-    .catch((err) => res.status(400).json(err));
-});
-router.put("/forgotPassword", (req, res) => {
-  const { email, password } = req.body;
-  if (!(email && password)) res.status(400).send("All input is required");
-  logIn(email, password)
-    .then((token) => res.status(200).json({ token }))
-    .catch((err) => res.status(400).json(err));
-});
 
-router.get("/teacherById/:id", (req, res) => {
+
+
+router.get("/teacherById/:id", auth, (req, res) => {
   const _id = req.params.id;
   getTeacherById(_id)
     .then((teacher) => res.status(200).json(teacher))
     .catch((err) => res.status(400).json(err));
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", auth, (req, res) => {
   const id = req.params.id;
   deleteTeacher(id)
     .then((teacher) => res.status(200).json(teacher))
     .catch((err) => res.status(400).json(err));
 });
-router.put("/update/:id", (req, res) => {
+router.put("/update/:id", auth, (req, res) => {
   const id = req.params.id;
   const teacher = req.body;
   updateTeacher(id, teacher)

@@ -1,6 +1,8 @@
 const Lesson = require("../models/lesson");
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
+
 const {
   getAllLessons,
   addLesson,
@@ -8,24 +10,24 @@ const {
   lessonById,
 } = require("../conttrollers/lessons");
 
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   getAllLessons()
     .then((lessons) => res.status(200).json(lessons))
     .catch((err) => res.status(400).json(err));
 });
-router.get("/lessonById/:id", (req, res) => {
+router.get("/lessonById/:id", auth, (req, res) => {
   const _id = req.params.id;
   lessonById(_id)
     .then((lessons) => res.status(200).json(lessons))
     .catch((err) => res.status(400).json(err));
 });
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", auth, (req, res) => {
   const _id = req.params.id;
   deleteLesson(_id)
     .then((lesson) => res.status(200).json(lesson))
     .catch((err) => res.status(400).json(err));
 });
-router.post("/newLesson", (req, res) => {
+router.post("/newLesson", auth, (req, res) => {
   const lesson = req.body;
   addLesson(lesson)
     .then((lesson) => {

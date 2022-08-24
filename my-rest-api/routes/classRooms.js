@@ -1,5 +1,7 @@
 const ClassRoom = require("../models/classRoom");
 const Teacher = require("../models/teacher");
+const auth = require("../middleware/auth");
+
 const express = require("express");
 const router = express.Router();
 const {
@@ -11,18 +13,18 @@ const {
 } = require("../conttrollers/classRooms");
 const { setTeacherClass_id } = require("../conttrollers/teachers");
 
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   getAllClassRooms()
     .then((classRooms) => res.status(200).json(classRooms))
     .catch((err) => res.status(400).json(err));
 });
-router.get("/classRoomById/:id", (req, res) => {
+router.get("/classRoomById/:id", auth, (req, res) => {
   const _id = req.params.id;
   getClassRoomById(_id)
     .then((classRoom) => res.status(200).json(classRoom))
     .catch((err) => res.status(400).json(err));
 });
-router.patch("/setClassRoomTeacher/:id", async (req, res) => {
+router.patch("/setClassRoomTeacher/:id", auth, async (req, res) => {
   const classRoom_id = req.params.id;
   const teacher_id = req.body.teacher_id;
 
@@ -35,13 +37,13 @@ router.patch("/setClassRoomTeacher/:id", async (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", auth, (req, res) => {
   const _id = req.params.id;
   deleteClassRoom(_id)
     .then((classRoom) => res.status(200).json(classRoom))
     .catch((err) => res.status(400).json(err));
 });
-router.post("/newClassRoom", (req, res) => {
+router.post("/newClassRoom", auth, (req, res) => {
   const { id, grade } = req.body;
   const classRoom = {
     id,

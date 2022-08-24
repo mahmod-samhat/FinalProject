@@ -1,6 +1,5 @@
 const Teacher = require("../models/teacher");
 const Subject = require("../models/subject");
-const bcrypt = require("bcrypt");
 
 function getAllTeachers() {
   return new Promise((resolve, reject) => {
@@ -53,22 +52,7 @@ function addTeacher(teacher) {
     }
   });
 }
-function logIn(email, password) {
-  return new Promise(async (resolve, reject) => {
-    if (!(email && password)) res.status(400).send("All input is required");
-    const teacher = await Teacher.findOne({ email });
-    if (teacher && (await bcrypt.compare(password, teacher.password))) {
-      const token = await teacher.generateAuthToken();
-      resolve(token);
-    } else {
-      reject({
-        status: "failed",
-        message:
-          "Invalid Credentials  !! Check your email and password please!!",
-      });
-    }
-  });
-}
+
 
 function deleteTeacher(id) {
   return new Promise(async (resolve, reject) => {
@@ -96,7 +80,6 @@ function setTeacherClass_id(_id, room_id) {
 module.exports = {
   getAllTeachers,
   addTeacher,
-  logIn,
   getTeachersBySubject,
   getTeacherById,
   deleteTeacher,

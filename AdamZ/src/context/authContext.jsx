@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext, createContext } from "react";
 import teacherServices from "../services/teacherServices";
+import authServices from "../services/authServices";
 
 export const authContext = createContext(null);
 authContext.displayName = "auth-context";
@@ -15,14 +16,14 @@ export const AuthProvider = ({ children }) => {
     setTeacher(teacher);
   };
   const login = async (credentials) => {
-    const token = await teacherServices.loginTeacher(credentials);
-    const teacher = teacherServices.getTeacher(token);
+    const token = await authServices.loginTeacher(credentials);
+    const teacher = authServices.getTeacher(token);
     refreshTeacher(teacher);
     return teacher;
   };
 
   const logout = () => {
-    teacherServices.logout();
+    authServices.logout();
     refreshTeacher();
   };
 

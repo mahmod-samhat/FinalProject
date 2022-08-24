@@ -1,6 +1,19 @@
 import { useEffect, useState, useRef } from "react";
+import React from "react";
+import { useIdleTimer } from "react-idle-timer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Check = () => {
+  const handleOnIdle = () => {
+    console.log("The user has been logged out...");
+  };
+  useIdleTimer({
+    timeout: 5 * 1000,
+    // onActive: handleOnActive,
+    onIdle: handleOnIdle,
+  });
+
   const uploadedImage = useRef();
   const imageUploader = useRef();
   const handleImageUpload = (e) => {
@@ -46,7 +59,15 @@ const Check = () => {
           />
         </div>
       </div>
-      <button type="button" onClick={(e) => console.log(uploadedImage.current)}>
+
+      <button
+        type="button"
+        onClick={(e) => {
+          console.log("toastify");
+          toast("You have been logged out.");
+          console.log(uploadedImage.current);
+        }}
+      >
         bbb
       </button>
     </>

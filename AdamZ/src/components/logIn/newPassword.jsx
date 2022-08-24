@@ -5,36 +5,20 @@ import Input from "../common/input";
 import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { forgotPassword } from "../../services/authServices";
-const ResetPassword = ({ handleReset }) => {
+const NewPassword = ({ updateLogInState }) => {
   const [error, setError] = useState("");
   const [resetMsg, setResetMsg] = useState("");
 
   const form = useFormik({
     validateOnMount: true,
     initialValues: {
-      email: "",
+      password: "",
     },
     validate: formikValidateUsingJoi({
-      email: Joi.string()
-        .min(6)
-        .max(255)
-        .required()
-        .email({ tlds: { allow: false } }),
+      password: Joi.string().min(6).max(255).required(),
     }),
     async onSubmit(values) {
-      try {
-        await forgotPassword(values.email);
-        setError("");
-        setResetMsg(
-          `Email had sent to you!! please check your email to complete reset password for ${values.email}`
-        );
-      } catch ({ response }) {
-        console.log("rr", response);
-        if (response.status === 401) {
-          setResetMsg("");
-          setError(response.data.error);
-        }
-      }
+      updateLogInState(true);
     },
   });
   return (
@@ -49,11 +33,11 @@ const ResetPassword = ({ handleReset }) => {
       <form onSubmit={form.handleSubmit}>
         {error && <div className="alert alert-danger">{error}</div>}
         <Input
-          type="email"
-          label="email : "
-          placeholder="Enter a valid email address"
-          {...form.getFieldProps("email")}
-          error={form.touched.email && form.errors.email}
+          type="password"
+          label="NewPassword : "
+          placeholder="Enter a valid password"
+          {...form.getFieldProps("password")}
+          error={form.touched.password && form.errors.password}
         />
 
         {resetMsg && <div className="alert alert-success ">{resetMsg}</div>}
@@ -62,13 +46,13 @@ const ResetPassword = ({ handleReset }) => {
           <button
             disabled={!form.isValid}
             type="submit"
-            className="btn btn-warning mx-2"
+            className="btn btn-success mx-2"
             style={{
               paddingLeft: "2.5rem",
               paddingRight: "2.5rem",
             }}
           >
-            Reset
+            Set Password
           </button>
           <button
             type="button"
@@ -77,7 +61,6 @@ const ResetPassword = ({ handleReset }) => {
               paddingLeft: "2.5rem",
               paddingRight: "2.5rem",
             }}
-            onClick={() => handleReset(false)}
           >
             Cancel
           </button>
@@ -86,4 +69,4 @@ const ResetPassword = ({ handleReset }) => {
     </div>
   );
 };
-export default ResetPassword;
+export default NewPassword;

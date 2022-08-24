@@ -3,7 +3,6 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
-
 const port = 3000;
 const teacherRouter = require("./routes/teachers");
 const classRoomRouter = require("./routes/classRooms");
@@ -17,14 +16,17 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
+//morgan
+const morgan = require("morgan");
+app.use(morgan("tiny"));
 
 const limiter = rateLimit({
-  windowMs: 24 * 60 * 60 * 1000, 
+  windowMs: 24 * 60 * 60 * 1000,
   max: 10000,
   message:
     "Too many requests, please try again later. limit:10000 request per day",
-  standardHeaders: true, 
-  legacyHeaders: false, 
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 app.use(limiter);
 

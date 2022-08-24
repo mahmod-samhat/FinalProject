@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-          <div dir="rtl">
-            <App />
-          </div>
+        <div dir="rtl">
+          <App />
+        </div>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

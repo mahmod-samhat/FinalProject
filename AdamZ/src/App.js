@@ -7,6 +7,8 @@ import AddGrades from "./components/grades/addGrades";
 import Teachers from "./components/admin/manage/teachers/teachers";
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useIdleTimer } from "react-idle-timer";
+
 import LogIn from "./components/logIn/logIn";
 import { createContext } from "react";
 import NewTeacher from "./components/admin/manage/teachers/NewTeacher";
@@ -26,6 +28,13 @@ export const showLogInContext = createContext(true);
 export const updateYear = createContext(null);
 
 function App() {
+  const handleOnIdle = () => console.log("OnIdle idle");
+
+  useIdleTimer({
+    timeout: 4 * 60 * 60 * 1000,
+    onIdle: handleOnIdle,
+  });
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [yearState, setyearState] = useState("2021");
   const [isAdmin, setIsAdmin] = useState(false);

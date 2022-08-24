@@ -6,7 +6,7 @@ import Input from "../common/input";
 import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import ResetPassword from "./resetPassword";
-const MainLogIn = ({ updateLogInState, updateIsAdminState, handleReset }) => {
+const MainLogIn = ({ updateLogInState, updateIsAdminState }) => {
   const [error, setError] = useState("");
   const { teacher, login } = useAuth();
 
@@ -76,11 +76,7 @@ const MainLogIn = ({ updateLogInState, updateIsAdminState, handleReset }) => {
               Remember me
             </label>
           </div>
-          <NavLink
-            to="/"
-            className="text-body"
-            onClick={() => handleReset(true)}
-          >
+          <NavLink to="/resetPassword" className="text-body">
             Forgot password?
           </NavLink>
         </div>

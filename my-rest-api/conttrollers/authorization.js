@@ -1,6 +1,8 @@
 const Teacher = require("../models/teacher");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const bcrypt = require("bcrypt");
+
 const nodemailer = require("nodemailer");
 
 function forgotPassword(email) {
@@ -18,22 +20,17 @@ function forgotPassword(email) {
           port: 465,
           secure: true,
           auth: {
-            type: "OAuth2",
             user: "mahmod.samhat@gmail.com",
-            pass: "Hacker19323",
-            // accessToken: token,
-          },
-          tls: {
-            rejectUnauthorized: false,
+            pass: "efizwwpoikceaptv",
           },
         });
 
         const data = {
-          to: "mahmod.samhat@gmail.com",
+          to: "mahmod_samhat@hotmail.co.il",
           subject: "Reset Account Password Link",
           html: `
       <h3>Please click the link below to reset your password</h3>
-      <p>http://localhost:3000/api/auth/resetpassword/${token}</p>
+      <p>http://localhost:3000/api/auth/resetPassword/${token}</p>
       `,
         };
         teacher.updateOne({ resetLink: token }, (err, user) => {
@@ -55,6 +52,54 @@ function forgotPassword(email) {
   });
 }
 
+function resetPassword(token,newPassword) {
+  return new Promise(async (resolve, reject) => {
+    if (token) {
+      jwt.verify(token, config.get("jwtKey"), function (error, decodedData) {
+        if (error) reject({ error: "Incorrect token or it is expired" });
+        Teacher.findOne({ resetLink: token })
+          .then(async (teacher) => {
+            if (!teacher)
+              reject({ error: "Teacher with this token does not exist" });
+            teacher.password = newPassword;
+            await teacher.hashPassword();
+
+            teacher
+              .save()
+              .then((result) =>
+                resolve({ message: "Your password has been changed" })
+              )
+              .catch((err) =>
+                reject({
+                  error: "Reset Password Error",
+                })
+              );
+          })
+          .catch((err) => {
+            reject({ error: "Teacher with this token does not exist" });
+          });
+      });
+    } else reject({ error: "Authentication Error" });
+  });
+}
+function logIn(email, password) {
+  return new Promise(async (resolve, reject) => {
+    if (!(email && password)) res.status(400).send("All input is required");
+    const teacher = await Teacher.findOne({ email });
+    if (teacher && (await bcrypt.compare(password, teacher.password))) {
+      const token = await teacher.generateAuthToken();
+      resolve(token);
+    } else {
+      reject({
+        status: "failed",
+        message:
+          "Invalid Credentials  !! Check your email and password please!!",
+      });
+    }
+  });
+}
 module.exports = {
   forgotPassword,
+  logIn,
+  resetPassword,
 };

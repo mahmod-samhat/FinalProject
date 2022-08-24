@@ -1,12 +1,12 @@
 import MainLogIn from "./mainLogIn";
 import { useState } from "react";
 import ResetPassword from "./resetPassword";
+import { Route, Routes } from "react-router-dom";
+import NewPassword from "./newPassword";
+import Footer from "../footer";
+import AboutUs from "../aboutUs";
 
-const LogIn = ({ updateLogInState, updateIsAdminState }) => {
-  const [isReset, setIsReset] = useState(false);
-  const handleReset = (value) => {
-    setIsReset(value);
-  };
+const LogInComponent = ({ updateLogInState, updateIsAdminState }) => {
   return (
     <section className="vh-100">
       <div className="container-fluid h-custom start direction-ltr">
@@ -15,39 +15,31 @@ const LogIn = ({ updateLogInState, updateIsAdminState }) => {
             <img
               src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
               className="img-fluid"
-              alt="Sample"
+              alt="paper writing"
             />
           </div>
-          {!isReset && (
-            <MainLogIn
-              updateLogInState={updateLogInState}
-              updateIsAdminState={updateIsAdminState}
-              handleReset={handleReset}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <MainLogIn
+                  updateLogInState={updateLogInState}
+                  updateIsAdminState={updateIsAdminState}
+                />
+              }
             />
-          )}
-          {isReset && <ResetPassword handleReset={handleReset} />}
+            <Route exact path="/resetPassword" element={<ResetPassword />} />
+            <Route
+              exact
+              path="/resetPassword/newPassword"
+              element={<NewPassword updateLogInState={updateLogInState} />}
+            />
+            <Route path="/aboutUs" element={<AboutUs />} />
+          </Routes>
         </div>
       </div>
-      <div className="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-        <div className="text-white mb-3 mb-md-0">
-          Copyright © 2022. All rights reserved.
-        </div>
-        <div>
-          <a href="#!" className="text-white me-4">
-            <i className="bi bi-facebook"></i>
-          </a>
-          <a href="#!" className="text-white me-4">
-            <i className="bi bi-twitter"></i>
-          </a>
-          <a href="#!" className="text-white me-4">
-            <i className="bi bi-google"></i>
-          </a>
-          <a href="#!" className="text-white me-4">
-            <i className="bi bi-linkedin"></i>
-          </a>
-        </div>
-      </div>
+      <Footer></Footer>
     </section>
   );
 };
-export default LogIn;
+export default LogInComponent;

@@ -1,9 +1,11 @@
 const Score = require("../models/score");
 const express = require("express");
 const router = express.Router();
+const auth = require("../middleware/auth");
+
 const { getAllScores, setScores } = require("../conttrollers/scores");
 
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   getAllScores()
     .then((scores) => res.status(200).json(scores))
     .catch((err) => res.status(400).json(err));
@@ -14,7 +16,7 @@ router.get("/", (req, res) => {
 //     .then((lesson) => res.status(200).json(lesson))
 //     .catch((err) => res.status(400).json(err));
 // });
-router.post("/setScores", (req, res) => {
+router.post("/setScores", auth, (req, res) => {
   const scores = req.body;
   setScores(scores)
     .then((score) => {
