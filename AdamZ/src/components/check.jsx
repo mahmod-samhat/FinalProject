@@ -4,12 +4,17 @@ const Check = () => {
   const uploadedImage = useRef();
   const imageUploader = useRef();
   const handleImageUpload = (e) => {
+    console.log("e.target.files", e.target.files);
     const [file] = e.target.files;
+    console.log("file", file);
+
     if (file) {
       const reader = new FileReader();
       const { current } = uploadedImage;
       current.file = file;
       reader.onload = (e) => {
+        console.log("e.target.result", e.target.result);
+
         current.src = e.target.result;
       };
       reader.readAsDataURL(file);
