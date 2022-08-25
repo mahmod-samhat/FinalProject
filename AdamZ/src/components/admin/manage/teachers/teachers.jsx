@@ -55,6 +55,7 @@ const Teachers = () => {
             <thead className="bg-light">
               <tr>
                 <th>מורה</th>
+                <th>ת.ז</th>
                 <th>יצירת קשר</th>
                 <th>מחנך</th>
                 <th>מקצוע</th>
@@ -86,6 +87,8 @@ const Teachers = () => {
                           </div>
                         </div>
                       </td>
+                      <td>{teacher.id}</td>
+
                       <td>
                         <p className="fw-normal mb-1">{teacher.phone}</p>
                         <p className="text-muted mb-0">{teacher.adress}</p>
@@ -153,7 +156,7 @@ const Teachers = () => {
             )}
           </div>
           <div className="card-body text-center">
-            <NavLink to={`profile/${teacher.id}`} className="card-link mx-2">
+            <NavLink to={`profile/${teacher._id}`} className="card-link mx-2">
               <i className="bi bi-pencil"></i>
               עריכה
             </NavLink>

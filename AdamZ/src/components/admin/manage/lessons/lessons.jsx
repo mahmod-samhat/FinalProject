@@ -174,7 +174,7 @@ const Lessons = () => {
           {lessons &&
             lessons.map((lesson, index) => {
               return (
-                <tbody>
+                <tbody key={index}>
                   <tr>
                     <td>{++index}</td>
                     <td>{lesson.classRoom.id}</td>
@@ -189,7 +189,7 @@ const Lessons = () => {
                         className="btn btn-link btn-sm btn-rounded"
                       >
                         <span>
-                          <i class="bi bi-pencil"></i>
+                          <i className="bi bi-pencil"></i>
                         </span>
                         ערוך
                       </button>
@@ -204,7 +204,7 @@ const Lessons = () => {
                         }}
                       >
                         <span>
-                          <i class="bi bi-trash3"></i>
+                          <i className="bi bi-trash3"></i>
                         </span>
                         מחק
                       </button>

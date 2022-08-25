@@ -23,6 +23,14 @@ function lessonById(_id) {
       .catch((err) => reject(err));
   });
 }
+function lessonsByTeacher(_id) {
+  return new Promise(async (resolve, reject) => {
+    await Lesson.find({ teacher: _id })
+      .populate("classRoom")
+      .then((lessons) => resolve(lessons))
+      .catch((err) => reject(err));
+  });
+}
 
 function deleteLesson(_id) {
   return new Promise(async (resolve, reject) => {
@@ -81,5 +89,6 @@ module.exports = {
   getAllLessons,
   addLesson,
   deleteLesson,
-  lessonById
+  lessonById,
+  lessonsByTeacher,
 };

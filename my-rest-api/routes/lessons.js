@@ -8,6 +8,7 @@ const {
   addLesson,
   deleteLesson,
   lessonById,
+  lessonsByTeacher,
 } = require("../conttrollers/lessons");
 
 router.get("/", auth, (req, res) => {
@@ -18,6 +19,12 @@ router.get("/", auth, (req, res) => {
 router.get("/lessonById/:id", auth, (req, res) => {
   const _id = req.params.id;
   lessonById(_id)
+    .then((lessons) => res.status(200).json(lessons))
+    .catch((err) => res.status(400).json(err));
+});
+router.get("/lessonsByTeacher/:_id", auth, (req, res) => {
+  const _id = req.params._id;
+  lessonsByTeacher(_id)
     .then((lessons) => res.status(200).json(lessons))
     .catch((err) => res.status(400).json(err));
 });

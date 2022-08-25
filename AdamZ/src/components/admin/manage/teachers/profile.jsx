@@ -8,23 +8,26 @@ import {
   getTeachersById,
   deleteTeacher,
 } from "../../../../services/teacherServices";
+import { getLessonsByTeacher } from "../../../../services/lessonServices";
 import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const TeacherProfile = () => {
   const [error, setError] = useState("");
   const [teacher, setTeacher] = useState(null);
+  const [lessons, setLessons] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    async function getTeacher() {
-      const res = await getTeachersById(id);
-      setTeacher(res.data);
-    }
-    getTeacher();
+    getTeachersById(id).then((resTeacher) => {
+      getLessonsByTeacher(resTeacher.data._id).then((resLessons) => {
+        setLessons(resLessons.data);
+      });
+      setTeacher(resTeacher.data);
+    });
   }, []);
 
-  const navigate = useNavigate();
   const form = useFormik({
     validateOnMount: true,
     enableReinitialize: true,
@@ -153,16 +156,16 @@ const TeacherProfile = () => {
                 error={form.touched.password && form.errors.password}
               />
 
-              <div class="form-floating">
+              <div className="form-floating">
                 <textarea
                   className="form-control h-50"
                   placeholder="Leave a comment here"
                   id="floatingTextarea"
                 ></textarea>
-                <label for="floatingTextarea">הערות</label>
+                <label htmlFor="floatingTextarea">הערות</label>
               </div>
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
               <label htmlFor="formFile" className="form-label">
                 Profile Image
               </label>
@@ -185,7 +188,7 @@ const TeacherProfile = () => {
             }}
           >
             <span>
-              <i class="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg"></i>
             </span>
             שמור
           </button>
@@ -197,7 +200,7 @@ const TeacherProfile = () => {
             }}
           >
             <span>
-              <i class="bi bi-x-lg"></i>
+              <i className="bi bi-x-lg"></i>
             </span>
             ביטול
           </button>
@@ -205,42 +208,46 @@ const TeacherProfile = () => {
       </div>
       {teacher && (
         <div className="card m-4 bg-light w-50 h-75">
-          <div class="card-body">
+          <div className="card-body">
             <div className="d-flex">
               <div>
                 <u>
-                  <h5 class="card-title">
+                  <h5 className="card-title">
                     {teacher.fName + " " + teacher.lName}
                   </h5>
                 </u>
-                <p class="card-text">{teacher.id}</p>
-                <p class="card-text fw-bold">
-                  <span class="badge bg-success"> {teacher.subject.name}</span>
+                <p className="card-text">{teacher.id}</p>
+                <p className="card-text fw-bold">
+                  <span className="badge bg-success">
+                    {teacher.subject.name}
+                  </span>
                 </p>
                 <span className="mt-5 text-succsess">מחנך : </span>
                 {teacher.room_id ? (
                   teacher.room_id.id
                 ) : (
-                  <i class="bi bi-x-circle text-danger"></i>
+                  <i className="bi bi-x-circle text-danger"></i>
                 )}
               </div>
               <img
                 src={teacher.imageURL}
-                class="card-img-end me-auto h-50 w-50"
+                className="card-img-end me-auto h-50 w-50"
                 alt="..."
               />
             </div>
           </div>
-
-          {teacher.lessons.map((lesson) => {
+          <p className="mx-2 fw-bold">כיתות לימוד :</p>
+          {lessons.map((lesson) => {
             return (
-              <div class="card-body fw-bold">
-                {lesson && <li class="list-group-item">{lesson.classRoom}</li>}
+              <div className="card-body py-0">
+                {lesson && (
+                  <li className="list-group-item">{lesson.classRoom.id}</li>
+                )}
               </div>
             );
           })}
-          <ul class="list-group list-group-flush ">
-            <div class="card-body text-center">
+          <ul className="list-group list-group-flush ">
+            <div className="card-body text-center">
               <NavLink
                 to="profile"
                 className="card-link mx-2"

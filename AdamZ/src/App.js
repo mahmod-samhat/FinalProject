@@ -22,7 +22,7 @@ import NewSubject from "./components/admin/manage/subjects/newSubject";
 import Lessons from "./components/admin/manage/lessons/lessons";
 import TeacherProfile from "./components/admin/manage/teachers/profile";
 import StudentProfile from "./components/admin/manage/students/profile";
-import Scores from "./components/grades/scores";
+import Scores from "./components/grades/Results";
 import Check from "./components/check";
 export const showLogInContext = createContext(true);
 export const updateYear = createContext(null);

@@ -1,8 +1,13 @@
 import hegedem from "../hegedem.json";
 import httpService from "./httpServices";
+
+export function getAllScores() {
+  return httpService.get("/scores");
+}
 export function setScores(scores) {
   return httpService.post("/scores/setScores", scores);
 }
+
 export function generateTextGrade(grade) {
   const getTextGrade = (level) => {
     return {
@@ -34,5 +39,6 @@ export function generateTextGrade(grade) {
 const scoreService = {
   generateTextGrade,
   setScores,
+  getAllScores,
 };
 export default scoreService;

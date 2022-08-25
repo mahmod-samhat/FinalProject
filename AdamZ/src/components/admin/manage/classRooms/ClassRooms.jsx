@@ -26,7 +26,9 @@ const ClassRooms = () => {
                 className="form-select"
                 onChange={(e) => setGrade(e.target.value)}
               >
-                <option key="0.0" selected>שכבה</option>
+                <option key="0.0" defaultValue>
+                  שכבה
+                </option>
 
                 {schoolInfo.grades.map((g, index) => (
                   <option key={index} value={g}>

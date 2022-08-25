@@ -5,6 +5,10 @@ function getAllStudents() {
   return new Promise((resolve, reject) => {
     Student.find()
       .populate({ path: "classRoom", populate: { path: "classRoomTeacher" } })
+      .populate({
+        path: "results",
+        populate: { path: "lesson", populate: { path: "subject" } },
+      })
       .then((students) => resolve(students))
       .catch((err) => reject(err));
   });

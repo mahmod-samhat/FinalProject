@@ -27,12 +27,10 @@ const AddGrades = ({ year }) => {
       teacherService
         .getTeachersById(teacher._id)
         .then((res) => setTeachers([res.data]));
-  }, []);
+  }, [semester]);
   useEffect(() => {
     if (lesson != null)
       classRoomService.getClassRoomById(lesson.classRoom._id).then((res) => {
-        console.log(res.data.students);
-
         setStudents(res.data.students);
       });
   }, [lesson]);
@@ -47,6 +45,9 @@ const AddGrades = ({ year }) => {
             aria-label="Floating label select example"
             onChange={(e) => {
               setSemester(e.target.value);
+              setLesson(null);
+              setTeacherr(null);
+              setTeachers([]);
             }}
           >
             <option defaultValue>בחר...</option>
@@ -92,7 +93,7 @@ const AddGrades = ({ year }) => {
                 });
               }}
             >
-              <option selected>בחר...</option>
+              <option defaultValue>בחר...</option>
               {teacherr &&
                 teacherr.lessons.map((lesson, index) => (
                   <option key={index} value={lesson._id}>

@@ -5,10 +5,12 @@ const Grade = ({ student, index, scores, updateScores, semester, lesson }) => {
   const [textGrade, setTextGrade] = useState({});
   const [score, setScore] = useState(null);
   useEffect(() => {
-    for (const element of student.results)
-      if (element.lesson == lesson._id) {
-        setTextGrade({ textScore: element.textScore, heged: element.heged });
-        setScore(element);
+    console.log("students results ", student.results);
+
+    for (const scor of student.results)
+      if (scor.lesson == lesson._id && scor.semester == semester) {
+        setTextGrade({ textScore: scor.textScore, heged: scor.heged });
+        setScore(scor);
       }
   }, []);
   return (

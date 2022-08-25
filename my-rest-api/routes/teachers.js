@@ -24,7 +24,7 @@ router.get("/teachersBySubject/:subjectname", auth, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post("/newTeacher", auth, (req, res) => {
+router.post("/newTeacher", (req, res) => {
   let {
     id,
     fName,
@@ -64,9 +64,6 @@ router.post("/newTeacher", auth, (req, res) => {
       });
     });
 });
-
-
-
 
 router.get("/teacherById/:id", auth, (req, res) => {
   const _id = req.params.id;

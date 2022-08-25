@@ -52,7 +52,7 @@ const Students = () => {
         <div className="d-flex justify-content-start h-100 w-100">
           <div className="w-100 h-100">
             <div className="overflow-auto h-75">
-              <div class="input-group p-3">
+              <div className="input-group p-3">
                 <div className="form-floating mx-3 w-25">
                   {teacherr?.isAdmin ? (
                     <>
@@ -71,11 +71,9 @@ const Students = () => {
                             )
                           );
                           setSubClassRooms(sub);
-                          console.log("teacher", teacherr);
-                          console.log("classRoom", classRooms);
                         }}
                       >
-                        <option selected>בחר...</option>
+                        <option defaultValue>בחר...</option>
                         {grades.map((grade, index) => (
                           <option key={index} value={grade}>
                             {grade}
@@ -110,7 +108,7 @@ const Students = () => {
                           );
                         }}
                       >
-                        <option selected>בחר...</option>
+                        <option defaultValue>בחר...</option>
                         {subClassRooms.map((classRoom, index) => (
                           <option key={index} value={classRoom.id}>
                             {classRoom.id}
@@ -133,7 +131,7 @@ const Students = () => {
                     type="search"
                     placeholder="חיפוש תלמיד"
                     id="form1"
-                    class="form-control"
+                    className="form-control"
                     onChange={(e) => {
                       setSubStudents(
                         students.filter(
@@ -146,7 +144,7 @@ const Students = () => {
                   />
                 </div>
                 <button type="button" class="btn">
-                  <i class="bi bi-search"></i>
+                  <i className="bi bi-search"></i>
                 </button>
               </div>
             </div>
@@ -157,11 +155,10 @@ const Students = () => {
               <caption className="text-end fs-5 ">
                 {teacherr?.isAdmin && (
                   <button
-                    type="button"
-                    class="btn btn-outline-primary ms-5 "
+                    className="btn btn-outline-primary ms-5 "
                     onClick={() => navigate("/newStudent")}
                   >
-                    <i class="bi bi-person-plus"></i> תלמיד חדש
+                    <i className="bi bi-person-plus"></i> תלמיד חדש
                   </button>
                 )}
                 <span className="mx-5"> רשימת תלמידים</span>
@@ -178,9 +175,10 @@ const Students = () => {
                 </tr>
               </thead>
               <tbody>
-                {subStudents.map((student) => {
+                {subStudents.map((student, index) => {
                   return (
                     <tr
+                      key={index}
                       onClick={() => setStudent(student)}
                       style={{ cursor: "pointer" }}
                     >
@@ -188,7 +186,7 @@ const Students = () => {
                         <div className="d-flex align-items-center">
                           <img
                             src="https://akim.org.il/wp-content/uploads/2019/09/akim_pics-15.png"
-                            alt=""
+                            alt="student image"
                             style={{ width: "45px", height: "45px" }}
                             className="rounded-circle"
                           />
@@ -208,7 +206,7 @@ const Students = () => {
                             {student.classRoom.id}
                           </p>
                         ) : (
-                          <i class="bi bi-x-circle text-danger"></i>
+                          <i className="bi bi-x-circle text-danger"></i>
                         )}
                       </td>
                       <td>
@@ -219,13 +217,13 @@ const Students = () => {
                               student.classRoom.classRoomTeacher?.lName}
                           </p>
                         ) : (
-                          <i class="bi bi-x-circle text-danger"></i>
+                          <i className="bi bi-x-circle text-danger"></i>
                         )}
                       </td>
                       <td>
                         {student.phone}
                         <span className="pe-2">
-                          <i class="bi bi-telephone-fill"></i>
+                          <i className="bi bi-telephone-fill"></i>
                         </span>
                       </td>
                       <td>
@@ -245,35 +243,35 @@ const Students = () => {
 
           {student && (
             <div className="card m-3 h-75 w-50 bg-light">
-              <div class="card-body">
+              <div className="card-body">
                 <div className="d-flex">
                   <div>
                     <u>
-                      <h5 class="card-title">
+                      <h5 className="card-title">
                         {student.fName + " " + student.lName}
                       </h5>
                     </u>
-                    <p class="card-text">{student.id}</p>
-                    <p class="card-text me-auto p-3 fw-bold">
+                    <p className="card-text">{student.id}</p>
+                    <p className="card-text me-auto p-3 fw-bold">
                       {student.gender}
                     </p>
                   </div>
                   <img
                     src={student.imageURL}
-                    class="card-img-top h-50 w-50"
-                    alt="..."
+                    className="card-img-top h-50 w-50"
+                    alt="student image"
                   />
                 </div>
               </div>
 
-              <ul class="list-group list-group-flush text-center p-0">
+              <ul className="list-group list-group-flush text-center p-0">
                 <div className="d-flex justify-content-center m-2">
-                  <i class="bi bi-geo-alt-fill"></i>
-                  <p class="card-text">{student.adress}</p>
+                  <i className="bi bi-geo-alt-fill"></i>
+                  <p className="card-text">{student.adress}</p>
                 </div>
               </ul>
-              <div class="card-body fw-bold pb-0 mx-5 text-center">
-                <li class="list-group-item my-2 bg-info rounded-pill">
+              <div className="card-body fw-bold pb-0 mx-5 text-center">
+                <li className="list-group-item my-2 bg-info rounded-pill">
                   כיתה : {student.classRoom.id}
                 </li>
                 <li className="list-group-item my-2 bg-success rounded-pill">
