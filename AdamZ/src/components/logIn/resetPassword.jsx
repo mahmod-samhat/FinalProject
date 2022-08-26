@@ -3,9 +3,8 @@ import Joi from "joi";
 import { formikValidateUsingJoi } from "../../utils/formikValidationUsingJoi";
 import Input from "../common/input";
 import { useState } from "react";
-import { useAuth } from "../../context/authContext";
 import { forgotPassword } from "../../services/authServices";
-const ResetPassword = ({ handleReset }) => {
+const ResetPassword = ({ handleIsReset }) => {
   const [error, setError] = useState("");
   const [resetMsg, setResetMsg] = useState("");
 
@@ -77,7 +76,7 @@ const ResetPassword = ({ handleReset }) => {
               paddingLeft: "2.5rem",
               paddingRight: "2.5rem",
             }}
-            onClick={() => handleReset(false)}
+            onClick={handleIsReset}
           >
             Cancel
           </button>

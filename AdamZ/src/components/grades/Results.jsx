@@ -45,7 +45,7 @@ const Results = () => {
     <div className="d-flex justify-content-start h-100 w-100">
       <div className="w-100 h-100">
         <div className="overflow-auto h-75">
-          <div class="input-group p-3">
+          <div className="input-group p-3">
             <div className="form-floating mx-3 w-25">
               <select
                 className="form-select "
@@ -55,7 +55,7 @@ const Results = () => {
                   setSemester(e.target.value);
                 }}
               >
-                <option selected>בחר...</option>
+                <option defaultValue>בחר...</option>
 
                 <option value="א">א </option>
                 <option value="ב">ב </option>
@@ -71,12 +71,12 @@ const Results = () => {
                 onChange={(e) => {
                   setSubStudents(
                     students.filter(
-                      (student) => student.classRoom._id == e.target.value
+                      (student) => student.classRoom._id === e.target.value
                     )
                   );
                 }}
               >
-                <option selected>בחר...</option>
+                <option defaultValue>בחר...</option>
                 {classRooms.map((classRoom, index) => (
                   <option key={index} value={classRoom._id}>
                     {classRoom.id}
@@ -92,7 +92,7 @@ const Results = () => {
                 aria-label="Floating label select example"
                 onChange={(e) => {
                   setStudent(
-                    students.find((student) => student.id == e.target.value)
+                    students.find((student) => student.id === e.target.value)
                   );
                 }}
               >
@@ -131,7 +131,7 @@ const Results = () => {
               <h3 className="text-center text-decoration-underline m-3 text-primary">
                 * גליון ציונים *
               </h3>
-              <table class="table">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">נושא</th>
@@ -142,7 +142,7 @@ const Results = () => {
                 </thead>
                 <tbody>
                   {student.results.map((result, index) => {
-                    if (result.semester == semester)
+                    if (result.semester === semester)
                       return (
                         <tr key={index}>
                           <td>{result.lesson.subject.name}</td>

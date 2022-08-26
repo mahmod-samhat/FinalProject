@@ -10,19 +10,16 @@ const Footer = () => {
         <NavLink to="/aboutUs" className="text-white mx-2">
           <span className="mx-5">AboutUs</span>||
         </NavLink>
-        <NavLink to="/#!" className="text-white mx-2">
+        <a href="https://he-il.facebook.com/" className="text-white mx-2">
           <i className="bi bi-facebook"></i>
-        </NavLink>
+        </a>
 
-        <NavLink to="/#!" className="text-white mx-2">
-          <i className="bi bi-twitter"></i>
-        </NavLink>
-        <NavLink to="/#!" className="text-white mx-2">
+        <a href="https://www.google.com/" className="text-white mx-2">
           <i className="bi bi-google"></i>
-        </NavLink>
-        <NavLink to="/#!" className="text-white mx-2">
+        </a>
+        <a href="https://www.linkedin.com/" className="text-white mx-2">
           <i className="bi bi-linkedin"></i>
-        </NavLink>
+        </a>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ const Teachers = () => {
   const [teacher, setTeacher] = useState(null);
   const { getAllTeachers } = usersService;
   const navigate = useNavigate();
+
   useEffect(() => {
     getAllTeachers().then((res) => {
       setAllTeachers(res.data);
@@ -101,7 +102,7 @@ const Teachers = () => {
                         )}
                       </td>
                       <td>{teacher.subject.name}</td>
-                      <td>{teacher.updatedAt}</td>
+                      <td>{teacher.updatedAt.slice(0, 16)}</td>
                     </tr>
                   );
                 })}

@@ -21,7 +21,7 @@ function forgotPassword(email) {
           secure: true,
           auth: {
             user: "mahmod.samhat@gmail.com",
-            pass: "efizwwpoikceaptv",
+            pass: "nnuzecwcolqgitwc",
           },
         });
 
@@ -52,7 +52,7 @@ function forgotPassword(email) {
   });
 }
 
-function resetPassword(token,newPassword) {
+function resetPassword(token, newPassword) {
   return new Promise(async (resolve, reject) => {
     if (token) {
       jwt.verify(token, config.get("jwtKey"), function (error, decodedData) {

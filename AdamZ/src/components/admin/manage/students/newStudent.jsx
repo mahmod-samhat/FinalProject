@@ -16,15 +16,11 @@ const NewStudent = () => {
   const [classRoom, setClassRoom] = useState(null);
   const [error, setError] = useState("");
   const [profileImage, setProfileImage] = useState(null);
-  const studentImage = useRef();
+  const studentimage = useRef();
   useEffect(() => {
     getAllClassRooms().then((res) => setClassRooms(res.data));
   }, []);
-  // useEffect(() => {
-  //   if (profileImage != null) {
-  //     console.log(studentImage);
-  //   }
-  // }, []);
+
   const navigate = useNavigate();
   const form = useFormik({
     validateOnMount: true,
@@ -180,7 +176,7 @@ const NewStudent = () => {
               תמונה
             </label>
             <input
-              studentImage
+              studentimage
               className="form-control"
               type="file"
               id="formFile"

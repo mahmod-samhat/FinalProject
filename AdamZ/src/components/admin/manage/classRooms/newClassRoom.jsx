@@ -1,7 +1,7 @@
 import { useState } from "react";
+
 import { createClassRoom } from "../../../../services/classRoomServices";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import schoolInfo from "../../../../schoolInfo.json";
 
 const NewClassRoom = () => {
@@ -24,16 +24,18 @@ const NewClassRoom = () => {
                 className="form-select"
                 onChange={(e) => setGrade(e.target.value)}
               >
-                <option selected>שכבה</option>
+                <option defaultValue>שכבה</option>
 
-                {schoolInfo.grades.map((g) => (
-                  <option value={g}>{g}</option>
+                {schoolInfo.grades.map((g, i) => (
+                  <option key={i} value={g}>
+                    {g}
+                  </option>
                 ))}
               </select>
             </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">
+            <div className="input-group mb-3">
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="basic-addon1">
                   {grade ? grade + "-" : "שכבה-"}
                 </span>
               </div>
@@ -41,11 +43,10 @@ const NewClassRoom = () => {
                 <select
                   className="form-select"
                   onChange={(e) => {
-                    console.log(grade + "-" + e.target.value);
                     setClassRoom(grade + "-" + e.target.value);
                   }}
                 >
-                  <option selected>כיתה</option>
+                  <option defaultValue>כיתה</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -54,7 +55,7 @@ const NewClassRoom = () => {
               </div>
             </div>
           </div>
-          <div class="form-floating">
+          <div className="form-floating">
             <textarea
               className="form-control h-50"
               placeholder="Leave a comment here"
@@ -79,7 +80,7 @@ const NewClassRoom = () => {
             }}
           >
             <span>
-              <i class="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg"></i>
             </span>
             הוסף
           </button>
@@ -88,7 +89,7 @@ const NewClassRoom = () => {
             onClick={() => navigate(-1)}
           >
             <span>
-              <i class="bi bi-x-lg"></i>
+              <i className="bi bi-x-lg"></i>
             </span>
             ביטול
           </button>

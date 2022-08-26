@@ -20,10 +20,13 @@ export function logout() {
   setTokenHeader();
 }
 
-export function getTeacher(token) {
+export async function getTeacher(token) {
   try {
-    const teacher = jwtDecode(token);
-    return teacher;
+    const teacherToken = jwtDecode(token);
+    const { data } = await httpService.get(
+      `/teachers/teacherById/${teacherToken._id}`
+    );
+    return data;
   } catch {
     return "err: invalid token!!";
   }

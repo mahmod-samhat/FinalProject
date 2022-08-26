@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import schoolInfo from "../../../../schoolInfo.json";
 import { getAllClassRooms } from "../../../../services/classRoomServices";
 import subjectService from "../../../../services/subjectServices";
@@ -33,7 +35,15 @@ const Lessons = () => {
   const [subClassRooms, setSubClassRooms] = useState([]);
 
   const [lessons, setLessons] = useState(null);
-
+  const toastOption = {
+    position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+  };
   useEffect(() => {
     getAllLessons().then((res) => setLessons(res.data));
     getAllSubjects().then((res) => setSubjects(res.data));
@@ -187,19 +197,9 @@ const Lessons = () => {
                       <button
                         type="button"
                         className="btn btn-link btn-sm btn-rounded"
-                      >
-                        <span>
-                          <i className="bi bi-pencil"></i>
-                        </span>
-                        ערוך
-                      </button>
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-sm btn-rounded"
                         onClick={() => {
                           deleteLesson(lesson);
+                          toast.error("👍 נמחק בהצלחה", toastOption);
                           setRefresh(!refresh);
                         }}
                       >
@@ -215,6 +215,7 @@ const Lessons = () => {
             })}
         </table>
       </div>
+      <ToastContainer />
     </div>
   );
 };

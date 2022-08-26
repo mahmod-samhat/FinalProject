@@ -2,7 +2,6 @@ const Lesson = require("../models/lesson");
 var mongoose = require("mongoose");
 const Subject = require("../models/subject");
 const Teacher = require("../models/teacher");
-const lesson = require("../models/lesson");
 
 function getAllLessons() {
   return new Promise(async (resolve, reject) => {

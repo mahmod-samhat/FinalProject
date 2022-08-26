@@ -5,9 +5,8 @@ import { updateYear } from "../App";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
-import teacherService from "../services/teacherServices";
 export const Header = ({ updateLogInState, updateIsAdminState }) => {
-  const { logout, teacher } = useAuth();
+  const { logout } = useAuth();
 
   const currentyear = useContext(updateYear);
 
@@ -51,7 +50,6 @@ export const Header = ({ updateLogInState, updateIsAdminState }) => {
               }}
             >
               <li>
-                {/* <p>{teacher.isAdmin}</p> */}
                 <button className="dropdown-item" type="button">
                   יציאה
                   <i className="bi bi-door-open"></i>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { setClassRoomTeacher } from "../../../../services/classRoomServices";
 import { getAllTeachers } from "../../../../services/teacherServices";
 
-const ClassRoomTeacher = ({ classRoom, text }) => {
+const ClassRoomTeacher = ({ classRoom, text, handleRefresh }) => {
   const [teachers, setTeachers] = useState([]);
   const [teacher, setTeacher] = useState(null);
 
@@ -29,7 +29,7 @@ const ClassRoomTeacher = ({ classRoom, text }) => {
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -52,13 +52,12 @@ const ClassRoomTeacher = ({ classRoom, text }) => {
               <div>
                 <form>
                   <div id="group1" className="w-50 p-3">
-                    {teachers.map((teacher) => {
+                    {teachers.map((teacher, index) => {
                       return (
                         <div
+                          key={index}
                           className="form-check"
                           onClick={() => {
-                            console.log(teacher);
-                            console.log(classRoom);
                             setTeacher(teacher);
                           }}
                         >
@@ -68,11 +67,14 @@ const ClassRoomTeacher = ({ classRoom, text }) => {
                             name="flexRadioDefault"
                             id={teacher.id}
                           />
-                          <label className="form-check-label" for={teacher.id}>
-                            <div classNameName="d-flex align-items-center">
+                          <label
+                            className="form-check-label"
+                            htmlFor={teacher.id}
+                          >
+                            <div className="d-flex align-items-center">
                               <img
                                 src="https://akim.org.il/wp-content/uploads/2019/09/akim_pics-15.png"
-                                alt=""
+                                alt=" teacher"
                                 style={{
                                   width: "45px",
                                   height: "45px",
@@ -104,9 +106,11 @@ const ClassRoomTeacher = ({ classRoom, text }) => {
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={() => {
-                  teacher
-                    ? setClassRoomTeacher(classRoom, teacher._id)
-                    : alert("תבחר מחנך לכיתה!!");
+                  if (teacher) {
+                    setClassRoomTeacher(classRoom, teacher._id);
+                    handleRefresh();
+                  
+                  } else alert("תבחר מחנך לכיתה!!");
                 }}
               >
                 שפץ מחנך

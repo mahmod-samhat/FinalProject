@@ -7,7 +7,10 @@ import AddGrades from "./components/grades/addGrades";
 import Teachers from "./components/admin/manage/teachers/teachers";
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import { useIdleTimer } from "react-idle-timer";
+import { useAuth } from "./context/authContext";
 
 import LogIn from "./components/logIn/logIn";
 import { createContext } from "react";
@@ -23,12 +26,19 @@ import Lessons from "./components/admin/manage/lessons/lessons";
 import TeacherProfile from "./components/admin/manage/teachers/profile";
 import StudentProfile from "./components/admin/manage/students/profile";
 import Scores from "./components/grades/Results";
-import Check from "./components/check";
 export const showLogInContext = createContext(true);
 export const updateYear = createContext(null);
 
 function App() {
-  const handleOnIdle = () => console.log("OnIdle idle");
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleOnIdle = () => {
+    logout();
+    updateLogInState(false);
+    updateIsAdminState(false);
+    navigate("/");
+  };
 
   useIdleTimer({
     timeout: 4 * 60 * 60 * 1000,
@@ -89,7 +99,6 @@ function App() {
             <Route path="/newStudent" element={<NewStudent />} />
             <Route path="/lessons" element={<Lessons />} />
             <Route path="/scores" element={<Scores />} />
-            <Route path="/check" element={<Check />} />
           </Routes>
         </div>
       </div>

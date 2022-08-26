@@ -1,8 +1,11 @@
 import DropList from "./common/droplist";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 import "../css/main.css";
 const Navbar = () => {
+  const { teacher } = useAuth();
+
   return (
     <nav
       className="navbar navbar-expand-sm navbar-light shadow-sm bg-primary"
@@ -38,24 +41,21 @@ const Navbar = () => {
                 link="addScores"
               />
             </li>
-
-            <li className="nav-item d-flex">
-              <NavLink to="/students" className="nav-link text-white">
-                <i className="bi bi-people-fill"></i>
-                תיק כיתה
-              </NavLink>
-            </li>
-
-            <li className="nav-item d-flex">
-              <NavLink to="/scores" className="nav-link text-white">
-                <i className="bi bi-file-earmark-text"></i>תעודות
-              </NavLink>
-            </li>
-            <li className="nav-item d-flex">
-              <NavLink to="/check" className="nav-link text-white">
-                <i className="bi bi-check"></i>check
-              </NavLink>
-            </li>
+            {(teacher.isAdmin || teacher.room_id) && (
+              <>
+                <li className="nav-item d-flex">
+                  <NavLink to="/students" className="nav-link text-white">
+                    <i className="bi bi-people-fill"></i>
+                    תיק כיתה
+                  </NavLink>
+                </li>
+                <li className="nav-item d-flex">
+                  <NavLink to="/scores" className="nav-link text-white">
+                    <i className="bi bi-file-earmark-text"></i>תעודות
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

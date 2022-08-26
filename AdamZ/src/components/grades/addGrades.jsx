@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import schoolInfo from "../../schoolInfo.json";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import teacherService from "../../services/teacherServices";
 import classRoomService from "../../services/classRoomServices";
 import { useAuth } from "../../context/authContext";
@@ -19,14 +21,20 @@ const AddGrades = ({ year }) => {
   const [lesson, setLesson] = useState(null);
 
   const { teacher } = useAuth();
+  const toastOption = {
+    position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+  };
 
   useEffect(() => {
     if (teacher.isAdmin)
       teacherService.getAllTeachers().then((res) => setTeachers(res.data));
-    else
-      teacherService
-        .getTeachersById(teacher._id)
-        .then((res) => setTeachers([res.data]));
+    else setTeachers([teacher]);
   }, [semester]);
   useEffect(() => {
     if (lesson != null)
@@ -71,7 +79,7 @@ const AddGrades = ({ year }) => {
                 )
               }
             >
-              <option selected>בחר...</option>
+              <option defaultValue>בחר...</option>
               {teachers?.map((teacher, index) => (
                 <option key={index} value={teacher._id}>
                   {teacher.fName + " " + teacher.lName}
@@ -145,8 +153,8 @@ const AddGrades = ({ year }) => {
             onClick={() => {
               scoreService
                 .setScores(scores)
-                .then((res) => console.log(res.data))
-                .catch((err) => console.log(err));
+                .then((res) => toast.info("👍 נשמר בהצלחה", toastOption))
+                .catch((err) => alert("error"));
             }}
           >
             <span>
@@ -165,6 +173,7 @@ const AddGrades = ({ year }) => {
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

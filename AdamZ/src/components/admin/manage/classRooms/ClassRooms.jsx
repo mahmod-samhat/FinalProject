@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import classRoomService from "../../../../services/classRoomServices";
 import schoolInfo from "../../../../schoolInfo.json";
 import ClassRoomTeacher from "./classRoomTeacher";
@@ -8,14 +10,29 @@ const ClassRooms = () => {
   const [classRooms, setClassRooms] = useState([]);
   const [AllClassRooms, setAllClassRooms] = useState([]);
   const [classRoom, setClassRoom] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const { getAllClassRooms, deleteClassRoom } = classRoomService;
   const navigate = useNavigate();
+
+  const handleRefresh = () => {
+    setRefresh(!refresh);
+  };
+  const toastOption = {
+    position: "bottom-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+  };
+
   useEffect(() => {
     getAllClassRooms().then((res) => {
       setAllClassRooms(res.data);
       setClassRooms(res.data);
     });
-  }, []);
+  }, [refresh]);
   return (
     <div className="h-100 w-100">
       <div className="w-100 d-flex">
@@ -49,7 +66,7 @@ const ClassRooms = () => {
                 );
               }}
             >
-              <i class="bi bi-search"></i> חפש
+              <i className="bi bi-search"></i> חפש
             </button>
           </div>
           <div className="d-flex">
@@ -64,7 +81,7 @@ const ClassRooms = () => {
                     className="btn btn-outline-primary ms-5"
                     onClick={() => navigate("/newClassRoom")}
                   >
-                    <i class="bi bi-person-plus"></i> כיתה חדשה
+                    <i className="bi bi-person-plus"></i> כיתה חדשה
                   </button>
                   <span className="mx-5">רשימת כיתות</span>
                 </caption>
@@ -79,9 +96,10 @@ const ClassRooms = () => {
                 </thead>
                 <tbody>
                   {classRooms &&
-                    classRooms.map((classRoom) => {
+                    classRooms.map((classRoom, index) => {
                       return (
                         <tr
+                          key={index}
                           onClick={() => setClassRoom(classRoom)}
                           style={{ cursor: "pointer" }}
                         >
@@ -94,7 +112,7 @@ const ClassRooms = () => {
                               " " +
                               classRoom.classRoomTeacher.lName
                             ) : (
-                              <i class="bi bi-x-circle text-danger"></i>
+                              <i className="bi bi-x-circle text-danger"></i>
                             )}
                           </td>
 
@@ -111,12 +129,13 @@ const ClassRooms = () => {
                                   );
                                 else {
                                   deleteClassRoom(classRoom._id);
-                                  navigate("/");
+                                  toast.error("👍 נמחק בהצלחה", toastOption);
+                                  setRefresh(!refresh);
                                 }
                               }}
                             >
                               <span>
-                                <i class="bi bi-trash3"></i>
+                                <i className="bi bi-trash3"></i>
                               </span>
                               מחק
                             </button>
@@ -133,12 +152,12 @@ const ClassRooms = () => {
           <div className="card m-3 h-75 w-50">
             <img
               src="https://akim.org.il/wp-content/uploads/2019/09/akim_pics-15.png"
-              class="card-img-top"
+              className="card-img-top"
               alt="..."
             />
-            <div class="card-body">
+            <div className="card-body">
               <h3 className="text-success">{classRoom?.id}</h3>
-              <h5 class="card-title">
+              <h5 className="card-title">
                 מחנך :
                 {classRoom.classRoomTeacher &&
                   classRoom.classRoomTeacher.fName +
@@ -147,11 +166,12 @@ const ClassRooms = () => {
                 <ClassRoomTeacher
                   classRoom={classRoom}
                   text={classRoom.classRoomTeacher ? "עדכן" : "שפץ"}
+                  handleRefresh={handleRefresh}
                 />
               </h5>
-              <p class="card-text">
+              <p className="card-text">
                 מס תלמידים
-                <span class="badge bg-primary fs-5 mx-2">
+                <span className="badge bg-primary fs-5 mx-2">
                   {classRoom?.students.length}
                 </span>
               </p>
@@ -159,6 +179,7 @@ const ClassRooms = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </div>
   );
 };

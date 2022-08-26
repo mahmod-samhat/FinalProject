@@ -5,7 +5,6 @@ import Input from "../../../common/input";
 import { useEffect, useState, useRef } from "react";
 import { createTeacher } from "../../../../services/teacherServices";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import subjectService from "../../../../services/subjectServices";
 const NewTeacher = () => {
   const [error, setError] = useState("");
@@ -50,8 +49,7 @@ const NewTeacher = () => {
       try {
         if (!subject) alert("בחר מקצוע למורה!!");
         else {
-          await createTeacher({ ...values, subject: subject._id });
-          toast("Your account is ready 👏", { autoClose: 8000 });
+          createTeacher({ ...values, subject: subject._id });
           navigate(-1);
         }
       } catch ({ response }) {
@@ -163,16 +161,16 @@ const NewTeacher = () => {
                     );
                   })}
               </select>
-              <div class="form-floating">
+              <div className="form-floating">
                 <textarea
                   className="form-control h-50"
                   placeholder="Leave a comment here"
                   id="floatingTextarea"
                 ></textarea>
-                <label for="floatingTextarea">הערות</label>
+                <label htmlFor="floatingTextarea">הערות</label>
               </div>
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
               <label htmlFor="formFile" className="form-label">
                 Profile Image
               </label>
@@ -191,7 +189,7 @@ const NewTeacher = () => {
             className="btn btn-lg my-2 text-primary"
           >
             <span>
-              <i class="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg"></i>
             </span>
             שמור
           </button>
@@ -200,7 +198,7 @@ const NewTeacher = () => {
             onClick={() => navigate(-1)}
           >
             <span>
-              <i class="bi bi-x-lg"></i>
+              <i className="bi bi-x-lg"></i>
             </span>
             ביטול
           </button>

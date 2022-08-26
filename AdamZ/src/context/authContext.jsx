@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   };
   const login = async (credentials) => {
     const token = await authServices.loginTeacher(credentials);
-    const teacher = authServices.getTeacher(token);
+    const teacher = await authServices.getTeacher(token);
     refreshTeacher(teacher);
     return teacher;
   };

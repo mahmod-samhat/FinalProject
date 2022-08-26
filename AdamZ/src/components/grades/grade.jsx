@@ -5,10 +5,8 @@ const Grade = ({ student, index, scores, updateScores, semester, lesson }) => {
   const [textGrade, setTextGrade] = useState({});
   const [score, setScore] = useState(null);
   useEffect(() => {
-    console.log("students results ", student.results);
-
     for (const scor of student.results)
-      if (scor.lesson == lesson._id && scor.semester == semester) {
+      if (scor.lesson === lesson._id && scor.semester === semester) {
         setTextGrade({ textScore: scor.textScore, heged: scor.heged });
         setScore(scor);
       }
@@ -28,12 +26,12 @@ const Grade = ({ student, index, scores, updateScores, semester, lesson }) => {
           <p className="text-muted mb-0">{student.id}</p>
         </td>
         <td>
-          <div class="form-outline me-auto">
+          <div className="form-outline me-auto">
             <input
               defaultValue={score ? score.score : ""}
               type="text"
               className="form-control form-control-sm"
-              onBlur={(e) => {
+              onMouseOut={(e) => {
                 const textG = scoreService.generateTextGrade(
                   Number(e.target.value)
                 );

@@ -149,7 +149,7 @@ const StudentProfile = () => {
               placeholder="Leave a comment here"
               id="floatingTextarea"
             ></textarea>
-            <label for="floatingTextarea">הערות</label>
+            <label htmlFor="floatingTextarea">הערות</label>
           </div>
           <button
             disabled={!form.isValid}

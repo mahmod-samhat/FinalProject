@@ -5,7 +5,7 @@ import Input from "../common/input";
 import { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { forgotPassword } from "../../services/authServices";
-const NewPassword = ({ updateLogInState }) => {
+const NewPassword = ({ updateLogInState, handleIsReset }) => {
   const [error, setError] = useState("");
   const [resetMsg, setResetMsg] = useState("");
 
@@ -61,6 +61,7 @@ const NewPassword = ({ updateLogInState }) => {
               paddingLeft: "2.5rem",
               paddingRight: "2.5rem",
             }}
+            onClick={() => handleIsReset}
           >
             Cancel
           </button>
