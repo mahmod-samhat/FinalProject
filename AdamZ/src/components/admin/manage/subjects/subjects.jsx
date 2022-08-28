@@ -31,7 +31,7 @@ const Subjects = () => {
       setSubTeachers(res.data);
       setTeachers(res.data);
     });
-  }, []);
+  }, [subjects]);
   return (
     <div className="w-100">
       <div className="d-flex w-100 justify-content-between p-2">
@@ -77,7 +77,7 @@ const Subjects = () => {
             {subTeachers.map((teacher, index) => {
               return (
                 <option key={index} value={teacher.id}>
-                  {teacher.lName + " " + teacher.lName}
+                  {teacher.fName + " " + teacher.lName}
                 </option>
               );
             })}
@@ -87,6 +87,7 @@ const Subjects = () => {
             className="btn w-100 btn-outline-success"
             onClick={() => {
               updateSubject({ ...subject, coordinator: teacher._id });
+              setSubjects([]);
               toast.success("👍 שופץ בהצלחה", toastOption);
             }}
           >

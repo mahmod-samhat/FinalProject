@@ -56,7 +56,7 @@ function addLesson(lesson) {
   return new Promise(async (resolve, reject) => {
     const exisLLesson = await Lesson.findOne({
       classRoom: lesson.classRoom,
-      teacher: lesson.teacher,
+      subject: lesson.subject,
     });
 
     if (exisLLesson) reject("השיעור שבחרת כבר משופץ לכיתה!!");

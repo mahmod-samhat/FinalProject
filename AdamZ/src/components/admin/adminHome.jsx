@@ -1,5 +1,6 @@
 import BoxTitle from "./boxTitle";
 import { Navigate } from "react-router-dom";
+import AdminNav from "./adminNav";
 const AdminHome = () => {
   return (
     <div className="w-100 h-100">

@@ -33,6 +33,7 @@ const Lessons = () => {
 
   const [subTeachers, setSubTeachers] = useState([]);
   const [subClassRooms, setSubClassRooms] = useState([]);
+  const [error, setError] = useState("");
 
   const [lessons, setLessons] = useState(null);
   const toastOption = {
@@ -73,6 +74,7 @@ const Lessons = () => {
             onChange={(e) => {
               setSubClassRooms(filterClassRooms(e.target.value));
               setGrade(e.target.value);
+              setError("");
             }}
           >
             <option defaultValue>שכבה</option>
@@ -112,6 +114,7 @@ const Lessons = () => {
             onChange={(e) => {
               setSubTeachers(filterTeachers(e.target.value));
               setSubject(subjects.find((item) => item.name == e.target.value));
+              setError("");
             }}
           >
             <option>מקצוע</option>
@@ -158,7 +161,7 @@ const Lessons = () => {
                     teacher: teacher._id,
                   })
                     .then((res) => setRefresh(!refresh))
-                    .catch((res) => alert(res.response.data.messege));
+                    .catch((res) => setError(res.response.data.messege));
               }
             }}
           >
@@ -166,14 +169,17 @@ const Lessons = () => {
           </button>
         </div>
       </div>
+
       <div className="overflow-auto w-75 px-2">
+        {error && <div className="alert alert-danger">{error}</div>}
+
         <table
           className="table align-middle caption-top bg-white"
           style={{ height: "500px" }}
         >
-          <caption className="text-center fs-5 pt-0">רשימת שיעורים </caption>
+          <caption className="text-center fs-5 ">רשימת שיעורים </caption>
           <thead className="bg-light">
-            <tr className="p-0">
+            <tr className="">
               <th>מס'</th>
               <th> כיתה</th>
               <th>מקצוע</th>

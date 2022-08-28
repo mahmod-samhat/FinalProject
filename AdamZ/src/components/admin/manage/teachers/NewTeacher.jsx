@@ -6,6 +6,8 @@ import { useEffect, useState, useRef } from "react";
 import { createTeacher } from "../../../../services/teacherServices";
 import { useNavigate } from "react-router-dom";
 import subjectService from "../../../../services/subjectServices";
+import { toast } from "react-toastify";
+
 const NewTeacher = () => {
   const [error, setError] = useState("");
   const [subjects, setSubjects] = useState(null);
@@ -50,6 +52,7 @@ const NewTeacher = () => {
         if (!subject) alert("בחר מקצוע למורה!!");
         else {
           createTeacher({ ...values, subject: subject._id });
+          toast.info("👍 נשמר בהצלחה");
           navigate(-1);
         }
       } catch ({ response }) {
@@ -195,7 +198,7 @@ const NewTeacher = () => {
           </button>
           <button
             className="btn btn-lg my-2 text-danger"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/teachers")}
           >
             <span>
               <i className="bi bi-x-lg"></i>

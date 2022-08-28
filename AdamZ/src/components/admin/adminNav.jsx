@@ -30,20 +30,19 @@ const AdminNav = () => {
           </NavLink>
         </li>
         <li className="hover">
-          <NavLink to="subjects" className="nav-link link-dark">
+          <NavLink to="/subjects" className="nav-link link-dark">
             <i className="bi me-2" width="16" height="16"></i>
             מקצועות
           </NavLink>
         </li>
         <li className="hover">
-          <NavLink to="lessons" className="nav-link link-dark">
+          <NavLink to="/lessons" className="nav-link link-dark">
             <i className="bi me-2" width="16" height="16"></i>
             שיעורים
           </NavLink>
         </li>
       </ul>
       <hr />
-
     </div>
   );
 };

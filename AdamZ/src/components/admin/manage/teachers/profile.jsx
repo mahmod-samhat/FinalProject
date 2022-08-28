@@ -60,7 +60,7 @@ const TeacherProfile = () => {
     async onSubmit(values) {
       try {
         await updateTeacher({ ...teacher, ...values });
-        toast("Your account is ready 👏");
+        toast.info("👍 נשמר בהצלחה");
         navigate(-1);
       } catch ({ response }) {
         if (response.status === 400) setError(response.data.message);
@@ -237,9 +237,9 @@ const TeacherProfile = () => {
             </div>
           </div>
           <p className="mx-2 fw-bold">כיתות לימוד :</p>
-          {lessons.map((lesson) => {
+          {lessons.map((lesson, index) => {
             return (
-              <div className="card-body py-0">
+              <div key={index} className="card-body py-0">
                 {lesson && (
                   <li className="list-group-item">{lesson.classRoom.id}</li>
                 )}

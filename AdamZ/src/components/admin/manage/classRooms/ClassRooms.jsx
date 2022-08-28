@@ -11,6 +11,7 @@ const ClassRooms = () => {
   const [AllClassRooms, setAllClassRooms] = useState([]);
   const [classRoom, setClassRoom] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [error, setError] = useState(false);
   const { getAllClassRooms, deleteClassRoom } = classRoomService;
   const navigate = useNavigate();
 
@@ -71,6 +72,8 @@ const ClassRooms = () => {
           </div>
           <div className="d-flex">
             <div className="overflow-auto w-100 px-2">
+              {error && <div className="alert alert-danger">{error}</div>}
+
               <table
                 className="table align-middle caption-top mb-0 bg-white"
                 style={{ height: "500px" }}
@@ -124,7 +127,7 @@ const ClassRooms = () => {
                               className="btn btn-link btn-sm btn-rounded"
                               onClick={() => {
                                 if (classRoom.students.length > 0)
-                                  alert(
+                                  setError(
                                     "אתה לא יכול למחוק כיתה משופץ בתוכה תלמידים!!! כיתה צריכה להיות ריקה לפני מחיקה "
                                   );
                                 else {
@@ -179,7 +182,6 @@ const ClassRooms = () => {
           </div>
         )}
       </div>
-      <ToastContainer />
     </div>
   );
 };

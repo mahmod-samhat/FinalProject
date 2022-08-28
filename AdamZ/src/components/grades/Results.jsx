@@ -34,11 +34,9 @@ const Results = () => {
         });
       });
     else
-      getTeachersById(teacher._id).then((resTeacher) => {
-        getClassRoomById(resTeacher.data.room_id).then((resClassRoom) => {
-          setClassRoom(resClassRoom.data);
-          setClassRoomTeacher(resTeacher.data);
-        });
+      getClassRoomById(teacher.room_id).then((resClassRoom) => {
+        setClassRoom(resClassRoom.data);
+        setClassRoomTeacher(teacher);
       });
   }, [semester]);
   return (

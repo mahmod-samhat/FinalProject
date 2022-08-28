@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import schoolInfo from "../../../../schoolInfo.json";
 import { getAllClassRooms } from "../../../../services/classRoomServices";
+
 const NewStudent = () => {
   const { grades } = schoolInfo;
   const [grade, setGrade] = useState(null);
@@ -52,8 +53,7 @@ const NewStudent = () => {
             grade,
             classRoom: classRoom._id,
           });
-
-          toast("התלמיד הוסף בהצלחה 👏", { autoClose: 8000 });
+          toast.info("👍 נשמר בהצלחה");
           navigate(-1);
         }
       } catch ({ response }) {

@@ -30,7 +30,11 @@ const AddGrades = ({ year }) => {
     draggable: false,
     progress: undefined,
   };
-
+  const updateLesson = (_id) => {
+    lessonService.getLessonById(_id).then((res) => {
+      setLesson(res.data);
+    });
+  };
   useEffect(() => {
     if (teacher.isAdmin)
       teacherService.getAllTeachers().then((res) => setTeachers(res.data));
@@ -96,9 +100,7 @@ const AddGrades = ({ year }) => {
               id="floatingSelect"
               aria-label="Floating label select example"
               onChange={(e) => {
-                lessonService.getLessonById(e.target.value).then((res) => {
-                  setLesson(res.data);
-                });
+                updateLesson(e.target.value);
               }}
             >
               <option defaultValue>בחר...</option>

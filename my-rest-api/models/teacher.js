@@ -82,19 +82,7 @@ const teacherSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-teacherSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign(
-    {
-      _id: this._id,
-      isAdmin: this.isAdmin,
-      fName: this.fName,
-      lName: this.lName,
-    },
-    config.get("jwtKey"),
-    { expiresIn: "24h" }
-  );
-  return token;
-};
+
 teacherSchema.methods.cancelRoomId = function () {
   this.room_id = null;
 };

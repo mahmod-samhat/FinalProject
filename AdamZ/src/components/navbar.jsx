@@ -1,10 +1,12 @@
 import DropList from "./common/droplist";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
 import "../css/main.css";
-const Navbar = () => {
-  const { teacher } = useAuth();
+const Navbar = ({ updateLogInState, updateIsAdminState }) => {
+  const { teacher, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <nav
@@ -22,12 +24,15 @@ const Navbar = () => {
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
+          <span className="m-2">
+            AdamZ <i className="bi bi-stack"></i>
+          </span>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarsExample03">
           <ul className="navbar-nav mx-auto ">
             <li className="nav-item d-flex">
-              <NavLink to="/" className="nav-link text-white">
+              <NavLink to="/home" className="nav-link text-white">
                 <i className="bi bi-house-door"></i>
                 דף ראשי
               </NavLink>
@@ -53,6 +58,20 @@ const Navbar = () => {
                   <NavLink to="/scores" className="nav-link text-white">
                     <i className="bi bi-file-earmark-text"></i>תעודות
                   </NavLink>
+                </li>
+                <li className="nav-item d-flex d-sm-none">
+                  <button
+                    className="btn text-white bg-danger"
+                    onClick={() => {
+                      logout();
+                      updateLogInState(false);
+                      updateIsAdminState(false);
+                      navigate("/logIn");
+                    }}
+                  >
+                    <i className="bi bi-door-open"></i>
+                    יציאה
+                  </button>
                 </li>
               </>
             )}

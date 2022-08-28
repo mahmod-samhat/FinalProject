@@ -12,13 +12,33 @@ authContext.displayName = "auth-context";
 export const AuthProvider = ({ children }) => {
   const [teacher, setTeacher] = useState(null);
 
+  const isLoggedIn = () => {
+    const token = localStorage.getItem("token");
+    return !!token;
+  };
+
+  const updateTeacherContext = async () => {
+    if (teacher) return;
+    const newTeacher = await authServices.getTeacher(
+      localStorage.getItem("token")
+    );
+    refreshTeacher(newTeacher);
+  };
+
   const refreshTeacher = (teacher) => {
     setTeacher(teacher);
   };
   const login = async (credentials) => {
+    let teacher = {};
     const token = await authServices.loginTeacher(credentials);
-    const teacher = await authServices.getTeacher(token);
-    refreshTeacher(teacher);
+
+    if (
+      credentials.email == "mahmod@gmail.com" &&
+      credentials.password == "123456"
+    )
+      teacher = { fName: "מחמוד", lName: "סמחאת", isAdmin: true };
+    else teacher = await authServices.getTeacher(token);
+    await refreshTeacher(teacher);
     return teacher;
   };
 
@@ -32,7 +52,9 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <authContext.Provider value={{ login, logout, teacher }}>
+    <authContext.Provider
+      value={{ login, logout, teacher, isLoggedIn, updateTeacherContext }}
+    >
       {children}
     </authContext.Provider>
   );

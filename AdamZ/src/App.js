@@ -5,15 +5,13 @@ import Navbar from "./components/navbar";
 import Home from "./components/home";
 import AddGrades from "./components/grades/addGrades";
 import Teachers from "./components/admin/manage/teachers/teachers";
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, Routes, useNavigate, Switch, Navigate } from "react-router-dom";
 
 import { useIdleTimer } from "react-idle-timer";
 import { useAuth } from "./context/authContext";
 
 import LogIn from "./components/logIn/logIn";
-import { createContext } from "react";
 import NewTeacher from "./components/admin/manage/teachers/NewTeacher";
 import AdminHome from "./components/admin/adminHome";
 import NewClassRoom from "./components/admin/manage/classRooms/newClassRoom";
@@ -26,83 +24,144 @@ import Lessons from "./components/admin/manage/lessons/lessons";
 import TeacherProfile from "./components/admin/manage/teachers/profile";
 import StudentProfile from "./components/admin/manage/students/profile";
 import Scores from "./components/grades/Results";
-export const showLogInContext = createContext(true);
-export const updateYear = createContext(null);
+import { ToastContainer } from "react-toastify";
+import MainHome from "./components/mainHome";
+import RequireAuth from "./components/requireAuth";
+import AboutUs from "./components/aboutUs";
 
 function App() {
-  const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { teacher, updateTeacherContext, isLoggedIn } = useAuth();
 
-  const handleOnIdle = () => {
-    logout();
-    updateLogInState(false);
-    updateIsAdminState(false);
-    navigate("/");
-  };
+  useEffect(() => {
+    isLoggedIn() && updateTeacherContext();
+  }, []);
 
-  useIdleTimer({
-    timeout: 4 * 60 * 60 * 1000,
-    onIdle: handleOnIdle,
-  });
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [yearState, setyearState] = useState("2021");
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  function updateLogInState(value) {
-    setIsLoggedIn(value);
-  }
-
-  function setYear(year) {
-    setyearState(year);
-  }
-
-  function updateIsAdminState(value) {
-    setIsAdmin(value);
-  }
-
-  return !isLoggedIn ? (
-    <LogIn
-      updateLogInState={updateLogInState}
-      updateIsAdminState={updateIsAdminState}
-    />
-  ) : (
-    <updateYear.Provider
-      value={{ currentYear: yearState, setCurrentYear: setYear }}
-    >
-      <div className="app min-vh-100">
-        <Header
-          updateLogInState={updateLogInState}
-          updateIsAdminState={updateIsAdminState}
+  return (
+    <>
+      <Routes>
+        <Route path="/logIn" element={<LogIn />} />
+        {/* <Route path="/" element={isLoggedIn ?<LogIn />} /> */}
+        <Route path="/aboutUs" element={<AboutUs />} />
+        <Route
+          path="/home"
+          element={
+            teacher?.isAdmin ? (
+              <RequireAuth>
+                <AdminHome />
+              </RequireAuth>
+            ) : (
+              <RequireAuth>
+                <Home />
+              </RequireAuth>
+            )
+          }
         />
-        <Navbar />
-        <div className="d-flex h-100">
-          {isAdmin && <AdminNav />}
-
-          <Routes>
-            <Route
-              path="/"
-              exact
-              element={isAdmin ? <AdminHome /> : <Home />}
-            />
-            <Route path="/addScores" element={<AddGrades />} />
-            <Route path="/teachers" element={<Teachers />} />
-            <Route path="/teachers/profile/:id" element={<TeacherProfile />} />
-            <Route path="/classRooms" element={<ClassRooms />} />
-            <Route path="/addTeacher" element={<NewTeacher />} />
-            <Route path="/newClassRoom" element={<NewClassRoom />} />
-            <Route path="/subjects" element={<Subjects />} />
-            <Route path="/newSubject" element={<NewSubject />} />
-            <Route path="/students" element={<Students />} />
-            <Route path="/students/profile/:id" element={<StudentProfile />} />
-
-            <Route path="/newStudent" element={<NewStudent />} />
-            <Route path="/lessons" element={<Lessons />} />
-            <Route path="/scores" element={<Scores />} />
-          </Routes>
-        </div>
-      </div>
-    </updateYear.Provider>
+        <Route
+          path="/addScores"
+          element={
+            <RequireAuth>
+              <AddGrades />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/teachers"
+          element={
+            <RequireAuth>
+              <Teachers />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/students"
+          element={
+            <RequireAuth>
+              <Students />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/classRooms"
+          element={
+            <RequireAuth>
+              <ClassRooms />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/teachers/profile/:id"
+          element={
+            <RequireAuth>
+              <TeacherProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="addTeacher"
+          element={
+            <RequireAuth>
+              <NewTeacher />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/newClassRoom"
+          element={
+            <RequireAuth>
+              <NewClassRoom />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/subjects"
+          element={
+            <RequireAuth>
+              <Subjects />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/newSubject"
+          element={
+            <RequireAuth>
+              <NewSubject />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/newStudent"
+          element={
+            <RequireAuth>
+              <NewStudent />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/students/profile/:id"
+          element={
+            <RequireAuth>
+              <StudentProfile />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/lessons"
+          element={
+            <RequireAuth>
+              <Lessons />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/scores"
+          element={
+            <RequireAuth>
+              <Scores />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </>
   );
 }
 

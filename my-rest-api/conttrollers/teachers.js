@@ -25,7 +25,7 @@ function getTeacherById(_id) {
       .populate("subject")
       .populate("room_id")
       .populate("lessons")
-      // .populate({ path: "lessons", populate: { path: "classRoom" } })
+      .populate({ path: "lessons", populate: { path: "classRoom" } })
       .then((teacher) => resolve(teacher))
       .catch((err) => reject(err));
   });
@@ -52,7 +52,6 @@ function addTeacher(teacher) {
     }
   });
 }
-
 
 function deleteTeacher(id) {
   return new Promise(async (resolve, reject) => {

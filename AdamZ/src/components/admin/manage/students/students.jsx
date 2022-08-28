@@ -10,7 +10,6 @@ import {
 import { useAuth } from "../../../../context/authContext";
 const Students = () => {
   const { teacher } = useAuth();
-  const [teacherr, setTeacherr] = useState(null);
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -25,26 +24,21 @@ const Students = () => {
   const { getAllStudents } = studentService;
   const navigate = useNavigate();
   useEffect(() => {
-    teacherService.getTeachersById(teacher._id).then((res) => {
-      if (res.data.isAdmin) {
-        getAllStudents().then((res) => {
-          setSubStudents(res.data);
-          setStudents(res.data);
-          setIsAdmin(true);
-        });
-        getAllClassRooms().then((res) => setClassRooms(res.data));
-      } else if (res.data.room_id) {
-        setClassRoom(res.data.room_id._id);
+    if (teacher.isAdmin) {
+      getAllStudents().then((res) => {
+        setSubStudents(res.data);
+        setStudents(res.data);
+        setIsAdmin(true);
+      });
+      getAllClassRooms().then((res) => setClassRooms(res.data));
+    } else if (teacher.room_id) {
+      setClassRoom(teacher.room_id._id);
 
-        studentService
-          .studentsByClassRoom(res.data.room_id._id)
-          .then((ress) => {
-            setStudents(ress.data);
-            setSubStudents(ress.data);
-          });
-      }
-      setTeacherr(res.data);
-    });
+      studentService.studentsByClassRoom(teacher.room_id._id).then((ress) => {
+        setStudents(ress.data);
+        setSubStudents(ress.data);
+      });
+    }
   }, []);
   return (
     <div className="d-flex justify-content-start h-100 w-100">
@@ -52,7 +46,7 @@ const Students = () => {
         <div className="overflow-auto h-75">
           <div className="input-group p-3">
             <div className="form-floating mx-3 w-25">
-              {teacherr?.isAdmin ? (
+              {teacher?.isAdmin ? (
                 <>
                   <select
                     className="form-select"
@@ -84,14 +78,14 @@ const Students = () => {
                 <span className="p-2 bg-light fs-5">
                   שכבה :
                   <span className="fw-bold fs-4 mx-2">
-                    {teacherr?.room_id.grade}
+                    {teacher?.room_id.grade}
                   </span>
                 </span>
               )}
             </div>
 
             <div className="form-floating mx-3 w-25">
-              {teacherr?.isAdmin ? (
+              {teacher?.isAdmin ? (
                 <>
                   <select
                     className="form-select "
@@ -118,7 +112,7 @@ const Students = () => {
                 <span className="p-2 bg-light fs-5">
                   כיתה :
                   <span className="fw-bold fs-4 mx-2">
-                    {teacherr?.room_id.id}
+                    {teacher?.room_id.id}
                   </span>
                 </span>
               )}
@@ -150,7 +144,7 @@ const Students = () => {
           style={{ height: "500px" }}
         >
           <caption className="text-end fs-5 ">
-            {teacherr?.isAdmin && (
+            {teacher?.isAdmin && (
               <button
                 className="btn btn-outline-primary ms-5 "
                 onClick={() => navigate("/newStudent")}
@@ -271,7 +265,7 @@ const Students = () => {
                   student.classRoom.classRoomTeacher?.lName}
             </li>
           </div>
-          {teacherr?.isAdmin && (
+          {teacher?.isAdmin && (
             <div className="card-body text-center">
               <NavLink to={`profile/${student.id}`} className="card-link mx-2">
                 עוד פרטים...
