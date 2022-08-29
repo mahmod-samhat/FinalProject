@@ -60,7 +60,7 @@ router.post("/newTeacher", (req, res) => {
       const error = err.details ? err.details[0].message : err;
       res.status(400).json({
         status: "error!! check your inputs please",
-        messege: error,
+        message: error,
       });
     });
 });

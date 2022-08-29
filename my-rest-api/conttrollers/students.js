@@ -13,22 +13,19 @@ function getAllStudents() {
       .catch((err) => reject(err));
   });
 }
+
 function studentsByClassRoom(classRoom) {
   return new Promise((resolve, reject) => {
     Student.find({ classRoom })
       .populate({ path: "classRoom", populate: { path: "classRoomTeacher" } })
+      .populate({
+        path: "results",
+        populate: { path: "lesson", populate: { path: "subject" } },
+      })
       .then((students) => resolve(students))
       .catch((err) => reject(err));
   });
 }
-
-// function getStudentById(_id) {
-//   return new Promise((resolve, reject) => {
-//     Student.findById(_id)
-//       .then((student) => resolve(student))
-//       .catch((err) => reject(err));
-//   });
-// }
 
 function addStudent(student) {
   return new Promise(async (resolve, reject) => {
@@ -75,6 +72,10 @@ function getStudentById(id) {
   return new Promise((resolve, reject) => {
     Student.findOne({ id })
       .populate({ path: "classRoom", populate: { path: "classRoomTeacher" } })
+      .populate({
+        path: "results",
+        populate: { path: "lesson", populate: { path: "subject" } },
+      })
       .then((student) => resolve(student))
       .catch((err) => reject(err));
   });

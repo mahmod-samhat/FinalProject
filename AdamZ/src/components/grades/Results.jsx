@@ -2,7 +2,10 @@ import { useReactToPrint } from "react-to-print";
 import { useRef, useState, useEffect } from "react";
 import { useAuth } from "../../context/authContext";
 import { getTeachersById } from "../../services/teacherServices";
-import { getAllStudents } from "../../services/studentServices";
+import {
+  getAllStudents,
+  studentsByClassRoom,
+} from "../../services/studentServices";
 import {
   getAllClassRooms,
   getClassRoomById,
@@ -17,12 +20,9 @@ const Results = () => {
   });
 
   const [semester, setSemester] = useState([]);
-  const [results, setResults] = useState([]);
   const [students, setStudents] = useState([]);
   const [subStudents, setSubStudents] = useState([]);
   const [student, setStudent] = useState(null);
-  const [classRoomTeacher, setClassRoomTeacher] = useState(null);
-  const [classRoom, setClassRoom] = useState(null);
   const [classRooms, setClassRooms] = useState([]);
 
   useEffect(() => {
@@ -34,9 +34,11 @@ const Results = () => {
         });
       });
     else
-      getClassRoomById(teacher.room_id).then((resClassRoom) => {
-        setClassRoom(resClassRoom.data);
-        setClassRoomTeacher(teacher);
+      getClassRoomById(teacher.room_id._id).then((resClassRoom) => {
+        studentsByClassRoom(teacher.room_id._id).then((resStudents) => {
+          setStudents(resStudents.data);
+          setClassRooms([resClassRoom.data]);
+        });
       });
   }, [semester]);
   return (
@@ -67,11 +69,13 @@ const Results = () => {
                 id="floatingSelect"
                 aria-label="Floating label select example"
                 onChange={(e) => {
-                  setSubStudents(
-                    students.filter(
-                      (student) => student.classRoom._id === e.target.value
-                    )
-                  );
+                  teacher.isAdmin
+                    ? setSubStudents(
+                        students.filter(
+                          (student) => student.classRoom._id === e.target.value
+                        )
+                      )
+                    : setSubStudents(students);
                 }}
               >
                 <option defaultValue>בחר...</option>

@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import scoreService from "../../services/scoreServices";
 
-const Grade = ({ student, index, scores, updateScores, semester, lesson }) => {
+const Grade = ({
+  student,
+  index,
+  scores,
+  updateScores,
+  semester,
+  lesson,
+  handleError,
+}) => {
   const [textGrade, setTextGrade] = useState({});
   const [score, setScore] = useState(null);
   useEffect(() => {
@@ -29,23 +37,27 @@ const Grade = ({ student, index, scores, updateScores, semester, lesson }) => {
           <div className="form-outline me-auto">
             <input
               defaultValue={score ? score.score : ""}
-              type="text"
+              type="number"
               className="form-control form-control-sm"
-              onMouseOut={(e) => {
-                const textG = scoreService.generateTextGrade(
-                  Number(e.target.value)
-                );
-                setTextGrade(textG);
-                const score = {
-                  student: student._id,
-                  score: Number(e.target.value),
-                  textScore: textG.textScore,
-                  heged: textG.heged,
-                  semester,
-                  lesson: lesson._id,
-                };
-                scores[index] = score;
-                updateScores(scores);
+              onBlur={(e) => {
+                if (e.target.value != "") {
+                  if (e.target.value < 40) e.target.value = 40;
+                  else if (e.target.value > 100) e.target.value = 100;
+                  const textG = scoreService.generateTextGrade(
+                    Number(e.target.value)
+                  );
+                  setTextGrade(textG);
+                  const score = {
+                    student: student._id,
+                    score: Number(e.target.value),
+                    textScore: textG.textScore,
+                    heged: textG.heged,
+                    semester,
+                    lesson: lesson._id,
+                  };
+                  scores[index] = score;
+                  updateScores(scores);
+                }
               }}
             />
           </div>

@@ -61,7 +61,7 @@ const TeacherProfile = () => {
       try {
         await updateTeacher({ ...teacher, ...values });
         toast.info("👍 נשמר בהצלחה");
-        navigate(-1);
+        navigate("/teachers");
       } catch ({ response }) {
         if (response.status === 400) setError(response.data.message);
       }
@@ -171,11 +171,7 @@ const TeacherProfile = () => {
               </label>
               <input className="form-control" type="file" id="formFile" />
             </div>
-            {/* <img
-              height="50px"
-              width="50px"
-              src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-            /> */}
+    
           </div>
 
           <button
@@ -193,7 +189,9 @@ const TeacherProfile = () => {
             שמור
           </button>
           <button
+            type="button"
             className="btn btn-lg my-2 text-danger"
+            onClick={() => navigate(-1)}
             style={{
               paddingLeft: "2.5rem",
               paddingRight: "2.5rem",
@@ -232,7 +230,7 @@ const TeacherProfile = () => {
               <img
                 src={teacher.imageURL}
                 className="card-img-end me-auto h-50 w-50"
-                alt="..."
+                alt="teacher photo"
               />
             </div>
           </div>
@@ -249,11 +247,11 @@ const TeacherProfile = () => {
           <ul className="list-group list-group-flush ">
             <div className="card-body text-center">
               <NavLink
-                to="profile"
+                to="/teachers"
                 className="card-link mx-2"
                 onClick={() => {
                   deleteTeacher(teacher.id);
-                  navigate(-1);
+                  toast.error("👍 נמחק בהצלחה");
                 }}
               >
                 <i className="bi bi-trash3"></i>

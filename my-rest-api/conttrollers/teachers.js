@@ -33,6 +33,12 @@ function getTeacherById(_id) {
 
 function addTeacher(teacher) {
   return new Promise(async (resolve, reject) => {
+    const existTeacher = await Teacher.findOne({ id: teacher.id });
+    if (existTeacher) reject(`יש מורה משופץ במערכת עם ת.ז ${existTeacher.id}`);
+    const existEmail = await Teacher.findOne({ email: teacher.email });
+    if (existEmail)
+      reject(`יש מורה משופץ במערכת עם אימייל ${existEmail.email}`);
+
     const newTeacher = new Teacher(teacher);
     const { error, value } = newTeacher.validateTeacher(teacher);
     if (error) reject(error);

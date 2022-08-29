@@ -21,7 +21,7 @@ const NewSubject = () => {
     async onSubmit(values) {
       try {
         const subject = await createSubject(values);
-        toast("הכיתה נרשמה בהצלחה 👏", { autoClose: 8000 });
+        toast.info("הכיתה נרשמה בהצלחה 👏");
         navigate(-1);
       } catch ({ response }) {
         if (response.status === 400) setError(response.data.message);
@@ -42,7 +42,7 @@ const NewSubject = () => {
               {...form.getFieldProps("name")}
               error={form.touched.name && form.errors.name}
             />
-            <div class="form-floating flex-fill">
+            <div className="form-floating flex-fill">
               <textarea
                 className="form-control h-50"
                 placeholder="Leave a comment here"

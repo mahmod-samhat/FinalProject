@@ -1,4 +1,4 @@
-import Footer from "../footer"
+import Footer from "../footer";
 import { useFormik } from "formik";
 import Joi from "joi";
 import { formikValidateUsingJoi } from "../../utils/formikValidationUsingJoi";
@@ -33,7 +33,7 @@ const LogIn = () => {
       try {
         const teacher = await login(values);
         if (teacher) {
-          navigate("/home");
+          navigate("/");
         }
       } catch (err) {
         if (err.response?.status === 400) setError(err.response?.data.message);

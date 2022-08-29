@@ -19,17 +19,10 @@ const AddGrades = ({ year }) => {
   const [students, setStudents] = useState([]);
   const [scores, setScores] = useState([]);
   const [lesson, setLesson] = useState(null);
+  const [error, setError] = useState("");
 
   const { teacher } = useAuth();
-  const toastOption = {
-    position: "bottom-right",
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: false,
-    progress: undefined,
-  };
+
   const updateLesson = (_id) => {
     lessonService.getLessonById(_id).then((res) => {
       setLesson(res.data);
@@ -116,66 +109,71 @@ const AddGrades = ({ year }) => {
         )}
       </div>
       <div className="overflow-auto h-75">
-        <table
-          className="table align-middle caption-top mb-0 bg-white"
-          style={{ height: "500px" }}
-        >
-          <caption className="text-center fs-5 pt-0">רשימת תלמידים</caption>
-          <thead className="bg-light">
-            <tr>
-              <th>#</th>
-              <th>שם</th>
-              <th>ת.ז</th>
-              <th>הציון הסופי</th>
-              <th>הערכה מילולית</th>
-              <th>היגד</th>
-            </tr>
-          </thead>
-          <tbody>
-            {lesson &&
-              students.map((student, index) => {
-                return (
-                  <Grade
-                    key={index}
-                    student={student}
-                    index={index}
-                    updateScores={(scores) => setScores(scores)}
-                    scores={scores}
-                    semester={semester}
-                    lesson={lesson}
-                  />
-                );
-              })}
-          </tbody>
-        </table>
-        <div className="text-lg pt-2">
-          <button
-            type="btn"
-            className="btn btn-lg bg-primary my-2 text-light mx-2"
-            onClick={() => {
-              scoreService
-                .setScores(scores)
-                .then((res) => toast.info("👍 נשמר בהצלחה", toastOption))
-                .catch((err) => alert("error"));
-            }}
-          >
-            <span>
-              <i className="bi bi-check2-circle"></i>
-            </span>
-            שמור
-          </button>
-          <button
-            className="btn btn-lg my-2 bg-danger text-light mx-2"
-            onClick={() => navigate(-1)}
-          >
-            <span>
-              <i className="bi bi-x-lg"></i>
-            </span>
-            ביטול
-          </button>
+        {error && <div className="alert alert-danger fs-10">{error}</div>}
+        <div className="overflow-auto h-75">
+          <table className="table align-middle caption-top mb-0 bg-white">
+            <caption className="text-center fs-5 pt-0">רשימת תלמידים</caption>
+            <thead className="bg-light">
+              <tr>
+                <th>#</th>
+                <th>שם</th>
+                <th>ת.ז</th>
+                <th>הציון הסופי</th>
+                <th>הערכה מילולית</th>
+                <th>היגד</th>
+              </tr>
+            </thead>
+            <tbody>
+              {lesson &&
+                students.map((student, index) => {
+                  return (
+                    <Grade
+                      key={index}
+                      student={student}
+                      index={index}
+                      updateScores={(scores) => setScores(scores)}
+                      scores={scores}
+                      semester={semester}
+                      lesson={lesson}
+                      handleError={(msg) => setError(msg)}
+                    />
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
+        {lesson && (
+          <div className="text-lg">
+            <button
+              type="btn"
+              className="btn btn-lg bg-primary my-2 text-light mx-2"
+              onClick={() => {
+                scoreService
+                  .setScores(scores)
+                  .then((res) => {
+                    toast.info("👍 נשמר בהצלחה");
+                    navigate(-1);
+                  })
+                  .catch((err) => setError(err.response.data.message));
+              }}
+            >
+              <span>
+                <i className="bi bi-check2-circle"></i>
+              </span>
+              שמור
+            </button>
+            <button
+              className="btn btn-lg my-2 bg-danger text-light mx-2"
+              onClick={() => navigate(-1)}
+            >
+              <span>
+                <i className="bi bi-x-lg"></i>
+              </span>
+              ביטול
+            </button>
+          </div>
+        )}
       </div>
-      <ToastContainer />
     </div>
   );
 };

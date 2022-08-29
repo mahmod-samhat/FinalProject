@@ -28,6 +28,7 @@ import { ToastContainer } from "react-toastify";
 import MainHome from "./components/mainHome";
 import RequireAuth from "./components/requireAuth";
 import AboutUs from "./components/aboutUs";
+import PageNotFound from "./components/PageNotFound";
 
 function App() {
   const { teacher, updateTeacherContext, isLoggedIn } = useAuth();
@@ -40,10 +41,9 @@ function App() {
     <>
       <Routes>
         <Route path="/logIn" element={<LogIn />} />
-        {/* <Route path="/" element={isLoggedIn ?<LogIn />} /> */}
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route
-          path="/home"
+          path="/"
           element={
             teacher?.isAdmin ? (
               <RequireAuth>
@@ -157,6 +157,14 @@ function App() {
           element={
             <RequireAuth>
               <Scores />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <RequireAuth>
+              <PageNotFound />
             </RequireAuth>
           }
         />

@@ -15,6 +15,8 @@ const Subjects = () => {
   const [subTeachers, setSubTeachers] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [subject, setSubject] = useState([]);
+  const [coordinator, setCoordinator] = useState(false);
+  const [isValidInputs, setIsValidInputs] = useState(false);
   const navigate = useNavigate();
   const toastOption = {
     position: "bottom-right",
@@ -27,11 +29,8 @@ const Subjects = () => {
   };
   useEffect(() => {
     getAllSubjects().then((res) => setSubjects(res.data));
-    getAllTeachers().then((res) => {
-      setSubTeachers(res.data);
-      setTeachers(res.data);
-    });
-  }, [subjects]);
+    getAllTeachers().then((res) => setTeachers(res.data));
+  }, [coordinator]);
   return (
     <div className="w-100">
       <div className="d-flex w-100 justify-content-between p-2">
@@ -46,6 +45,7 @@ const Subjects = () => {
           <select
             className="form-select mx-2"
             onChange={(e) => {
+              setTeacher([]);
               setSubject(
                 subjects.find((subject) => subject.name == e.target.value)
               );
@@ -71,6 +71,7 @@ const Subjects = () => {
               setTeacher(
                 teachers.find((teacher) => teacher.id == e.target.value)
               );
+              teacher && subject && subject(setIsValidInputs(true));
             }}
           >
             <option defaultValue>מורה</option>
@@ -83,11 +84,21 @@ const Subjects = () => {
             })}
           </select>
           <button
+            disabled={!isValidInputs}
             type="button"
             className="btn w-100 btn-outline-success"
             onClick={() => {
-              updateSubject({ ...subject, coordinator: teacher._id });
-              setSubjects([]);
+              updateSubject({ ...subject, coordinator: teacher._id }).then(
+                (res) => {
+                  setSubject(null);
+                  setTeacher(null);
+                  setTeachers([]);
+                  setSubjects([]);
+                  setSubTeachers([]);
+                }
+              );
+              setCoordinator(!coordinator);
+              setIsValidInputs(false);
               toast.success("👍 שופץ בהצלחה", toastOption);
             }}
           >
@@ -115,11 +126,11 @@ const Subjects = () => {
                     </span>
                   </h4>
                 </div>
-                <div className="card-body">
+                <div className="card-body flex-grow-0">
                   <h5 className="card-title text-secondary">
                     צוות <span>{subject.name}</span>
                   </h5>
-                  <h6 className="card-subtitle mb-2 text-muted-danger text-primary">
+                  <h6 className="card-subtitle  text-muted-danger text-primary">
                     רכז :
                     <u>
                       {!subject.coordinator
@@ -130,7 +141,7 @@ const Subjects = () => {
                     </u>
                   </h6>
                 </div>
-                <ul className="list-group list-group-flush">
+                <ul className="list-group list-group-flush mt-0">
                   {teachers
                     .filter((teacher) => teacher.subject.name == subject.name)
                     .map((teacher, index) => {

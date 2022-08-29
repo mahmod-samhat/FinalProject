@@ -15,16 +15,11 @@ const StudentProfile = () => {
   const [error, setError] = useState("");
   const [student, setStudent] = useState(null);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   useEffect(() => {
-    async function getStudent() {
-      const res = await getStudentById(id);
-      setStudent(res.data);
-    }
-    getStudent();
+    getStudentById(id).then((res) => setStudent(res.data));
   }, []);
 
-  const navigate = useNavigate();
   const form = useFormik({
     validateOnMount: true,
     enableReinitialize: true,
@@ -51,7 +46,7 @@ const StudentProfile = () => {
     async onSubmit(values) {
       try {
         await updateStudent({ ...student, ...values });
-        toast("Your account is ready 👏");
+        toast.info("👍 נשמר בהצלחה");
         navigate(-1);
       } catch ({ response }) {
         if (response.status === 400) setError(response.data.message);
@@ -137,13 +132,13 @@ const StudentProfile = () => {
               </div>
             </div>
           </div>
-          <div class="mb-3">
+          <div className="mb-3">
             <label htmlFor="formFile" className="form-label">
               תמונה
             </label>
             <input className="form-control" type="file" id="formFile" />
           </div>
-          <div class="form-floating">
+          <div className="form-floating">
             <textarea
               className="form-control h-50"
               placeholder="Leave a comment here"
@@ -161,11 +156,13 @@ const StudentProfile = () => {
             }}
           >
             <span>
-              <i class="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg"></i>
             </span>
             שמור
           </button>
           <button
+            type="button"
+            onClick={() => navigate(-1)}
             className="btn btn-lg my-2 text-danger"
             style={{
               paddingLeft: "2.5rem",
@@ -173,7 +170,7 @@ const StudentProfile = () => {
             }}
           >
             <span>
-              <i class="bi bi-x-lg"></i>
+              <i className="bi bi-x-lg"></i>
             </span>
             ביטול
           </button>
@@ -181,23 +178,23 @@ const StudentProfile = () => {
       </div>
       {student && (
         <div className="card m-4 bg-light w-50 h-75">
-          <div class="card-body">
+          <div className="card-body">
             <div className="d-flex">
               <div>
                 <u>
-                  <h5 class="card-title">
+                  <h5 className="card-title">
                     {student.fName + " " + student.lName}
                   </h5>
                 </u>
-                <p class="card-text">{student.id}</p>
+                <p className="card-text">{student.id}</p>
                 <p>
                   <span className="mt-5 text-succsess">מחנך : </span>
-                  {student.classRoom ? (
-                    student.classRoom.classRoomTeacher.fName +
+                  {student.classRoom.classRoomTeacher ? (
+                    student.classRoom.classRoomTeacher?.fName +
                     " " +
-                    student.classRoom.classRoomTeacher.lName
+                    student.classRoom.classRoomTeacher?.lName
                   ) : (
-                    <i class="bi bi-x-circle text-danger"></i>
+                    <i className="bi bi-x-circle text-danger"></i>
                   )}
                 </p>
 
@@ -205,25 +202,27 @@ const StudentProfile = () => {
                 {student.classRoom ? (
                   student.classRoom.id
                 ) : (
-                  <i class="bi bi-x-circle text-danger"></i>
+                  <i className="bi bi-x-circle text-danger"></i>
                 )}
               </div>
               <img
                 src={student.imageURL}
-                class="card-img-end me-auto h-50 w-50"
-                alt="..."
+                className="card-img-end me-auto h-50 w-50"
+                alt="student"
               />
             </div>
           </div>
 
-          <ul class="list-group list-group-flush ">
-            <div class="card-body text-center">
+          <ul className="list-group list-group-flush ">
+            <div className="card-body text-center">
               <NavLink
                 to="profile"
                 className="card-link mx-2"
                 onClick={() => {
                   deleteStudent(student);
-                  navigate(-1);
+                  toast.error("👍 נמחק בהצלחה");
+
+                  navigate("/students");
                 }}
               >
                 <i className="bi bi-trash3"></i>

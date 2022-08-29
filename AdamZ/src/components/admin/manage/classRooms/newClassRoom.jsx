@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import { createClassRoom } from "../../../../services/classRoomServices";
 import { useNavigate } from "react-router-dom";
 import schoolInfo from "../../../../schoolInfo.json";
 
 const NewClassRoom = () => {
+  const [isValidInputs, setIsValidInputs] = useState(false);
+
   const [error, setError] = useState("");
   const [grade, setGrade] = useState("");
   const [classRoom, setClassRoom] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    grade && classRoom && setIsValidInputs(true);
+  }, [grade, classRoom]);
 
   return (
     <div className="w-75 p-3">
@@ -67,12 +74,15 @@ const NewClassRoom = () => {
 
         <div className="text-center text-lg pt-2">
           <button
+            disabled={!isValidInputs}
             type="submit"
             className="btn btn-lg my-2 text-primary"
             onClick={() => {
               createClassRoom({ grade, id: classRoom })
                 .then((res) => {
-                  navigate(-1);
+                  toast.success("👍 נשמר בהצלחה");
+
+                  navigate("/classRooms");
                 })
                 .catch((err) => {
                   setError("כיתה כבר נמצאת במערכת");

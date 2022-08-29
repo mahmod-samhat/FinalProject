@@ -32,7 +32,6 @@ const Teachers = () => {
               placeholder="חיפוש מורה"
               id="form1"
               className="form-control"
-              // onBlur={(e) => setTeachers(allTeachers)}
               onChange={(e) => {
                 setTeachers(
                   allTeachers.filter(
@@ -49,10 +48,7 @@ const Teachers = () => {
           </button>
         </div>
         <div className="overflow-auto h-75">
-          <table
-            className="table align-middle caption-top mb-0 bg-white"
-            style={{ height: "500px" }}
-          >
+          <table className="table align-middle caption-top mb-0 bg-white">
             <caption className="text-center fs-5 pt-0">רשימת מורים</caption>
             <thead className="bg-light">
               <tr>

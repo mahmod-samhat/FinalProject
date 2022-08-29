@@ -16,8 +16,6 @@ const NewStudent = () => {
   const [subClassRooms, setSubClassRooms] = useState([]);
   const [classRoom, setClassRoom] = useState(null);
   const [error, setError] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
-  const studentimage = useRef();
   useEffect(() => {
     getAllClassRooms().then((res) => setClassRooms(res.data));
   }, []);
@@ -171,24 +169,19 @@ const NewStudent = () => {
               </div>
             </div>
           </div>
-          <div class="mb-3">
+          <div className="mb-3">
             <label htmlFor="formFile" className="form-label">
               תמונה
             </label>
-            <input
-              studentimage
-              className="form-control"
-              type="file"
-              id="formFile"
-            />
+            <input className="form-control" type="file" id="formFile" />
           </div>
-          <div class="form-floating">
+          <div className="form-floating">
             <textarea
               className="form-control h-50"
               placeholder="Leave a comment here"
               id="floatingTextarea"
             ></textarea>
-            <label for="floatingTextarea">הערות</label>
+            <label htmlFor="floatingTextarea">הערות</label>
           </div>
           <button
             disabled={!form.isValid}
@@ -200,19 +193,21 @@ const NewStudent = () => {
             }}
           >
             <span>
-              <i class="bi bi-plus-lg"></i>
+              <i className="bi bi-plus-lg"></i>
             </span>
             שמור
           </button>
           <button
+            type="button"
             className="btn btn-lg my-2 text-danger"
+            onClick={() => navigate(-1)}
             style={{
               paddingLeft: "2.5rem",
               paddingRight: "2.5rem",
             }}
           >
             <span>
-              <i class="bi bi-x-lg"></i>
+              <i className="bi bi-x-lg"></i>
             </span>
             ביטול
           </button>

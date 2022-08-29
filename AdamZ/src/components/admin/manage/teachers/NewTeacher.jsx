@@ -1,4 +1,4 @@
-import { useFormik, Field } from "formik";
+import { useFormik, Field, replace } from "formik";
 import Joi from "joi";
 import { formikValidateUsingJoi } from "../../../../utils/formikValidationUsingJoi";
 import Input from "../../../common/input";
@@ -48,15 +48,16 @@ const NewTeacher = () => {
       id: Joi.string().max(1024).required(),
     }),
     async onSubmit(values) {
-      try {
-        if (!subject) alert("בחר מקצוע למורה!!");
-        else {
-          createTeacher({ ...values, subject: subject._id });
-          toast.info("👍 נשמר בהצלחה");
-          navigate(-1);
-        }
-      } catch ({ response }) {
-        if (response.status === 400) setError(response.data.message);
+      if (!subject) setError("בחר מקצוע למורה!!");
+      else {
+        createTeacher({ ...values, subject: subject._id })
+          .then((res) => {
+            toast.info("👍 נשמר בהצלחה");
+            navigate("/teachers");
+          })
+          .catch(({ response }) => {
+            setError(response.data.message);
+          });
       }
     },
   });
@@ -179,11 +180,6 @@ const NewTeacher = () => {
               </label>
               <input className="form-control" type="file" id="formFile" />
             </div>
-            {/* <img
-              height="50px"
-              width="50px"
-              src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-            /> */}
           </div>
 
           <button
@@ -197,6 +193,7 @@ const NewTeacher = () => {
             שמור
           </button>
           <button
+            type="button"
             className="btn btn-lg my-2 text-danger"
             onClick={() => navigate("/teachers")}
           >

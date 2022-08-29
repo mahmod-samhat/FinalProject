@@ -73,81 +73,83 @@ const ClassRooms = () => {
           <div className="d-flex">
             <div className="overflow-auto w-100 px-2">
               {error && <div className="alert alert-danger">{error}</div>}
+              <div className="overflow-auto h-75">
+                <table className="table align-middle caption-top mb-0 bg-white">
+                  <caption className="text-end fs-5 pt-0">
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary ms-5"
+                      onClick={() => navigate("/newClassRoom")}
+                    >
+                      <i className="bi bi-person-plus"></i> כיתה חדשה
+                    </button>
+                    <span className="mx-5">רשימת כיתות</span>
+                  </caption>
+                  <thead className="bg-light">
+                    <tr className="p-0">
+                      <th>כיתה</th>
+                      <th> שכבה</th>
+                      <th>מחנך</th>
+                      <th>מס' תלמידים</th>
+                      <th>עדכון</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {classRooms &&
+                      classRooms.map((classRoom, index) => {
+                        return (
+                          <tr
+                            key={index}
+                            onClick={() => setClassRoom(classRoom)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            <td>{classRoom.id}</td>
+                            <td>{classRoom.grade}</td>
 
-              <table
-                className="table align-middle caption-top mb-0 bg-white"
-                style={{ height: "500px" }}
-              >
-                <caption className="text-end fs-5 pt-0">
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary ms-5"
-                    onClick={() => navigate("/newClassRoom")}
-                  >
-                    <i className="bi bi-person-plus"></i> כיתה חדשה
-                  </button>
-                  <span className="mx-5">רשימת כיתות</span>
-                </caption>
-                <thead className="bg-light">
-                  <tr className="p-0">
-                    <th>כיתה</th>
-                    <th> שכבה</th>
-                    <th>מחנך</th>
-                    <th>מס' תלמידים</th>
-                    <th>עדכון</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {classRooms &&
-                    classRooms.map((classRoom, index) => {
-                      return (
-                        <tr
-                          key={index}
-                          onClick={() => setClassRoom(classRoom)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <td>{classRoom.id}</td>
-                          <td>{classRoom.grade}</td>
+                            <td>
+                              {classRoom.classRoomTeacher ? (
+                                classRoom.classRoomTeacher.fName +
+                                " " +
+                                classRoom.classRoomTeacher.lName
+                              ) : (
+                                <i className="bi bi-x-circle text-danger"></i>
+                              )}
+                            </td>
 
-                          <td>
-                            {classRoom.classRoomTeacher ? (
-                              classRoom.classRoomTeacher.fName +
-                              " " +
-                              classRoom.classRoomTeacher.lName
-                            ) : (
-                              <i className="bi bi-x-circle text-danger"></i>
-                            )}
-                          </td>
+                            <td>{classRoom.students.length}</td>
 
-                          <td>{classRoom.students.length}</td>
-
-                          <td>
-                            <button
-                              type="button"
-                              className="btn btn-link btn-sm btn-rounded"
-                              onClick={() => {
-                                if (classRoom.students.length > 0)
-                                  setError(
-                                    "אתה לא יכול למחוק כיתה משופץ בתוכה תלמידים!!! כיתה צריכה להיות ריקה לפני מחיקה "
-                                  );
-                                else {
-                                  deleteClassRoom(classRoom._id);
-                                  toast.error("👍 נמחק בהצלחה", toastOption);
-                                  setRefresh(!refresh);
-                                }
-                              }}
-                            >
-                              <span>
-                                <i className="bi bi-trash3"></i>
-                              </span>
-                              מחק
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-link btn-sm btn-rounded"
+                                onClick={() => {
+                                  if (classRoom.students.length > 0)
+                                    setError(
+                                      "אתה לא יכול למחוק כיתה משופץ בתוכה תלמידים!!! כיתה צריכה להיות ריקה לפני מחיקה "
+                                    );
+                                  else {
+                                    deleteClassRoom(classRoom._id);
+                                    toast.error("👍 נמחק בהצלחה", toastOption);
+                                    setClassRooms(
+                                      classRooms.filter(
+                                        (elem) => elem._id != classRoom._id
+                                      )
+                                    );
+                                  }
+                                }}
+                              >
+                                <span>
+                                  <i className="bi bi-trash3"></i>
+                                </span>
+                                מחק
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>

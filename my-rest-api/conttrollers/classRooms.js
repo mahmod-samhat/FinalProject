@@ -34,7 +34,14 @@ function addClassRoom(classRoom) {
 function deleteClassRoom(_id) {
   return new Promise(async (resolve, reject) => {
     ClassRoom.findOneAndDelete({ _id })
-      .then((classRoom) => resolve(classRoom))
+      .then((classRoom) => {
+        Teacher.findOneAndUpdate(
+          { room_id: classRoom._id },
+          { room_id: null }
+        ).then((teacher) => {
+          resolve(classRoom);
+        });
+      })
       .catch((err) => reject(err));
   });
 }

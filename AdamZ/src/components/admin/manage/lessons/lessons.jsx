@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import schoolInfo from "../../../../schoolInfo.json";
 import { getAllClassRooms } from "../../../../services/classRoomServices";
 import subjectService from "../../../../services/subjectServices";
@@ -15,10 +14,8 @@ import {
   deleteLesson,
 } from "../../../../services/lessonServices";
 const Lessons = () => {
-  const navigate = useNavigate();
-
   const [grade, setGrade] = useState(null);
-  const [refresh, setRefresh] = useState(false);
+  const [isValidInputs, setIsValidInputs] = useState(false);
 
   const [classRoom, setClassRoom] = useState(null);
   const [classRooms, setClassRooms] = useState([]);
@@ -34,8 +31,9 @@ const Lessons = () => {
   const [subTeachers, setSubTeachers] = useState([]);
   const [subClassRooms, setSubClassRooms] = useState([]);
   const [error, setError] = useState("");
+  const [refresh, setRefresh] = useState(false);
 
-  const [lessons, setLessons] = useState(null);
+  const [lessons, setLessons] = useState([]);
   const toastOption = {
     position: "bottom-right",
     autoClose: 2000,
@@ -46,11 +44,16 @@ const Lessons = () => {
     progress: undefined,
   };
   useEffect(() => {
-    getAllLessons().then((res) => setLessons(res.data));
     getAllSubjects().then((res) => setSubjects(res.data));
     getAllTeachers().then((res) => setTeachers(res.data));
     getAllClassRooms().then((res) => setClassRooms(res.data));
-  }, [grade, refresh]);
+  }, []);
+  useEffect(() => {
+    getAllLessons().then((res) => setLessons(res.data));
+  }, [refresh]);
+  useEffect(() => {
+    grade && subject && classRoom && teacher && setIsValidInputs(true);
+  }, [grade, subject, classRoom, teacher]);
 
   const filterTeachers = (subjectName) => {
     const subTeachers = teachers.filter(
@@ -114,7 +117,6 @@ const Lessons = () => {
             onChange={(e) => {
               setSubTeachers(filterTeachers(e.target.value));
               setSubject(subjects.find((item) => item.name == e.target.value));
-              setError("");
             }}
           >
             <option>מקצוע</option>
@@ -146,23 +148,24 @@ const Lessons = () => {
         </div>
         <div className="form-floating mx-3" style={{ width: "15" }}>
           <button
+            disabled={!isValidInputs}
             type="button"
             className="btn btn-outline-success"
             onClick={() => {
-              {
-                grade &&
-                  subject &&
-                  classRoom &&
-                  teacher &&
-                  createLesson({
-                    grade,
-                    classRoom: classRoom._id,
-                    subject: subject._id,
-                    teacher: teacher._id,
-                  })
-                    .then((res) => setRefresh(!refresh))
-                    .catch((res) => setError(res.response.data.messege));
-              }
+              createLesson({
+                grade,
+                classRoom: classRoom._id,
+                subject: subject._id,
+                teacher: teacher._id,
+              })
+                .then((res) => {
+                  setGrade(null);
+                  setSubject(null);
+                  setIsValidInputs(false);
+                  setRefresh(!refresh);
+                  toast.success("👍 נשמר בהצלחה");
+                })
+                .catch((res) => setError(res.response.data.messege));
             }}
           >
             <i className="bi bi-magic"></i> שפץ
@@ -172,56 +175,59 @@ const Lessons = () => {
 
       <div className="overflow-auto w-75 px-2">
         {error && <div className="alert alert-danger">{error}</div>}
+        <div className="overflow-auto h-75">
+          <table className="table align-middle caption-top bg-white">
+            <caption className="text-center fs-5 ">רשימת שיעורים </caption>
+            <thead className="bg-light">
+              <tr className="">
+                <th>מס'</th>
+                <th> כיתה</th>
+                <th>מקצוע</th>
+                <th>מורה</th>
+                <th>עדכון</th>
+              </tr>
+            </thead>
 
-        <table
-          className="table align-middle caption-top bg-white"
-          style={{ height: "500px" }}
-        >
-          <caption className="text-center fs-5 ">רשימת שיעורים </caption>
-          <thead className="bg-light">
-            <tr className="">
-              <th>מס'</th>
-              <th> כיתה</th>
-              <th>מקצוע</th>
-              <th>מורה</th>
-              <th>עדכון</th>
-            </tr>
-          </thead>
-          {lessons &&
-            lessons.map((lesson, index) => {
-              return (
-                <tbody key={index}>
-                  <tr>
-                    <td>{++index}</td>
-                    <td>{lesson.classRoom.id}</td>
+            {lessons &&
+              lessons.map((lesson, index) => {
+                return (
+                  <tbody key={index}>
+                    <tr>
+                      <td>{++index}</td>
+                      <td>{lesson.classRoom.id}</td>
 
-                    <td>{lesson.subject.name}</td>
+                      <td>{lesson.subject.name}</td>
 
-                    <td>{lesson.teacher.fName + " " + lesson.teacher.lName}</td>
+                      <td>
+                        {lesson.teacher.fName + " " + lesson.teacher.lName}
+                      </td>
 
-                    <td>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-sm btn-rounded"
-                        onClick={() => {
-                          deleteLesson(lesson);
-                          toast.error("👍 נמחק בהצלחה", toastOption);
-                          setRefresh(!refresh);
-                        }}
-                      >
-                        <span>
-                          <i className="bi bi-trash3"></i>
-                        </span>
-                        מחק
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
-        </table>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-link btn-sm btn-rounded"
+                          onClick={() => {
+                            deleteLesson(lesson).then((res) => {
+                              setLessons(
+                                lessons.filter((elem) => elem._id != lesson._id)
+                              );
+                            });
+                            toast.error("👍 נמחק בהצלחה", toastOption);
+                          }}
+                        >
+                          <span>
+                            <i className="bi bi-trash3"></i>
+                          </span>
+                          מחק
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
+          </table>
+        </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

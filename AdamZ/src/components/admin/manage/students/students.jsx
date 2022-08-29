@@ -11,8 +11,6 @@ import { useAuth } from "../../../../context/authContext";
 const Students = () => {
   const { teacher } = useAuth();
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
   const { grades } = schoolInfo;
   const [students, setStudents] = useState([]);
   const [student, setStudent] = useState(null);
@@ -28,7 +26,6 @@ const Students = () => {
       getAllStudents().then((res) => {
         setSubStudents(res.data);
         setStudents(res.data);
-        setIsAdmin(true);
       });
       getAllClassRooms().then((res) => setClassRooms(res.data));
     } else if (teacher.room_id) {
@@ -46,7 +43,7 @@ const Students = () => {
         <div className="overflow-auto h-75">
           <div className="input-group p-3">
             <div className="form-floating mx-3 w-25">
-              {teacher?.isAdmin ? (
+              {teacher.isAdmin ? (
                 <>
                   <select
                     className="form-select"
@@ -85,7 +82,7 @@ const Students = () => {
             </div>
 
             <div className="form-floating mx-3 w-25">
-              {teacher?.isAdmin ? (
+              {teacher.isAdmin ? (
                 <>
                   <select
                     className="form-select "
@@ -139,88 +136,89 @@ const Students = () => {
             </button>
           </div>
         </div>
-        <table
-          className="table align-middle caption-top mb-0 bg-white "
-          style={{ height: "500px" }}
-        >
-          <caption className="text-end fs-5 ">
-            {teacher?.isAdmin && (
-              <button
-                className="btn btn-outline-primary ms-5 "
-                onClick={() => navigate("/newStudent")}
-              >
-                <i className="bi bi-person-plus"></i> תלמיד חדש
-              </button>
-            )}
-            <span className="mx-5"> רשימת תלמידים</span>
-          </caption>
-
-          <thead className="bg-light">
-            <tr>
-              <th>מורה</th>
-              <th>ת.ז</th>
-              <th>כיתה</th>
-              <th>מחנך</th>
-              <th>יצירת קשר</th>
-              <th>עדכון</th>
-            </tr>
-          </thead>
-          <tbody>
-            {subStudents.map((student, index) => {
-              return (
-                <tr
-                  key={index}
-                  onClick={() => setStudent(student)}
-                  style={{ cursor: "pointer" }}
+        <div className="overflow-auto h-75">
+          <table className="table align-middle caption-top mb-0 bg-white ">
+            <caption className="text-end fs-5 ">
+              {teacher?.isAdmin && (
+                <button
+                  className="btn btn-outline-primary ms-5 "
+                  onClick={() => navigate("/newStudent")}
                 >
-                  <td>
-                    <div className="d-flex align-items-center">
-                      <img
-                        src="https://akim.org.il/wp-content/uploads/2019/09/akim_pics-15.png"
-                        alt="student image"
-                        style={{ width: "45px", height: "45px" }}
-                        className="rounded-circle"
-                      />
-                      <div className="ms-3">
-                        <p className="fw-bold mb-1">
-                          {student.fName + " " + student.lName}
-                        </p>
+                  <i className="bi bi-person-plus"></i> תלמיד חדש
+                </button>
+              )}
+              <span className="mx-5"> רשימת תלמידים</span>
+            </caption>
+
+            <thead className="bg-light">
+              <tr>
+                <th>מורה</th>
+                <th>ת.ז</th>
+                <th>כיתה</th>
+                <th>מחנך</th>
+                <th>יצירת קשר</th>
+                <th>עדכון</th>
+              </tr>
+            </thead>
+            <tbody>
+              {subStudents.map((student, index) => {
+                return (
+                  <tr
+                    key={index}
+                    onClick={() => setStudent(student)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <img
+                          src="https://akim.org.il/wp-content/uploads/2019/09/akim_pics-15.png"
+                          alt="student image"
+                          style={{ width: "45px", height: "45px" }}
+                          className="rounded-circle"
+                        />
+                        <div className="ms-3">
+                          <p className="fw-bold mb-1">
+                            {student.fName + " " + student.lName}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <p className="text-muted mb-0">{student.id}</p>
-                  </td>
-                  <td>
-                    {student.classRoom ? (
-                      <p className="text-muted mb-0">{student.classRoom.id}</p>
-                    ) : (
-                      <i className="bi bi-x-circle text-danger"></i>
-                    )}
-                  </td>
-                  <td>
-                    {student.classRoom ? (
-                      <p className="text-muted mb-0">
-                        {student.classRoom.classRoomTeacher?.fName +
-                          " " +
-                          student.classRoom.classRoomTeacher?.lName}
-                      </p>
-                    ) : (
-                      <i className="bi bi-x-circle text-danger"></i>
-                    )}
-                  </td>
-                  <td>
-                    {student.phone}
-                    <span className="pe-2">
-                      <i className="bi bi-telephone-fill"></i>
-                    </span>
-                  </td>
-                  <td>{student.updatedAt.slice(0, 16)}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                    </td>
+                    <td>
+                      <p className="text-muted mb-0">{student.id}</p>
+                    </td>
+                    <td>
+                      {student.classRoom ? (
+                        <p className="text-muted mb-0">
+                          {student.classRoom.id}
+                        </p>
+                      ) : (
+                        <i className="bi bi-x-circle text-danger"></i>
+                      )}
+                    </td>
+                    <td>
+                      {student.classRoom?.classRoomTeacher ? (
+                        <p className="text-muted mb-0">
+                          {student.classRoom.classRoomTeacher?.fName +
+                            " " +
+                            student.classRoom.classRoomTeacher?.lName}
+                        </p>
+                      ) : (
+                        <i className="bi bi-x-circle text-danger"></i>
+                      )}
+                    </td>
+                    <td>
+                      {student.phone}
+                      <span className="pe-2">
+                        <i className="bi bi-telephone-fill"></i>
+                      </span>
+                    </td>
+                    <td>{student.updatedAt.slice(0, 16)}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {student && (

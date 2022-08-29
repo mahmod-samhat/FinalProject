@@ -32,7 +32,7 @@ const Navbar = ({ updateLogInState, updateIsAdminState }) => {
         <div className="collapse navbar-collapse" id="navbarsExample03">
           <ul className="navbar-nav mx-auto ">
             <li className="nav-item d-flex">
-              <NavLink to="/home" className="nav-link text-white">
+              <NavLink to="/" className="nav-link text-white">
                 <i className="bi bi-house-door"></i>
                 דף ראשי
               </NavLink>
@@ -43,7 +43,7 @@ const Navbar = ({ updateLogInState, updateIsAdminState }) => {
                 titleIcon={<i className="bi bi-mortarboard-fill"></i>}
                 items={["הציונים התקופתיים"]}
                 icons={[<i className="bi bi-pencil"></i>]}
-                link="addScores"
+                link="/addScores"
               />
             </li>
             {(teacher.isAdmin || teacher.room_id) && (
