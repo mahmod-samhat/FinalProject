@@ -80,7 +80,7 @@ const NewClassRoom = () => {
             onClick={() => {
               createClassRoom({ grade, id: classRoom })
                 .then((res) => {
-                  toast.success("👍 נשמר בהצלחה");
+                  toast.info("👍 נשמר בהצלחה");
 
                   navigate("/classRooms");
                 })

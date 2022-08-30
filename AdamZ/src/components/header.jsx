@@ -1,29 +1,22 @@
-import Dropdown from "./common/dropdown";
 import scoolInfo from "../schoolInfo.json";
 import "../css/main.css";
-import { updateYear } from "../components/mainHome";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 export const Header = ({ updateLogInState, updateIsAdminState }) => {
   const { logout } = useAuth();
-
-  const currentyear = useContext(updateYear);
-
   const navigate = useNavigate();
-
   return (
     <div className="d-none d-sm-block ">
       <div className="container-fluid d-flex header text-white">
         <h3 className="m-2">
           AdamZ <i className="bi bi-stack"></i>
         </h3>
+
         <ul className="d-flex">
-          <Dropdown items={[scoolInfo.name]} />
-          <Dropdown
-            items={["2021/2022", "2022/2023"]}
-            onChange={currentyear.setCurrentYear}
-          />
+          <span className="m-3 text-decoration-underline">
+            {[scoolInfo.name]}
+          </span>
+          <span className="m-3 text-decoration-underline">2022/2023</span>
         </ul>
         <ul className="d-flex me-auto sm-0 mt-2">
           <h4>

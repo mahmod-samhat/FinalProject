@@ -5,6 +5,7 @@ import { getAllTeachers } from "../../../../services/teacherServices";
 const ClassRoomTeacher = ({ classRoom, text, handleRefresh }) => {
   const [teachers, setTeachers] = useState([]);
   const [teacher, setTeacher] = useState(null);
+  const [isValidInputs, setIsValidInputs] = useState(false);
 
   useEffect(() => {
     getAllTeachers().then((res) => {
@@ -46,9 +47,12 @@ const ClassRoomTeacher = ({ classRoom, text, handleRefresh }) => {
                 aria-label="Close"
               ></button>
             </div>
+
             <div className="modal-body">
-              בחר מחנך לכיתה :
-              <span className="badge bg-success fs-5">{classRoom?.id}</span>
+              בחר מחנך לכיתה
+              <span className="badge bg-success fs-5 mx-2">
+                {classRoom?.id}
+              </span>
               <div>
                 <form>
                   <div id="group1" className="w-50 p-3">
@@ -59,6 +63,7 @@ const ClassRoomTeacher = ({ classRoom, text, handleRefresh }) => {
                           className="form-check"
                           onClick={() => {
                             setTeacher(teacher);
+                            setIsValidInputs(true);
                           }}
                         >
                           <input
@@ -76,14 +81,12 @@ const ClassRoomTeacher = ({ classRoom, text, handleRefresh }) => {
                                 src="https://akim.org.il/wp-content/uploads/2019/09/akim_pics-15.png"
                                 alt=" teacher"
                                 style={{
-                                  width: "45px",
-                                  height: "45px",
+                                  width: "35px",
+                                  height: "35px",
                                 }}
                                 className="rounded-circle"
                               />
-                              <p className="fw-bold mb-1">
-                                {teacher.fName + " " + teacher.lName}
-                              </p>
+                              <p>{teacher.fName + " " + teacher.lName}</p>
                             </div>
                           </label>
                         </div>
@@ -102,15 +105,14 @@ const ClassRoomTeacher = ({ classRoom, text, handleRefresh }) => {
                 ביטול
               </button>
               <button
+                disabled={!isValidInputs}
                 type="button"
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
                 onClick={() => {
-                  if (teacher) {
-                    setClassRoomTeacher(classRoom, teacher._id);
-                    handleRefresh();
-                  
-                  } else alert("תבחר מחנך לכיתה!!");
+                  setClassRoomTeacher(classRoom, teacher._id).then(() =>
+                    handleRefresh()
+                  );
                 }}
               >
                 שפץ מחנך

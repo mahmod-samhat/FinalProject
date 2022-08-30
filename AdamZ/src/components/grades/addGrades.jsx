@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import schoolInfo from "../../schoolInfo.json";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import teacherService from "../../services/teacherServices";
 import classRoomService from "../../services/classRoomServices";
@@ -9,9 +9,8 @@ import { useAuth } from "../../context/authContext";
 import Grade from "./grade";
 import lessonService from "../../services/lessonServices";
 import scoreService from "../../services/scoreServices";
-// import { yearContext } from "../header";
-const AddGrades = ({ year }) => {
-  //   const yearr = useContext(yearContext);
+
+const AddGrades = () => {
   const navigate = useNavigate();
   const [semester, setSemester] = useState(false);
   const [teachers, setTeachers] = useState(null);
@@ -135,7 +134,6 @@ const AddGrades = ({ year }) => {
                       scores={scores}
                       semester={semester}
                       lesson={lesson}
-                      handleError={(msg) => setError(msg)}
                     />
                   );
                 })}
@@ -148,6 +146,7 @@ const AddGrades = ({ year }) => {
               type="btn"
               className="btn btn-lg bg-primary my-2 text-light mx-2"
               onClick={() => {
+                console.log("scores:", scores);
                 scoreService
                   .setScores(scores)
                   .then((res) => {

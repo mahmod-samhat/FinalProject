@@ -34,6 +34,9 @@ export async function getTeacher(token) {
 export function forgotPassword(email) {
   return httpService.put("/auth/forgotPassword", { email });
 }
+export function resetPassword(newPassword, token) {
+  return httpService.put("/auth/resetPassword", { newPassword, token });
+}
 
 const authServices = {
   forgotPassword,

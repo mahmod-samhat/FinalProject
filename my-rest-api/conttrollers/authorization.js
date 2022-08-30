@@ -30,48 +30,44 @@ function forgotPassword(email) {
           subject: "Reset Account Password Link",
           html: `
       <h3>Please click the link below to reset your password</h3>
-      <p>http://localhost:3000/api/auth/resetPassword/${token}</p>
+      <a href="http://localhost:4040/resetPassword/${token}">http://localhost:4040/resetPassword/${token}</a>
       `,
         };
-        teacher.updateOne({ resetLink: token }, (err, user) => {
-          if (err) {
-            reject({ error: "Reset password link error" });
-          } else {
-            transporter.sendMail(data, function (error, body) {
-              if (error) {
-                reject({ error: error.message });
-              }
-              resolve({
-                message: "Email has been sent, please follow the instructions",
-              });
-            });
+
+        transporter.sendMail(data, function (error, body) {
+          if (error) {
+            reject({ error: error.message });
           }
+          resolve({
+            message: "Email has been sent, please follow the instructions",
+          });
         });
       })
       .catch((err) => reject(err));
   });
 }
 
-function resetPassword(token, newPassword) {
+function resetPassword(newPassword, token) {
   return new Promise(async (resolve, reject) => {
     if (token) {
-      jwt.verify(token, config.get("jwtKey"), function (error, decodedData) {
-        if (error) reject({ error: "Incorrect token or it is expired" });
-        Teacher.findOne({ resetLink: token })
+      jwt.verify(token, config.get("jwtKey"), (err, decoded) => {
+        if (err) reject({ error: "Incorrect token or it is expired" });
+        Teacher.findOne({ _id: decoded._id })
           .then(async (teacher) => {
             if (!teacher)
               reject({ error: "Teacher with this token does not exist" });
             teacher.password = newPassword;
             await teacher.hashPassword();
-
             teacher
               .save()
               .then((result) =>
-                resolve({ message: "Your password has been changed" })
+                resolve({
+                  message: "Your password has been changed",
+                })
               )
               .catch((err) =>
                 reject({
-                  error: "Reset Password Error",
+                  error: err,
                 })
               );
           })

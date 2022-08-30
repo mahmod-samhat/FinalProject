@@ -62,7 +62,7 @@ const LogIn = () => {
                 {error && <div className="alert alert-danger">{error}</div>}
                 <Input
                   type="email"
-                  label="email"
+                  label="Email"
                   placeholder="Enter a valid email address"
                   {...form.getFieldProps("email")}
                   error={form.touched.email && form.errors.email}
@@ -70,7 +70,7 @@ const LogIn = () => {
 
                 <Input
                   type="password"
-                  label="password"
+                  label="Password"
                   placeholder="Enter password"
                   {...form.getFieldProps("password")}
                   error={form.touched.password && form.errors.password}
@@ -85,9 +85,9 @@ const LogIn = () => {
                       className="form-check-input me-2"
                       type="checkbox"
                       value=""
-                      id="form2Example3"
+                      id="form"
                     />
-                    <label className="form-check-label" htmlFor="form2Example3">
+                    <label className="form-check-label" htmlFor="form">
                       Remember me
                     </label>
                   </div>

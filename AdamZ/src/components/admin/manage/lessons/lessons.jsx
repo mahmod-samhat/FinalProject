@@ -4,10 +4,7 @@ import { toast } from "react-toastify";
 import schoolInfo from "../../../../schoolInfo.json";
 import { getAllClassRooms } from "../../../../services/classRoomServices";
 import subjectService from "../../../../services/subjectServices";
-
-import teacherService, {
-  getAllTeachers,
-} from "../../../../services/teacherServices";
+import teacherService from "../../../../services/teacherServices";
 import {
   createLesson,
   getAllLessons,

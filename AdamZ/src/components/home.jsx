@@ -6,7 +6,7 @@ const Home = () => {
       <span>
         שלום
         <span className="fw-bold fs-5">
-          {teacher?.fName} {teacher?.lName}
+          {" " + teacher?.fName} {teacher?.lName}
         </span>
         , ברוך הבא בגרסה החדשה של מערכת אדאמז
       </span>

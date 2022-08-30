@@ -4,6 +4,8 @@ import { formikValidateUsingJoi } from "../../utils/formikValidationUsingJoi";
 import Input from "../common/input";
 import { useState } from "react";
 import { forgotPassword } from "../../services/authServices";
+import { trackPromise } from "react-promise-tracker";
+
 const ResetPassword = ({ handleIsReset }) => {
   const [error, setError] = useState("");
   const [resetMsg, setResetMsg] = useState("");
@@ -22,15 +24,21 @@ const ResetPassword = ({ handleIsReset }) => {
     }),
     async onSubmit(values) {
       try {
-        await forgotPassword(values.email);
-        setError("");
-        setResetMsg(
-          `Email had sent to you!! please check your email to complete reset password for ${values.email}`
+        trackPromise(
+          forgotPassword(values.email)
+            .then(() => {
+              setError("");
+              setResetMsg(
+                `Email had sent to you!! please check your email to complete reset password for ${values.email}`
+              );
+            })
+            .catch(({ response }) => {
+              console.log(response);
+              setError(response.data.error);
+            })
         );
       } catch ({ response }) {
-        console.log("rr", response);
         if (response.status === 401) {
-          setResetMsg("");
           setError(response.data.error);
         }
       }
@@ -49,7 +57,7 @@ const ResetPassword = ({ handleIsReset }) => {
         {error && <div className="alert alert-danger">{error}</div>}
         <Input
           type="email"
-          label="email : "
+          label="Email : "
           placeholder="Enter a valid email address"
           {...form.getFieldProps("email")}
           error={form.touched.email && form.errors.email}

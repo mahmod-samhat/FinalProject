@@ -29,18 +29,18 @@ const AdminHome = () => {
         />
 
         <BoxTitle
-          title="אירועים"
+          title="מקצועות"
           iconClass="bi bi-journal-medical"
           counter={51}
           bgColor="bg-primary"
-          link="/events"
+          link="/subjects"
         />
         <BoxTitle
           title="שיעורים"
           iconClass="bi bi-pencil"
           counter={765}
           bgColor="bg-gradient-info"
-          link="/subjects"
+          link="/lessons"
         />
       </div>
       <div className="card bg-dark text-white h-100 m-4">

@@ -10,12 +10,7 @@ router.get("/", auth, (req, res) => {
     .then((scores) => res.status(200).json(scores))
     .catch((err) => res.status(400).json(err));
 });
-// router.delete("/delete/:id", (req, res) => {
-//   const _id = req.params.id;
-//   deleteLesson(_id)
-//     .then((lesson) => res.status(200).json(lesson))
-//     .catch((err) => res.status(400).json(err));
-// });
+
 router.post("/setScores", auth, (req, res) => {
   const scores = req.body;
   setScores(scores)

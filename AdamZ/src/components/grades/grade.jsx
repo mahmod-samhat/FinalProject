@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import scoreService from "../../services/scoreServices";
 
-const Grade = ({
-  student,
-  index,
-  scores,
-  updateScores,
-  semester,
-  lesson,
-  handleError,
-}) => {
+const Grade = ({ student, index, scores, updateScores, semester, lesson }) => {
   const [textGrade, setTextGrade] = useState({});
   const [score, setScore] = useState(null);
   useEffect(() => {
@@ -55,7 +47,7 @@ const Grade = ({
                     semester,
                     lesson: lesson._id,
                   };
-                  scores[index] = score;
+                  scores.push(score);
                   updateScores(scores);
                 }
               }}

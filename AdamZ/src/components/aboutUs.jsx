@@ -1,8 +1,8 @@
 const AboutUs = () => {
   return (
-    <div className="d-flex  justify-content-center align-items-center h-100 w-100">
-      <div className="border w-75 bg-light h-50 d-flex">
-        <div className="w-50">
+    <div className="d-flex justify-content-center align-items-center vh-100 w-100 ">
+      <div className="border w-75 bg-light h-75 d-flex">
+        <div className="w-50 p-3">
           <div className="divider d-flex align-items-center ">
             <p className="display-5 fw-bold text-center px-3 text-primary">
               <i className="bi bi-stack"></i> AdamZ

@@ -12,14 +12,11 @@ router.put("/forgotPassword", (req, res) => {
     .then((m) => res.status(200).json(m))
     .catch((err) => res.status(401).json(err));
 });
-router.get("/resetPassword/:token", (req, res) => {
-  const token = req.params.token;
-  resetPassword(token)
+router.put("/resetPassword", (req, res) => {
+  const { newPassword, token } = req.body;
+  resetPassword(newPassword.password, token)
     .then((m) => res.status(200).json(m))
-    .catch((err) => {
-      console.log(err);
-      res.status(401).json(err);
-    });
+    .catch((err) => res.status(401).json(err));
 });
 router.post("/logIn", (req, res) => {
   const { email, password } = req.body;

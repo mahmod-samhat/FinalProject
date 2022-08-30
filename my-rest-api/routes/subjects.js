@@ -16,7 +16,7 @@ router.get("/", auth, (req, res) => {
     .catch((err) => res.status(400).json(err));
 });
 
-router.post("/newSubject", (req, res) => {
+router.post("/newSubject", auth, (req, res) => {
   const { name } = req.body;
   const subject = {
     name,
