@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import Joi from "joi";
 import { formikValidateUsingJoi } from "../../../../utils/formikValidationUsingJoi";
 import Input from "../../../common/input";
+import { useCounter } from "../../../../context/counterContext";
+
 import { useState, useEffect } from "react";
 import {
   updateStudent,
@@ -12,6 +14,8 @@ import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const StudentProfile = () => {
+  const { DecreaseStudentsCounter } = useCounter();
+
   const [error, setError] = useState("");
   const [student, setStudent] = useState(null);
   const { id } = useParams();
@@ -216,13 +220,12 @@ const StudentProfile = () => {
           <ul className="list-group list-group-flush ">
             <div className="card-body text-center">
               <NavLink
-                to="profile"
+                to="/students"
                 className="card-link mx-2"
                 onClick={() => {
                   deleteStudent(student);
                   toast.error("👍 נמחק בהצלחה");
-
-                  navigate("/students");
+                  DecreaseStudentsCounter();
                 }}
               >
                 <i className="bi bi-trash3"></i>

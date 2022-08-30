@@ -4,11 +4,13 @@ import { formikValidateUsingJoi } from "../../../../utils/formikValidationUsingJ
 import Input from "../../../common/input";
 import { useEffect, useState, useRef } from "react";
 import { createTeacher } from "../../../../services/teacherServices";
+import { useCounter } from "../../../../context/counterContext";
 import { useNavigate } from "react-router-dom";
 import subjectService from "../../../../services/subjectServices";
 import { toast } from "react-toastify";
 
 const NewTeacher = () => {
+  const { increaseTeacherCounter } = useCounter();
   const [error, setError] = useState("");
   const [subjects, setSubjects] = useState(null);
   const [subject, setSubject] = useState(null);
@@ -51,7 +53,8 @@ const NewTeacher = () => {
       if (!subject) setError("בחר מקצוע למורה!!");
       else {
         createTeacher({ ...values, subject: subject._id })
-          .then((res) => {
+          .then(async (res) => {
+            await increaseTeacherCounter();
             toast.info("👍 נשמר בהצלחה");
             navigate("/teachers");
           })

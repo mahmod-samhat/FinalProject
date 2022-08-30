@@ -6,8 +6,11 @@ import { useState } from "react";
 import { createSubject } from "../../../../services/subjectServices";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useCounter } from "../../../../context/counterContext";
 
 const NewSubject = () => {
+  const { increaseSubjectsCounter } = useCounter();
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const form = useFormik({
@@ -22,6 +25,7 @@ const NewSubject = () => {
       try {
         const subject = await createSubject(values);
         toast.info("הכיתה נרשמה בהצלחה 👏");
+        increaseSubjectsCounter()
         navigate(-1);
       } catch ({ response }) {
         if (response.status === 400) setError(response.data.message);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useCounter } from "../../../../context/counterContext";
 
 import { createClassRoom } from "../../../../services/classRoomServices";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +8,7 @@ import schoolInfo from "../../../../schoolInfo.json";
 
 const NewClassRoom = () => {
   const [isValidInputs, setIsValidInputs] = useState(false);
-
+  const { increaseClassRoomsCounter } = useCounter();
   const [error, setError] = useState("");
   const [grade, setGrade] = useState("");
   const [classRoom, setClassRoom] = useState("");
@@ -81,7 +82,7 @@ const NewClassRoom = () => {
               createClassRoom({ grade, id: classRoom })
                 .then((res) => {
                   toast.info("👍 נשמר בהצלחה");
-
+                  increaseClassRoomsCounter()
                   navigate("/classRooms");
                 })
                 .catch((err) => {

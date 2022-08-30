@@ -1,14 +1,16 @@
 import React from "react";
 import { useAuth } from "../context/authContext";
 import { Navigate } from "react-router-dom";
-import Teachers from "./admin/manage/teachers/teachers";
 import MainHome from "./mainHome";
+import { CounterProvider } from "../context/counterContext";
 
 const RequireAuth = ({ children }) => {
   const { isLoggedIn } = useAuth();
   const loggedIn = isLoggedIn();
   return loggedIn ? (
-    <MainHome>{children}</MainHome>
+    <CounterProvider>
+      <MainHome>{children}</MainHome>
+    </CounterProvider>
   ) : (
     <Navigate to="/logIn" replace />
   );

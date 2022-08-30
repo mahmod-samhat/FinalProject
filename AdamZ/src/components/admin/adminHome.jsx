@@ -1,14 +1,20 @@
 import BoxTitle from "./boxTitle";
-import { Navigate } from "react-router-dom";
-import AdminNav from "./adminNav";
+import { useCounter } from "../../context/counterContext";
 const AdminHome = () => {
+  const {
+    teachersCounter,
+    studentsCounter,
+    classRoomsCounter,
+    subjectsCounter,
+    lessonsCounter,
+  } = useCounter();
   return (
     <div className="w-100 h-100">
       <div className="d-flex flex-row flex-wrap justify-content-center h-25 pt-2">
         <BoxTitle
           title="תלמידים"
           iconClass="bi bi-mortarboard"
-          counter={462}
+          counter={studentsCounter}
           bgColor="bg-success"
           link="/students"
         />
@@ -16,14 +22,14 @@ const AdminHome = () => {
         <BoxTitle
           title="מורים"
           iconClass="bi bi-person-check"
-          counter={54}
+          counter={teachersCounter}
           bgColor="bg-info"
           link="/teachers"
         />
         <BoxTitle
           title="כיתות"
           iconClass="bi bi-person-video2"
-          counter={460}
+          counter={classRoomsCounter}
           bgColor="bg-warning"
           link="/classRooms"
         />
@@ -31,14 +37,14 @@ const AdminHome = () => {
         <BoxTitle
           title="מקצועות"
           iconClass="bi bi-journal-medical"
-          counter={51}
+          counter={subjectsCounter}
           bgColor="bg-primary"
           link="/subjects"
         />
         <BoxTitle
           title="שיעורים"
           iconClass="bi bi-pencil"
-          counter={765}
+          counter={lessonsCounter}
           bgColor="bg-gradient-info"
           link="/lessons"
         />

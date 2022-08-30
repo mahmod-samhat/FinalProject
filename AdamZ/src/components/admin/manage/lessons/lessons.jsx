@@ -5,12 +5,16 @@ import schoolInfo from "../../../../schoolInfo.json";
 import { getAllClassRooms } from "../../../../services/classRoomServices";
 import subjectService from "../../../../services/subjectServices";
 import teacherService from "../../../../services/teacherServices";
+import { useCounter } from "../../../../context/counterContext";
+
 import {
   createLesson,
   getAllLessons,
   deleteLesson,
 } from "../../../../services/lessonServices";
 const Lessons = () => {
+  const { increaseLessonsCounter, DecreaseLessonsCounter } = useCounter();
+
   const [grade, setGrade] = useState(null);
   const [isValidInputs, setIsValidInputs] = useState(false);
 
@@ -160,6 +164,7 @@ const Lessons = () => {
                   setSubject(null);
                   setIsValidInputs(false);
                   setRefresh(!refresh);
+                  increaseLessonsCounter();
                   toast.success("👍 נשמר בהצלחה");
                 })
                 .catch((res) => setError(res.response.data.messege));
@@ -208,6 +213,7 @@ const Lessons = () => {
                               setLessons(
                                 lessons.filter((elem) => elem._id != lesson._id)
                               );
+                              DecreaseLessonsCounter();
                             });
                             toast.error("👍 נמחק בהצלחה", toastOption);
                           }}

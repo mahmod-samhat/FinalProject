@@ -3,6 +3,8 @@ import Joi from "joi";
 import { formikValidateUsingJoi } from "../../../../utils/formikValidationUsingJoi";
 import Input from "../../../common/input";
 import { useState, useEffect } from "react";
+import { useCounter } from "../../../../context/counterContext";
+
 import {
   updateTeacher,
   getTeachersById,
@@ -13,6 +15,8 @@ import { useNavigate, NavLink, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const TeacherProfile = () => {
+  const { DecreaseTeacherCounter } = useCounter();
+
   const [error, setError] = useState("");
   const [teacher, setTeacher] = useState(null);
   const [lessons, setLessons] = useState([]);
@@ -171,7 +175,6 @@ const TeacherProfile = () => {
               </label>
               <input className="form-control" type="file" id="formFile" />
             </div>
-    
           </div>
 
           <button
@@ -251,6 +254,7 @@ const TeacherProfile = () => {
                 className="card-link mx-2"
                 onClick={() => {
                   deleteTeacher(teacher.id);
+                  DecreaseTeacherCounter();
                   toast.error("👍 נמחק בהצלחה");
                 }}
               >

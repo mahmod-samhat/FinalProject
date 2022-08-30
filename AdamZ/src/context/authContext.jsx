@@ -5,10 +5,6 @@ import authServices from "../services/authServices";
 export const authContext = createContext(null);
 authContext.displayName = "auth-context";
 
-// const createUser = (user) => {
-//   return usersService.createUser(user);
-// };
-
 export const AuthProvider = ({ children }) => {
   const [teacher, setTeacher] = useState(null);
 

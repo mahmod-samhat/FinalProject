@@ -1,0 +1,6 @@
+.mySpinner {
+  background-color: rgba(77, 77, 77, 0.317);
+  margin: 0 auto;
+  position: absolute;
+  z-index: 3;
+}

@@ -2,10 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useCounter } from "../../../../context/counterContext";
 import classRoomService from "../../../../services/classRoomServices";
 import schoolInfo from "../../../../schoolInfo.json";
 import ClassRoomTeacher from "./classRoomTeacher";
 const ClassRooms = () => {
+  const { DecreaseClassRoomsCounter } = useCounter();
   const [grade, setGrade] = useState(null);
   const [classRooms, setClassRooms] = useState([]);
   const [AllClassRooms, setAllClassRooms] = useState([]);
@@ -135,6 +137,7 @@ const ClassRooms = () => {
                                       (elem) => elem._id != classRoom._id
                                     )
                                   );
+                                  DecreaseClassRoomsCounter();
                                 }
                               }}
                             >

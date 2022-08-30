@@ -23,15 +23,10 @@ const MainHome = ({ children }) => {
   });
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [yearState, setyearState] = useState("2021");
   const [isAdmin, setIsAdmin] = useState(false);
 
   function updateLogInState(value) {
     setIsLoggedIn(value);
-  }
-
-  function setYear(year) {
-    setyearState(year);
   }
 
   function updateIsAdminState(value) {

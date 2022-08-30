@@ -8,8 +8,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import schoolInfo from "../../../../schoolInfo.json";
 import { getAllClassRooms } from "../../../../services/classRoomServices";
+import { useCounter } from "../../../../context/counterContext";
 
 const NewStudent = () => {
+  const { increaseStudentsCounter } = useCounter();
   const { grades } = schoolInfo;
   const [grade, setGrade] = useState(null);
   const [classRooms, setClassRooms] = useState([]);
@@ -52,6 +54,7 @@ const NewStudent = () => {
             classRoom: classRoom._id,
           });
           toast.info("👍 נשמר בהצלחה");
+          increaseStudentsCounter()
           navigate(-1);
         }
       } catch ({ response }) {
