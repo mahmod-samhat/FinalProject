@@ -2,7 +2,7 @@ import scoolInfo from "../schoolInfo.json";
 import "../css/main.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
-export const Header = ({ updateLogInState, updateIsAdminState }) => {
+export const Header = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   return (
@@ -38,8 +38,6 @@ export const Header = ({ updateLogInState, updateIsAdminState }) => {
                 className="dropdown-menu bg-light"
                 onClick={() => {
                   logout();
-                  updateLogInState(false);
-                  updateIsAdminState(false);
                   navigate("/logIn");
                 }}
               >

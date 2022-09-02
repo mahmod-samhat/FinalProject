@@ -10,7 +10,7 @@ import {
   getClassRoomById,
 } from "../../services/classRoomServices";
 const Results = () => {
-  const { teacher } = useAuth();
+  const { user } = useAuth();
   const resultsTable = useRef();
   const handlePrint = useReactToPrint({
     content: () => resultsTable.current,
@@ -35,7 +35,7 @@ const Results = () => {
   };
 
   useEffect(() => {
-    if (teacher.isAdmin)
+    if (user.kind === "Admin")
       getAllClassRooms().then((r) => {
         getAllStudents().then((resStudents) => {
           setStudents(resStudents.data);
@@ -43,8 +43,8 @@ const Results = () => {
         });
       });
     else
-      getClassRoomById(teacher.room_id._id).then((resClassRoom) => {
-        studentsByClassRoom(teacher.room_id._id).then((resStudents) => {
+      getClassRoomById(user.room_id._id).then((resClassRoom) => {
+        studentsByClassRoom(user.room_id._id).then((resStudents) => {
           setStudents(resStudents.data);
           setClassRooms([resClassRoom.data]);
         });
@@ -79,7 +79,7 @@ const Results = () => {
                 id="floatingSelect"
                 aria-label="Floating label select example"
                 onChange={(e) => {
-                  teacher.isAdmin
+                  user.kind === "Admin"
                     ? setSubStudents(
                         students.filter(
                           (student) => student.classRoom._id === e.target.value

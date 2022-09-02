@@ -5,6 +5,7 @@ import Input from "../common/input";
 import { useState } from "react";
 import { forgotPassword } from "../../services/authServices";
 import { trackPromise } from "react-promise-tracker";
+import MainCover from "./mainCover";
 
 const ResetPassword = ({ handleIsReset }) => {
   const [error, setError] = useState("");
@@ -33,7 +34,7 @@ const ResetPassword = ({ handleIsReset }) => {
               );
             })
             .catch(({ response }) => {
-              console.log(response);
+              setResetMsg("");
               setError(response.data.error);
             })
         );
@@ -45,14 +46,7 @@ const ResetPassword = ({ handleIsReset }) => {
     },
   });
   return (
-    <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-      <div className="d-flex flex-row align-items-center justify-content-center justify-content-lg-start"></div>
-
-      <div className="divider d-flex align-items-center mb-4">
-        <p className="display-4 fw-bold text-center px-3 text-primary">
-          <i className="bi bi-stack"></i> AdamZ
-        </p>
-      </div>
+    <>
       <form onSubmit={form.handleSubmit}>
         {error && <div className="alert alert-danger">{error}</div>}
         <Input
@@ -90,7 +84,7 @@ const ResetPassword = ({ handleIsReset }) => {
           </button>
         </div>
       </form>
-    </div>
+    </>
   );
 };
 export default ResetPassword;

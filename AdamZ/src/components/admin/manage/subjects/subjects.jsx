@@ -11,7 +11,6 @@ import {
 import { getAllTeachers } from "../../../../services/teacherServices";
 
 const Subjects = () => {
-
   const [teachers, setTeachers] = useState([]);
   const [teacher, setTeacher] = useState([]);
   const [subTeachers, setSubTeachers] = useState([]);
@@ -143,19 +142,15 @@ const Subjects = () => {
                     </u>
                   </h6>
                 </div>
-                <ul className="list-group list-group-flush mt-0">
+                <ul className="list-group">
                   {teachers
                     .filter((teacher) => teacher.subject.name == subject.name)
                     .map((teacher, index) => {
                       return (
-                        <NavLink
-                          key={index}
-                          to="/"
-                          className="nav-link text-dark"
-                        >
+                        <p key={index} className="m-0 mt-1">
                           <i className="bi bi-person"></i>
-                          {teacher.lName + " " + teacher.lName}
-                        </NavLink>
+                          {teacher.fName + " " + teacher.lName}
+                        </p>
                       );
                     })}
                 </ul>

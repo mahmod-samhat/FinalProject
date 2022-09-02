@@ -9,8 +9,7 @@ import {
 } from "../../../../services/classRoomServices";
 import { useAuth } from "../../../../context/authContext";
 const Students = () => {
-  const { teacher } = useAuth();
-
+  const { user } = useAuth();
   const { grades } = schoolInfo;
   const [students, setStudents] = useState([]);
   const [student, setStudent] = useState(null);
@@ -22,16 +21,16 @@ const Students = () => {
   const { getAllStudents } = studentService;
   const navigate = useNavigate();
   useEffect(() => {
-    if (teacher.isAdmin) {
+    if (user.kind == "Admin") {
       getAllStudents().then((res) => {
         setSubStudents(res.data);
         setStudents(res.data);
       });
       getAllClassRooms().then((res) => setClassRooms(res.data));
-    } else if (teacher.room_id) {
-      setClassRoom(teacher.room_id._id);
+    } else if (user.room_id) {
+      setClassRoom(user.room_id._id);
 
-      studentService.studentsByClassRoom(teacher.room_id._id).then((ress) => {
+      studentService.studentsByClassRoom(user.room_id._id).then((ress) => {
         setStudents(ress.data);
         setSubStudents(ress.data);
       });
@@ -43,7 +42,7 @@ const Students = () => {
         <div>
           <div className="input-group p-3">
             <div className="form-floating mx-3 w-25">
-              {teacher.isAdmin ? (
+              {user.kind === "Admin" ? (
                 <>
                   <select
                     className="form-select"
@@ -75,14 +74,14 @@ const Students = () => {
                 <span className="p-2 bg-light fs-5">
                   שכבה :
                   <span className="fw-bold fs-4 mx-2">
-                    {teacher?.room_id.grade}
+                    {user?.room_id.grade}
                   </span>
                 </span>
               )}
             </div>
 
             <div className="form-floating mx-3 w-25">
-              {teacher.isAdmin ? (
+              {user.kind === "Admin" ? (
                 <>
                   <select
                     className="form-select "
@@ -108,9 +107,7 @@ const Students = () => {
               ) : (
                 <span className="p-2 bg-light fs-5">
                   כיתה :
-                  <span className="fw-bold fs-4 mx-2">
-                    {teacher?.room_id.id}
-                  </span>
+                  <span className="fw-bold fs-4 mx-2">{user?.room_id.id}</span>
                 </span>
               )}
             </div>
@@ -139,7 +136,7 @@ const Students = () => {
         <div className="overflow-auto h-75">
           <table className="table align-middle caption-top mb-0 bg-white ">
             <caption className="text-end fs-5 ">
-              {teacher?.isAdmin && (
+              {user.kind === "Admin" && (
                 <button
                   className="btn btn-outline-primary ms-5 "
                   onClick={() => navigate("/newStudent")}
@@ -263,7 +260,7 @@ const Students = () => {
                   student.classRoom.classRoomTeacher?.lName}
             </li>
           </div>
-          {teacher?.isAdmin && (
+          {user.kind === "Admin" && (
             <div className="card-body text-center">
               <NavLink to={`profile/${student.id}`} className="card-link mx-2">
                 עוד פרטים...

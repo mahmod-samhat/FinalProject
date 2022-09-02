@@ -6,6 +6,7 @@ const {
   resetPassword,
   addAdmin,
   getUserById,
+  getAdmin
 } = require("../conttrollers/authorization");
 
 router.get("/userById/:id", (req, res) => {
@@ -25,6 +26,11 @@ router.put("/resetPassword", (req, res) => {
   resetPassword(newPassword.password, token)
     .then((m) => res.status(200).json(m))
     .catch((err) => res.status(401).json(err));
+});
+router.get("/getAdmin", (req, res) => {
+  getAdmin()
+    .then((admin) => res.status(200).json(admin))
+    .catch((err) => res.status(400).json(err));
 });
 router.post("/logIn", (req, res) => {
   const { email, password } = req.body;

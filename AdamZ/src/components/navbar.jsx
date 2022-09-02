@@ -4,7 +4,7 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 
 import "../css/main.css";
-const Navbar = ({ updateLogInState, updateIsAdminState }) => {
+const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -64,8 +64,6 @@ const Navbar = ({ updateLogInState, updateIsAdminState }) => {
                     className="btn text-white bg-danger"
                     onClick={() => {
                       logout();
-                      updateLogInState(false);
-                      updateIsAdminState(false);
                       navigate("/logIn");
                     }}
                   >

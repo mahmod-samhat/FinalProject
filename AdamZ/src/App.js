@@ -3,10 +3,10 @@ import Home from "./components/home";
 import AddGrades from "./components/grades/addGrades";
 import Teachers from "./components/admin/manage/teachers/teachers";
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "./context/authContext";
-import LogIn from "./components/logIn/logIn";
+import LogIn from "./components/auth/logIn";
 import NewTeacher from "./components/admin/manage/teachers/NewTeacher";
 import AdminHome from "./components/admin/adminHome";
 import NewClassRoom from "./components/admin/manage/classRooms/newClassRoom";
@@ -22,14 +22,19 @@ import Scores from "./components/grades/Results";
 import RequireAuth from "./components/requireAuth";
 import AboutUs from "./components/aboutUs";
 import PageNotFound from "./components/PageNotFound";
-import NewPassword from "./components/logIn/newPassword";
+import NewPassword from "./components/auth/newPassword";
+import Register from "./components/auth/register";
+import { getAdmin } from "./services/authServices";
 
 function App() {
   const { user, updateUserContext, isLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     isLoggedIn() && updateUserContext();
-    console.log("user", user);
+    getAdmin().then((res) => {
+      res.data.length == 0 && navigate("/register");
+    });
   }, []);
 
   return (
@@ -38,6 +43,7 @@ function App() {
         <Route path="/logIn" element={<LogIn />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/resetPassword/:token" element={<NewPassword />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/"
           element={

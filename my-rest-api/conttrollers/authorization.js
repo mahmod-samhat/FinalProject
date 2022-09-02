@@ -9,6 +9,10 @@ const Admin = require("../models/admin");
 function getUserById(_id) {
   return new Promise((resolve, reject) => {
     User.findOne({ _id })
+      .populate("subject")
+      .populate("room_id")
+      .populate("lessons")
+      .populate({ path: "lessons", populate: { path: "classRoom" } })
       .then((teacher) => resolve(teacher))
       .catch((err) => reject(err));
   });
@@ -114,6 +118,13 @@ function logIn(email, password) {
     }
   });
 }
+function getAdmin() {
+  return new Promise((resolve, reject) => {
+    Admin.find()
+      .then((admin) => resolve(admin))
+      .catch((err) => reject(err));
+  });
+}
 
 function addAdmin(admin) {
   return new Promise(async (resolve, reject) => {
@@ -145,4 +156,5 @@ module.exports = {
   resetPassword,
   addAdmin,
   getUserById,
+  getAdmin,
 };

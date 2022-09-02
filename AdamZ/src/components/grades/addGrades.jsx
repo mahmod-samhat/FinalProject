@@ -14,24 +14,24 @@ const AddGrades = () => {
   const navigate = useNavigate();
   const [semester, setSemester] = useState(false);
   const [teachers, setTeachers] = useState(null);
-  const [teacherr, setTeacherr] = useState(null);
+  const [teacher, setTeacher] = useState(null);
   const [students, setStudents] = useState([]);
   const [scores, setScores] = useState([]);
   const [lesson, setLesson] = useState(null);
   const [error, setError] = useState("");
 
-  const { teacher } = useAuth();
-
+  const { user } = useAuth();
   const updateLesson = (_id) => {
     lessonService.getLessonById(_id).then((res) => {
       setLesson(res.data);
     });
   };
   useEffect(() => {
-    if (teacher.isAdmin)
+    if (user.kind == "Admin")
       teacherService.getAllTeachers().then((res) => setTeachers(res.data));
-    else setTeacherr(teacher);
+    else setTeacher(user);
   }, [semester]);
+
   useEffect(() => {
     if (lesson != null)
       classRoomService.getClassRoomById(lesson.classRoom._id).then((res) => {
@@ -48,10 +48,12 @@ const AddGrades = () => {
             id="floatingSelect"
             aria-label="Floating label select example"
             onChange={(e) => {
+              console.log("user", user);
+              console.log("teacher", teacher);
+              setTeacher(null);
               setSemester(e.target.value);
-              setLesson(null);
-              setTeacherr(null);
               setTeachers([]);
+              setLesson(null);
             }}
           >
             <option defaultValue>בחר...</option>
@@ -63,14 +65,14 @@ const AddGrades = () => {
           </select>
           <label htmlFor="floatingSelect">סמסטר</label>
         </div>
-        {semester && teacher.isAdmin && (
+        {user.kind == "Admin" && (
           <div className="form-floating m-3 w-25">
             <select
               className="form-select"
               id="floatingSelect"
               aria-label="Floating label select example"
               onChange={(e) =>
-                setTeacherr(
+                setTeacher(
                   teachers.find((teacher) => teacher._id == e.target.value)
                 )
               }
@@ -85,7 +87,7 @@ const AddGrades = () => {
             <label htmlFor="floatingSelect">מורים</label>
           </div>
         )}
-        {semester && (
+        {teacher && (
           <div className="form-floating m-3 w-25">
             <select
               className="form-select"
@@ -96,10 +98,10 @@ const AddGrades = () => {
               }}
             >
               <option defaultValue>בחר...</option>
-              {teacherr &&
-                teacherr.lessons.map((lesson, index) => (
+              {teacher &&
+                teacher.lessons.map((lesson, index) => (
                   <option key={index} value={lesson._id}>
-                    {lesson.classRoom.id + " " + teacherr.subject.name}
+                    {lesson.classRoom.id + " " + teacher.subject.name}
                   </option>
                 ))}
             </select>

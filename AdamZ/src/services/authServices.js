@@ -9,6 +9,13 @@ export async function loginTeacher(credentials) {
   setTokenHeader();
   return data.token;
 }
+export function register(admin) {
+  return httpService.post("/auth/register", admin);
+}
+export function getAdmin() {
+  return httpService.get("/auth/getAdmin");
+}
+
 export function getJWT() {
   return localStorage.getItem(TOKEN_KEY);
 }
@@ -23,9 +30,7 @@ export function logout() {
 export async function getUser(token) {
   try {
     const userToken = jwtDecode(token);
-    const { data } = await httpService.get(
-      `/auth/userById/${userToken._id}`
-    );
+    const { data } = await httpService.get(`/auth/userById/${userToken._id}`);
     return data;
   } catch {
     return "err: invalid token!!";
@@ -43,5 +48,6 @@ const authServices = {
   loginTeacher,
   logout,
   getUser,
+  getAdmin,
 };
 export default authServices;
