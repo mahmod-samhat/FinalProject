@@ -1,55 +1,49 @@
 import { useEffect, useState, useContext, createContext } from "react";
 import teacherServices from "../services/teacherServices";
 import authServices from "../services/authServices";
+import schoolInfo from "../schoolInfo.json";
 
 export const authContext = createContext(null);
 authContext.displayName = "auth-context";
 
 export const AuthProvider = ({ children }) => {
-  const [teacher, setTeacher] = useState(null);
+  const [user, setUser] = useState(null);
 
   const isLoggedIn = () => {
     const token = localStorage.getItem("token");
     return !!token;
   };
 
-  const updateTeacherContext = async () => {
-    if (teacher) return;
-    const newTeacher = await authServices.getTeacher(
+  const updateUserContext = async () => {
+    if (user) return;
+    const newUser = await authServices.getUser(
       localStorage.getItem("token")
     );
-    refreshTeacher(newTeacher);
+    refreshUser(newUser);
   };
 
-  const refreshTeacher = (teacher) => {
-    setTeacher(teacher);
+  const refreshUser = (user) => {
+    setUser(user);
   };
   const login = async (credentials) => {
-    let teacher = {};
     const token = await authServices.loginTeacher(credentials);
-
-    if (
-      credentials.email == "mahmod@gmail.com" &&
-      credentials.password == "123456"
-    )
-      teacher = { fName: "מחמוד", lName: "סמחאת", isAdmin: true };
-    else teacher = await authServices.getTeacher(token);
-    await refreshTeacher(teacher);
-    return teacher;
+    const user = await authServices.getUser(token);
+    await refreshUser(user);
+    return user;
   };
 
   const logout = () => {
     authServices.logout();
-    refreshTeacher();
+    refreshUser();
   };
 
   useEffect(() => {
-    refreshTeacher();
+    refreshUser();
   }, []);
 
   return (
     <authContext.Provider
-      value={{ login, logout, teacher, isLoggedIn, updateTeacherContext }}
+      value={{ login, logout, user, isLoggedIn, updateUserContext }}
     >
       {children}
     </authContext.Provider>

@@ -160,8 +160,6 @@ const Lessons = () => {
                 teacher: teacher._id,
               })
                 .then((res) => {
-                  setGrade(null);
-                  setSubject(null);
                   setIsValidInputs(false);
                   setRefresh(!refresh);
                   increaseLessonsCounter();
@@ -175,7 +173,7 @@ const Lessons = () => {
         </div>
       </div>
 
-      <div className="overflow-auto w-75 px-2">
+      <div className="px-2 vh-100">
         {error && <div className="alert alert-danger">{error}</div>}
         <div className="overflow-auto h-75">
           <table className="table align-middle caption-top bg-white">
@@ -189,12 +187,11 @@ const Lessons = () => {
                 <th>עדכון</th>
               </tr>
             </thead>
-
-            {lessons &&
-              lessons.map((lesson, index) => {
-                return (
-                  <tbody key={index}>
-                    <tr>
+            <tbody>
+              {lessons &&
+                lessons.map((lesson, index) => {
+                  return (
+                    <tr key={index}>
                       <td>{++index}</td>
                       <td>{lesson.classRoom.id}</td>
 
@@ -225,9 +222,9 @@ const Lessons = () => {
                         </button>
                       </td>
                     </tr>
-                  </tbody>
-                );
-              })}
+                  );
+                })}
+            </tbody>
           </table>
         </div>
       </div>

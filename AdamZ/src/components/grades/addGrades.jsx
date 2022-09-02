@@ -30,7 +30,7 @@ const AddGrades = () => {
   useEffect(() => {
     if (teacher.isAdmin)
       teacherService.getAllTeachers().then((res) => setTeachers(res.data));
-    else setTeachers([teacher]);
+    else setTeacherr(teacher);
   }, [semester]);
   useEffect(() => {
     if (lesson != null)
@@ -63,7 +63,7 @@ const AddGrades = () => {
           </select>
           <label htmlFor="floatingSelect">סמסטר</label>
         </div>
-        {semester && (
+        {semester && teacher.isAdmin && (
           <div className="form-floating m-3 w-25">
             <select
               className="form-select"
@@ -146,12 +146,11 @@ const AddGrades = () => {
               type="btn"
               className="btn btn-lg bg-primary my-2 text-light mx-2"
               onClick={() => {
-                console.log("scores:", scores);
                 scoreService
                   .setScores(scores)
                   .then((res) => {
                     toast.info("👍 נשמר בהצלחה");
-                    navigate(-1);
+                    navigate("/");
                   })
                   .catch((err) => setError(err.response.data.message));
               }}

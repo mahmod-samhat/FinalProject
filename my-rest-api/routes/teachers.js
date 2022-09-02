@@ -1,4 +1,5 @@
-const Teacher = require("../models/teacher");
+const User = require("../models/user");
+const Teacher = User.teacher;
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");

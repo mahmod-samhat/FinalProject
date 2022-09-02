@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../css/main.css";
 const Navbar = ({ updateLogInState, updateIsAdminState }) => {
-  const { teacher, logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -46,7 +46,7 @@ const Navbar = ({ updateLogInState, updateIsAdminState }) => {
                 link="/addScores"
               />
             </li>
-            {(teacher.isAdmin || teacher.room_id) && (
+            {(user.kind == "Admin" || user.room_id) && (
               <>
                 <li className="nav-item d-flex">
                   <NavLink to="/students" className="nav-link text-white">

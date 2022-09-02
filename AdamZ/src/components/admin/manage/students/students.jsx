@@ -39,8 +39,8 @@ const Students = () => {
   }, []);
   return (
     <div className="d-flex justify-content-start h-100 w-100">
-      <div className="w-100 h-100">
-        <div className="overflow-auto h-75">
+      <div className="w-100 " style={{ height: "100vh" }}>
+        <div>
           <div className="input-group p-3">
             <div className="form-floating mx-3 w-25">
               {teacher.isAdmin ? (

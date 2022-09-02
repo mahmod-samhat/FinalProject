@@ -1,9 +1,18 @@
 const Teacher = require("../models/teacher");
+const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const config = require("config");
 const bcrypt = require("bcrypt");
-
 const nodemailer = require("nodemailer");
+const Admin = require("../models/admin");
+
+function getUserById(_id) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ _id })
+      .then((teacher) => resolve(teacher))
+      .catch((err) => reject(err));
+  });
+}
 
 function forgotPassword(email) {
   return new Promise(async (resolve, reject) => {
@@ -20,8 +29,8 @@ function forgotPassword(email) {
           port: 465,
           secure: true,
           auth: {
-            user: "mahmod.samhat@gmail.com",
-            pass: "nnuzecwcolqgitwc",
+            user: "adamz.samhat@gmail.com",
+            pass: config.get("adamzNodemailer"),
           },
         });
 
@@ -92,13 +101,9 @@ function generateAuthToken(_id) {
 function logIn(email, password) {
   return new Promise(async (resolve, reject) => {
     if (!(email && password)) res.status(400).send("All input is required");
-    if (email == "mahmod@gmail.com" && password == "123456") {
-      const token = generateAuthToken("204496210");
-      resolve(token);
-    }
-    const teacher = await Teacher.findOne({ email });
-    if (teacher && (await bcrypt.compare(password, teacher.password))) {
-      const token = generateAuthToken(teacher._id);
+    const user = await User.findOne({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+      const token = generateAuthToken(user._id);
       resolve(token);
     } else {
       reject({
@@ -109,8 +114,35 @@ function logIn(email, password) {
     }
   });
 }
+
+function addAdmin(admin) {
+  return new Promise(async (resolve, reject) => {
+    const existUser = await User.findOne({ id: admin.id });
+    if (existUser) reject(`יש מנהל משופץ במערכת עם ת.ז ${existUser.id}`);
+    const existEmail = await User.findOne({ email: admin.email });
+    if (existEmail)
+      reject(`יש מנהל משופץ במערכת עם אימייל ${existEmail.email}`);
+    const newAdmin = await new Admin(admin);
+    newAdmin
+      .save()
+      .then((admin) => resolve(admin))
+      .catch((err) => reject(err));
+    const { error, value } = newAdmin.validateUser(admin);
+    if (error) reject(error);
+    else {
+      await newAdmin.hashPassword();
+      newAdmin
+        .save()
+        .then((admin) => resolve(admin))
+        .catch((err) => reject(err));
+    }
+  });
+}
+
 module.exports = {
   forgotPassword,
   logIn,
   resetPassword,
+  addAdmin,
+  getUserById,
 };

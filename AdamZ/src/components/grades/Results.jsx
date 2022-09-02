@@ -1,7 +1,6 @@
 import { useReactToPrint } from "react-to-print";
 import { useRef, useState, useEffect } from "react";
 import { useAuth } from "../../context/authContext";
-import { getTeachersById } from "../../services/teacherServices";
 import {
   getAllStudents,
   studentsByClassRoom,
@@ -12,7 +11,6 @@ import {
 } from "../../services/classRoomServices";
 const Results = () => {
   const { teacher } = useAuth();
-
   const resultsTable = useRef();
   const handlePrint = useReactToPrint({
     content: () => resultsTable.current,
@@ -24,6 +22,17 @@ const Results = () => {
   const [subStudents, setSubStudents] = useState([]);
   const [student, setStudent] = useState(null);
   const [classRooms, setClassRooms] = useState([]);
+
+  const getAverage = () => {
+    let counterResults = 0;
+    let sumResults = student?.results.reduce((previousValue, result) => {
+      if (result.semester === semester) {
+        counterResults++;
+        return previousValue + result.score;
+      }
+    }, 0);
+    return (sumResults / counterResults).toFixed(1);
+  };
 
   useEffect(() => {
     if (teacher.isAdmin)
@@ -41,6 +50,7 @@ const Results = () => {
         });
       });
   }, [semester]);
+
   return (
     <div className="d-flex justify-content-start h-100 w-100">
       <div className="w-100 h-100">
@@ -144,7 +154,7 @@ const Results = () => {
                 </thead>
                 <tbody>
                   {student.results.map((result, index) => {
-                    if (result.semester === semester)
+                    if (result.semester === semester) {
                       return (
                         <tr key={index}>
                           <td>{result.lesson.subject.name}</td>
@@ -153,7 +163,16 @@ const Results = () => {
                           <td>{result.heged}</td>
                         </tr>
                       );
+                    }
                   })}
+                </tbody>
+                <tbody>
+                  {getAverage() != "NaN" && (
+                    <tr className="border text-danger fw-bold">
+                      <td>ממוצע</td>
+                      {<td>{getAverage()}</td>}
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

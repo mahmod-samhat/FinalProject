@@ -40,7 +40,7 @@ function addTeacher(teacher) {
       reject(`יש מורה משופץ במערכת עם אימייל ${existEmail.email}`);
 
     const newTeacher = new Teacher(teacher);
-    const { error, value } = newTeacher.validateTeacher(teacher);
+    const { error, value } = newTeacher.validateUser(teacher);
     if (error) reject(error);
     else {
       await newTeacher.hashPassword();

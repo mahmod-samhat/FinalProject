@@ -55,7 +55,7 @@ const ClassRoomTeacher = ({ classRoom, text, handleRefresh }) => {
               </span>
               <div>
                 <form>
-                  <div id="group1" className="w-50 p-3">
+                  <div id="group1" className="w-50 p-3 ">
                     {teachers.map((teacher, index) => {
                       return (
                         <div

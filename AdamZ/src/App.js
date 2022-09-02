@@ -25,10 +25,11 @@ import PageNotFound from "./components/PageNotFound";
 import NewPassword from "./components/logIn/newPassword";
 
 function App() {
-  const { teacher, updateTeacherContext, isLoggedIn } = useAuth();
+  const { user, updateUserContext, isLoggedIn } = useAuth();
 
   useEffect(() => {
-    isLoggedIn() && updateTeacherContext();
+    isLoggedIn() && updateUserContext();
+    console.log("user", user);
   }, []);
 
   return (
@@ -40,7 +41,7 @@ function App() {
         <Route
           path="/"
           element={
-            teacher?.isAdmin ? (
+            user?.kind == "Admin" ? (
               <RequireAuth>
                 <AdminHome />
               </RequireAuth>

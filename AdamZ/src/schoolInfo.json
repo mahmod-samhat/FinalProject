@@ -1,4 +1,11 @@
 {
+  "admin": {
+    "fName": "מחמוד",
+    "lName": "סמחאת",
+    "isAdmin": "true",
+    "email": "mahmod@gmail.com",
+    "password": "123456"
+  },
   "name": "165453 - בית ספר אלבטוף - כפר מנדא",
   "grades": ["א", "ב", "ג", "ד", "ה", "ו"],
   "semester": ["א", "ב", "ג"]

@@ -47,7 +47,7 @@ const NewTeacher = () => {
       birth: Joi.date().required(),
       phone: Joi.string().min(10).max(10).required(),
       post: Joi.number().max(1024).required(),
-      id: Joi.string().max(1024).required(),
+      id: Joi.string().min(9).max(10).required(),
     }),
     async onSubmit(values) {
       if (!subject) setError("בחר מקצוע למורה!!");

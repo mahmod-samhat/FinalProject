@@ -1,12 +1,12 @@
 import { useAuth } from "../context/authContext";
 const Home = () => {
-  const { teacher } = useAuth();
+  const { user } = useAuth();
   return (
     <div className="wellcome">
       <span>
         שלום
         <span className="fw-bold fs-5">
-          {" " + teacher?.fName} {teacher?.lName}
+          {" " + user?.fName} {user?.lName}
         </span>
         , ברוך הבא בגרסה החדשה של מערכת אדאמז
       </span>

@@ -20,11 +20,11 @@ export function logout() {
   setTokenHeader();
 }
 
-export async function getTeacher(token) {
+export async function getUser(token) {
   try {
-    const teacherToken = jwtDecode(token);
+    const userToken = jwtDecode(token);
     const { data } = await httpService.get(
-      `/teachers/teacherById/${teacherToken._id}`
+      `/auth/userById/${userToken._id}`
     );
     return data;
   } catch {
@@ -42,6 +42,6 @@ const authServices = {
   forgotPassword,
   loginTeacher,
   logout,
-  getTeacher,
+  getUser,
 };
 export default authServices;

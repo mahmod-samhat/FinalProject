@@ -8,7 +8,7 @@ import Navbar from "./navbar";
 export const showLogInContext = createContext(true);
 const MainHome = ({ children }) => {
   const navigate = useNavigate();
-  const { logout, teacher } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleOnIdle = () => {
     logout();
@@ -35,7 +35,7 @@ const MainHome = ({ children }) => {
   return (
     <>
       <div className="app min-vh-100">
-        {teacher && (
+        {user && (
           <>
             <Header
               updateLogInState={updateLogInState}
@@ -49,7 +49,7 @@ const MainHome = ({ children }) => {
         )}
 
         <div className="d-flex h-100">
-          {teacher?.isAdmin && <AdminNav />}
+          {user?.kind == "Admin" && <AdminNav />}
           {children}
         </div>
       </div>

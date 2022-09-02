@@ -13,10 +13,6 @@ const classRoomSchema = new mongoose.Schema(
       required: "The grade is a required field!",
     },
 
-    total: {
-      type: Number,
-      default: 0,
-    },
     classRoomTeacher: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Teacher",

@@ -36,7 +36,7 @@ const NewStudent = () => {
       phone: "",
     },
     validate: formikValidateUsingJoi({
-      id: Joi.string().max(1024).required(),
+      id: Joi.string().min(9).max(10).required(),
       gender: Joi.string().max(1024).required(),
       fName: Joi.string().max(1024).required(),
       lName: Joi.string().max(1024).required(),
@@ -54,7 +54,7 @@ const NewStudent = () => {
             classRoom: classRoom._id,
           });
           toast.info("👍 נשמר בהצלחה");
-          increaseStudentsCounter()
+          increaseStudentsCounter();
           navigate(-1);
         }
       } catch ({ response }) {
