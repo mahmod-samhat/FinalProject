@@ -1,0 +1,937 @@
+[{
+  "_id": {
+    "$oid": "6312234adfc64dd093298ca5"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63121f88dfc64dd093298a8a"
+  },
+  "classRoom": {
+    "$oid": "63121f92dfc64dd093298a92"
+  },
+  "teacher": {
+    "$oid": "63121fbadfc64dd093298a9c"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662133066873"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662133066873"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63122504dfc64dd093298e6a"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63121fe6dfc64dd093298abe"
+  },
+  "classRoom": {
+    "$oid": "631224c9dfc64dd093298e22"
+  },
+  "teacher": {
+    "$oid": "6312201ddfc64dd093298ad5"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662133508461"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662133508461"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123d72ef58703a19910598"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63121fe6dfc64dd093298abe"
+  },
+  "classRoom": {
+    "$oid": "63121f92dfc64dd093298a92"
+  },
+  "teacher": {
+    "$oid": "63122200dfc64dd093298bff"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139762237"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139762237"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123d7aef58703a199105a1"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63123721ef58703a199102f5"
+  },
+  "classRoom": {
+    "$oid": "63121f92dfc64dd093298a92"
+  },
+  "teacher": {
+    "$oid": "6312389fef58703a199103bd"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139770352"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139770352"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123d83ef58703a199105aa"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "6312372bef58703a19910305"
+  },
+  "classRoom": {
+    "$oid": "63121f92dfc64dd093298a92"
+  },
+  "teacher": {
+    "$oid": "63123c8def58703a199104e4"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139779863"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139779863"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123d88ef58703a199105b3"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63123737ef58703a19910315"
+  },
+  "classRoom": {
+    "$oid": "63121f92dfc64dd093298a92"
+  },
+  "teacher": {
+    "$oid": "63123b9aef58703a19910474"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139784418"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139784418"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123d90ef58703a199105bc"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63123743ef58703a19910325"
+  },
+  "classRoom": {
+    "$oid": "63121f92dfc64dd093298a92"
+  },
+  "teacher": {
+    "$oid": "6312395eef58703a1991042e"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139792287"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139792287"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123dafef58703a199105c5"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63121f88dfc64dd093298a8a"
+  },
+  "classRoom": {
+    "$oid": "631224c9dfc64dd093298e22"
+  },
+  "teacher": {
+    "$oid": "63123786ef58703a19910345"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139823440"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139823440"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123dbaef58703a199105cf"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63123721ef58703a199102f5"
+  },
+  "classRoom": {
+    "$oid": "631224c9dfc64dd093298e22"
+  },
+  "teacher": {
+    "$oid": "631238e4ef58703a199103d0"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139834928"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139834928"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123dc1ef58703a199105d8"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "6312372bef58703a19910305"
+  },
+  "classRoom": {
+    "$oid": "631224c9dfc64dd093298e22"
+  },
+  "teacher": {
+    "$oid": "63123c2aef58703a199104be"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139841114"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139841114"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123dc4ef58703a199105e1"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63123737ef58703a19910315"
+  },
+  "classRoom": {
+    "$oid": "631224c9dfc64dd093298e22"
+  },
+  "teacher": {
+    "$oid": "63123be4ef58703a19910487"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139844874"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139844874"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123dc8ef58703a199105ea"
+  },
+  "grade": "א",
+  "subject": {
+    "$oid": "63123743ef58703a19910325"
+  },
+  "classRoom": {
+    "$oid": "631224c9dfc64dd093298e22"
+  },
+  "teacher": {
+    "$oid": "6312395eef58703a1991042e"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139848964"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139848964"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123dd6ef58703a1991061d"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63121f88dfc64dd093298a8a"
+  },
+  "classRoom": {
+    "$oid": "63123700ef58703a199102cf"
+  },
+  "teacher": {
+    "$oid": "63123786ef58703a19910345"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139862216"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139862216"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123de0ef58703a19910626"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63121fe6dfc64dd093298abe"
+  },
+  "classRoom": {
+    "$oid": "63123700ef58703a199102cf"
+  },
+  "teacher": {
+    "$oid": "63123821ef58703a19910379"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139872305"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139872305"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123de4ef58703a1991062f"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63123721ef58703a199102f5"
+  },
+  "classRoom": {
+    "$oid": "63123700ef58703a199102cf"
+  },
+  "teacher": {
+    "$oid": "631238e4ef58703a199103d0"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139876971"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139876971"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123de9ef58703a19910638"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "6312372bef58703a19910305"
+  },
+  "classRoom": {
+    "$oid": "63123700ef58703a199102cf"
+  },
+  "teacher": {
+    "$oid": "63123cfdef58703a199104f7"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139881586"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139881586"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123defef58703a19910641"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63123737ef58703a19910315"
+  },
+  "classRoom": {
+    "$oid": "63123700ef58703a199102cf"
+  },
+  "teacher": {
+    "$oid": "63123be4ef58703a19910487"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139887008"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139887008"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123df4ef58703a1991064a"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63123743ef58703a19910325"
+  },
+  "classRoom": {
+    "$oid": "63123700ef58703a199102cf"
+  },
+  "teacher": {
+    "$oid": "63123994ef58703a19910441"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139892291"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139892291"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123dfaef58703a19910653"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63121f88dfc64dd093298a8a"
+  },
+  "classRoom": {
+    "$oid": "63123704ef58703a199102d5"
+  },
+  "teacher": {
+    "$oid": "631237e5ef58703a19910366"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139898870"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139898870"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e00ef58703a1991065c"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63121fe6dfc64dd093298abe"
+  },
+  "classRoom": {
+    "$oid": "63123704ef58703a199102d5"
+  },
+  "teacher": {
+    "$oid": "63122200dfc64dd093298bff"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139904255"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139904255"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e04ef58703a19910665"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63123721ef58703a199102f5"
+  },
+  "classRoom": {
+    "$oid": "63123704ef58703a199102d5"
+  },
+  "teacher": {
+    "$oid": "6312391def58703a199103fb"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139908101"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139908101"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e08ef58703a1991066e"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "6312372bef58703a19910305"
+  },
+  "classRoom": {
+    "$oid": "63123704ef58703a199102d5"
+  },
+  "teacher": {
+    "$oid": "63123cfdef58703a199104f7"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139912922"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139912922"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e0cef58703a19910677"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63123737ef58703a19910315"
+  },
+  "classRoom": {
+    "$oid": "63123704ef58703a199102d5"
+  },
+  "teacher": {
+    "$oid": "63123b9aef58703a19910474"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139916584"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139916584"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e10ef58703a19910680"
+  },
+  "grade": "ב",
+  "subject": {
+    "$oid": "63123743ef58703a19910325"
+  },
+  "classRoom": {
+    "$oid": "63123704ef58703a199102d5"
+  },
+  "teacher": {
+    "$oid": "63123994ef58703a19910441"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139920314"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139920314"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e1bef58703a19910689"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63121f88dfc64dd093298a8a"
+  },
+  "classRoom": {
+    "$oid": "63123708ef58703a199102db"
+  },
+  "teacher": {
+    "$oid": "631237e5ef58703a19910366"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139931394"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139931394"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e22ef58703a19910692"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63121fe6dfc64dd093298abe"
+  },
+  "classRoom": {
+    "$oid": "63123708ef58703a199102db"
+  },
+  "teacher": {
+    "$oid": "6312201ddfc64dd093298ad5"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139938482"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139938482"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e28ef58703a1991069b"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63123721ef58703a199102f5"
+  },
+  "classRoom": {
+    "$oid": "63123708ef58703a199102db"
+  },
+  "teacher": {
+    "$oid": "631238e4ef58703a199103d0"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139944375"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139944375"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e2eef58703a199106a4"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "6312372bef58703a19910305"
+  },
+  "classRoom": {
+    "$oid": "63123708ef58703a199102db"
+  },
+  "teacher": {
+    "$oid": "63123c61ef58703a199104d1"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139950211"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139950211"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e33ef58703a199106ad"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63123737ef58703a19910315"
+  },
+  "classRoom": {
+    "$oid": "63123708ef58703a199102db"
+  },
+  "teacher": {
+    "$oid": "63123b9aef58703a19910474"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139955437"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139955437"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e3cef58703a199106b6"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63123743ef58703a19910325"
+  },
+  "classRoom": {
+    "$oid": "63123708ef58703a199102db"
+  },
+  "teacher": {
+    "$oid": "6312395eef58703a1991042e"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139964445"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139964445"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e45ef58703a199106bf"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63121f88dfc64dd093298a8a"
+  },
+  "classRoom": {
+    "$oid": "6312370fef58703a199102e1"
+  },
+  "teacher": {
+    "$oid": "6312395eef58703a1991042e"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139973430"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139973430"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e49ef58703a199106c8"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63121fe6dfc64dd093298abe"
+  },
+  "classRoom": {
+    "$oid": "6312370fef58703a199102e1"
+  },
+  "teacher": {
+    "$oid": "63122200dfc64dd093298bff"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139977748"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139977748"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e4eef58703a199106d1"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63123721ef58703a199102f5"
+  },
+  "classRoom": {
+    "$oid": "6312370fef58703a199102e1"
+  },
+  "teacher": {
+    "$oid": "6312391def58703a199103fb"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139982265"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139982265"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e53ef58703a199106da"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "6312372bef58703a19910305"
+  },
+  "classRoom": {
+    "$oid": "6312370fef58703a199102e1"
+  },
+  "teacher": {
+    "$oid": "63123c2aef58703a199104be"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139987603"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139987603"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e59ef58703a199106e3"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63123737ef58703a19910315"
+  },
+  "classRoom": {
+    "$oid": "6312370fef58703a199102e1"
+  },
+  "teacher": {
+    "$oid": "63123be4ef58703a19910487"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139993454"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139993454"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63123e5eef58703a199106ec"
+  },
+  "grade": "ג",
+  "subject": {
+    "$oid": "63123743ef58703a19910325"
+  },
+  "classRoom": {
+    "$oid": "6312370fef58703a199102e1"
+  },
+  "teacher": {
+    "$oid": "63123994ef58703a19910441"
+  },
+  "description": "",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662139998227"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662139998227"
+    }
+  },
+  "__v": 0
+}]

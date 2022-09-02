@@ -1,0 +1,101 @@
+[{
+  "_id": {
+    "$oid": "6312235adfc64dd093298cc2"
+  },
+  "score": 40,
+  "textScore": "לא מספיק",
+  "heged": "עליך להיות קשוב יותר במהלך השיעור",
+  "semester": "א",
+  "student": {
+    "$oid": "63121fd7dfc64dd093298aa9"
+  },
+  "lesson": {
+    "$oid": "6312234adfc64dd093298ca5"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662133082119"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662133082119"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63122c8adfc64dd093299681"
+  },
+  "score": 59,
+  "textScore": "כמעט מספיק",
+  "heged": " הישגיך אינם משקפים את יכולתך. ",
+  "semester": "א",
+  "student": {
+    "$oid": "631224f9dfc64dd093298e3c"
+  },
+  "lesson": {
+    "$oid": "63122504dfc64dd093298e6a"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662135434189"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662135463785"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "631235acef58703a199101b7"
+  },
+  "score": 100,
+  "textScore": "מצויין",
+  "heged": "השתתפותך בפעילויות השיעור ראויה להערכה רבה.",
+  "semester": "ב",
+  "student": {
+    "$oid": "631224f9dfc64dd093298e3c"
+  },
+  "lesson": {
+    "$oid": "63122504dfc64dd093298e6a"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662137772505"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662137772505"
+    }
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "631235e4ef58703a19910214"
+  },
+  "score": 77,
+  "textScore": "טוב",
+  "heged": "מגלה רצון להתנסות.",
+  "semester": "ב",
+  "student": {
+    "$oid": "63121fd7dfc64dd093298aa9"
+  },
+  "lesson": {
+    "$oid": "6312234adfc64dd093298ca5"
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1662137828052"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1662137868334"
+    }
+  },
+  "__v": 0
+}]
